@@ -1,0 +1,21 @@
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "restuser1@test.com",
+  "password": "restuser1"
+}
+
+<!---
+
+{
+  "user": {
+    "_id": "6917f6f44416ba9bcff5a058",
+    "email": "restuser1@test.com",
+    "role": "cliente",
+    "createdAt": "2025-11-15T03:43:48.399Z",
+    "updatedAt": "2025-11-15T03:43:48.399Z",
+    "__v": 0
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNmY0NDQxNmJhOWJjZmY1YTA1OCIsInJvbGUiOiJjbGllbnRlIiwiaWF0IjoxNzYzMjMwNDMyLCJleHAiOjE3NjM4MzUyMzJ9.rRBapbb9NI6vywIEFqTivz4fXjoOKepmubgMpH0PCLo"
+}-->

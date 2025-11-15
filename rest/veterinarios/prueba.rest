@@ -1,0 +1,23 @@
+#########################################################
+### Obtener todas las mascotas (funciona)
+GET http://localhost:3000/api/veterinario/mascotas
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNzIzNDQxNmJhOWJjZmY1YTA1ZiIsInJvbGUiOiJ2ZXRlcmluYXJpbyIsImlhdCI6MTc2MzE4NDAwNywiZXhwIjoxNzYzNzg4ODA3fQ.e36IB7Y5r737k0tABh8XfhFYdYoVmjtcZgGDngl7-wk
+
+###
+# Respuesta esperada
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {
+    "_id": "691746b7b0ee354003eedb50",
+    "nombre": "perro 1",
+    "especie": "perro",
+    "raza": "raza 1",
+    "edad": 1,
+    "propietario": "6917468cb0ee354003eedb43",
+    "createdAt": "2025-11-14T15:11:51.134Z",
+    "updatedAt": "2025-11-14T15:11:51.134Z",
+    "__v": 0
+  }
+]

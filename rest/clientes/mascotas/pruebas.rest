@@ -1,0 +1,48 @@
+### 1. Crear una mascota
+POST http://localhost:3000/api/veterinario/mascotas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNmY0NDQxNmJhOWJjZmY1YTA1OCIsInJvbGUiOiJjbGllbnRlIiwiaWF0IjoxNzYzMjMwNDMyLCJleHAiOjE3NjM4MzUyMzJ9.rRBapbb9NI6vywIEFqTivz4fXjoOKepmubgMpH0PCLo
+
+{
+  "nombre": "Firulais",
+  "edad": 3,
+  "especie": "Perro",
+  "raza": "Labrador",
+  "propietario": "6917468cb0ee354003eedb43"
+}
+
+###
+
+### 2. Obtener todas las mascotas
+GET http://localhost:3000/api/veterinario/mascotas
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNmY0NDQxNmJhOWJjZmY1YTA1OCIsInJvbGUiOiJjbGllbnRlIiwiaWF0IjoxNzYzMjMwNDMyLCJleHAiOjE3NjM4MzUyMzJ9.rRBapbb9NI6vywIEFqTivz4fXjoOKepmubgMpH0PCLo
+
+###
+
+### 3. Obtener una mascota por ID
+# Reemplaza :id con el ID real de una mascota
+GET http://localhost:3000/api/veterinario/mascotas/:id
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNmY0NDQxNmJhOWJjZmY1YTA1OCIsInJvbGUiOiJjbGllbnRlIiwiaWF0IjoxNzYzMjMwNDMyLCJleHAiOjE3NjM4MzUyMzJ9.rRBapbb9NI6vywIEFqTivz4fXjoOKepmubgMpH0PCLo
+
+###
+
+### 4. Actualizar una mascota por ID
+# Reemplaza :id con el ID real de una mascota
+PUT http://localhost:3000/api/veterinario/mascotas/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNmY0NDQxNmJhOWJjZmY1YTA1OCIsInJvbGUiOiJjbGllbnRlIiwiaWF0IjoxNzYzMjMwNDMyLCJleHAiOjE3NjM4MzUyMzJ9.rRBapbb9NI6vywIEFqTivz4fXjoOKepmubgMpH0PCLo
+
+{
+  "nombre": "Firulais Actualizado",
+  "edad": 4,
+  "especie": "Perro",
+  "raza": "Golden Retriever",
+  "propietario": "6917468cb0ee354003eedb43"
+}
+
+###
+
+### 5. Eliminar una mascota por ID
+# Reemplaza :id con el ID real de una mascota
+DELETE http://localhost:3000/api/veterinario/mascotas/:id
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNmY0NDQxNmJhOWJjZmY1YTA1OCIsInJvbGUiOiJjbGllbnRlIiwiaWF0IjoxNzYzMjMwNDMyLCJleHAiOjE3NjM4MzUyMzJ9.rRBapbb9NI6vywIEFqTivz4fXjoOKepmubgMpH0PCLo

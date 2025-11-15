@@ -1,0 +1,11 @@
+POST http://localhost:3000/api/veterinario/mascotas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTdmNzIzNDQxNmJhOWJjZmY1YTA1ZiIsInJvbGUiOiJ2ZXRlcmluYXJpbyIsImlhdCI6MTc2MzE4NDAwNywiZXhwIjoxNzYzNzg4ODA3fQ.e36IB7Y5r737k0tABh8XfhFYdYoVmjtcZgGDngl7-wk
+
+{
+  "nombre": "Firulais rest ",
+  "edad": 3,
+  "especie": "Perro",
+  "raza": "Perro raza",
+  "propietario": "6917468cb0ee354003eedb43"
+}
