@@ -3,6 +3,7 @@ import { UserService } from "@/services/user.service";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import connectDB from "@/lib/db";
 
 const changePasswordSchema = z.object({
     currentPassword: z.string().min(1),
@@ -10,6 +11,7 @@ const changePasswordSchema = z.object({
 });
 
 export const POST = apiHandler(async (req: Request) => {
+    await connectDB();
     const { cookies } = await import("next/headers");
     const { verifyToken } = await import("@/lib/jwt");
     const cookieStore = await cookies();

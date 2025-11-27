@@ -22,10 +22,22 @@ export default function Navbar() {
                     setUser(data);
                 }
             } catch (error) {
-                console.error("Error fetching user:", error);
+                // Silent fail for guests
             }
         };
+
         fetchUser();
+
+        // Listen for login events to refresh user data
+        const handleUserLogin = () => {
+            fetchUser();
+        };
+
+        window.addEventListener('userLoggedIn', handleUserLogin);
+
+        return () => {
+            window.removeEventListener('userLoggedIn', handleUserLogin);
+        };
     }, []);
 
     const handleLogout = async () => {
@@ -50,7 +62,7 @@ export default function Navbar() {
                             VetDrPaw
                         </Link>
                     </div>
-                    <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <div className="hidden min-[1000px]:ml-6 min-[1000px]:flex min-[1000px]:space-x-8">
                         <Link
                             href="/"
                             className="border-transparent text-gray-500 hover:border-teal-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors"
@@ -90,7 +102,7 @@ export default function Navbar() {
                             </Link>
                         )}
                     </div>
-                    <div className="hidden sm:flex items-center space-x-4">
+                    <div className="hidden min-[1000px]:flex items-center space-x-4">
                         {user ? (
                             <button
                                 onClick={handleLogout}
@@ -107,7 +119,7 @@ export default function Navbar() {
                             </Link>
                         )}
                     </div>
-                    <div className="-mr-2 flex items-center sm:hidden">
+                    <div className="-mr-2 flex items-center min-[1000px]:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             type="button"
@@ -155,7 +167,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile menu, show/hide based on menu state. */}
-            <div className={`${isOpen ? "block" : "hidden"} sm:hidden`} id="mobile-menu">
+            <div className={`${isOpen ? "block" : "hidden"} min-[1000px]:hidden`} id="mobile-menu">
                 <div className="pt-2 pb-3 space-y-1">
                     <Link
                         href="/"

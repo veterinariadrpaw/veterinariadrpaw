@@ -1,10 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
     return (
-        <div className="relative bg-teal-900 overflow-hidden">
+        <div className="relative overflow-hidden">
+            <Image
+                src="/imagen2.jpg"
+                alt="Fondo de mascota"
+                fill
+                priority
+                className="object-cover object-center -z-10"
+            />
             <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-teal-900 to-teal-800 opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-900 to-teal-800 opacity-20" />
             </div>
             <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">

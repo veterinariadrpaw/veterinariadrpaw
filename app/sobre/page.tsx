@@ -1,9 +1,10 @@
+import Image from "next/image";
 export default function AboutPage() {
     return (
         <div className="bg-white">
 
             {/* Header */}
-            <div className="bg-teal-900 py-24">
+            <div className="bg-teal-600 bg-cover bg-center bg-no-repeat  py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">
                         Sobre Nosotros
@@ -41,8 +42,8 @@ export default function AboutPage() {
                     </div>
 
                     <div className="mt-10 lg:mt-0">
-                        <div className="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden bg-gray-200 shadow-lg flex items-center justify-center h-96">
-                            <span className="text-gray-400">Foto del Equipo</span>
+                        <div className="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden shadow-lg flex items-center justify-center">
+                            <Image src="/imagenveterinarionueva.jpeg" alt="Equipo" height={400} width={600} />
                         </div>
                     </div>
                 </div>

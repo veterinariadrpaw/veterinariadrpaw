@@ -44,22 +44,30 @@ export const UserController = {
   }),
 
   me: apiHandler(async (req: Request) => {
+    console.log("UserController.me called");
     const { cookies } = await import("next/headers");
     const { verifyToken } = await import("@/lib/jwt");
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
 
-    if (!token) throw new AppError("Unauthorized", 401);
+    console.log("Token found:", !!token);
+
+    if (!token) return NextResponse.json(null);
 
     let decoded;
     try {
       decoded = verifyToken(token);
+      console.log("Token decoded:", decoded);
     } catch (e) {
-      throw new AppError("Invalid token", 401);
+      console.error("Token verification failed:", e);
+      return NextResponse.json(null);
     }
 
     const user = await UserService.getMe(decoded.id);
-    if (!user) throw new AppError("Usuario no encontrado", 404);
+    if (!user) {
+      console.log("User not found for ID:", decoded.id);
+      return NextResponse.json(null);
+    }
 
     return NextResponse.json(user);
   }),

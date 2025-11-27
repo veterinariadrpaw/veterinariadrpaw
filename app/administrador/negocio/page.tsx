@@ -1,31 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    BarElement,
-    ArcElement,
-    Title,
-    Tooltip,
-    Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+import dynamic from "next/dynamic";
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    BarElement,
-    ArcElement,
-    Title,
-    Tooltip,
-    Legend
-);
+const SalesChart = dynamic(() => import("@/components/admin/SalesChart"), {
+    loading: () => <div className="h-80 bg-gray-100 rounded flex items-center justify-center">Cargando gráfico...</div>,
+    ssr: false
+});
 
 export default function BusinessDashboard() {
     const [data, setData] = useState<any>(null);
@@ -51,21 +32,6 @@ export default function BusinessDashboard() {
 
     if (loading) return <div className="p-8">Cargando estadísticas...</div>;
     if (!data) return <div className="p-8">No hay datos disponibles.</div>;
-
-    // Prepare Chart Data
-    const salesOverTimeData = {
-        labels: data.charts.salesOverTime.map((d: any) => d._id),
-        datasets: [
-            {
-                label: "Ventas Mensuales ($)",
-                data: data.charts.salesOverTime.map((d: any) => d.total),
-                borderColor: "rgb(75, 192, 192)",
-                backgroundColor: "rgba(75, 192, 192, 0.5)",
-                tension: 0.3,
-                fill: true,
-            },
-        ],
-    };
 
     return (
         <div className="p-6">
@@ -99,9 +65,7 @@ export default function BusinessDashboard() {
             {/* Main Chart */}
             <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-4 text-gray-700">Tendencia de Ventas (Últimos 6 Meses)</h3>
-                <div className="h-80">
-                    <Line options={{ responsive: true, maintainAspectRatio: false }} data={salesOverTimeData} />
-                </div>
+                <SalesChart data={data.charts.salesOverTime} />
             </div>
         </div>
     );

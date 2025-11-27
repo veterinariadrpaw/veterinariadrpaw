@@ -1,7 +1,6 @@
 import { Asset, IAsset } from "@/models/Asset";
 import { apiHandler, AppError } from "@/lib/api-handler";
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
 import { z } from "zod";
 
 // Schemas
@@ -43,7 +42,6 @@ const calculateCurrentValue = (asset: IAsset): number => {
 export const AssetController = {
     // List assets
     list: apiHandler(async (req: Request) => {
-        await connectDB();
         const { searchParams } = new URL(req.url);
         const search = searchParams.get("search");
         const category = searchParams.get("category");
@@ -75,7 +73,6 @@ export const AssetController = {
 
     // Create new asset
     create: apiHandler(async (req: Request) => {
-        await connectDB();
         const body = await req.json();
         const data = createAssetSchema.parse(body);
 
@@ -92,7 +89,6 @@ export const AssetController = {
 
     // Update asset
     update: apiHandler(async (req: Request) => {
-        await connectDB();
         const body = await req.json();
         const { id, ...data } = updateAssetSchema.parse(body);
 
@@ -137,7 +133,6 @@ export const AssetController = {
 
     // Get asset by ID
     getById: apiHandler(async (req: Request) => {
-        await connectDB();
         // Extract ID from the URL since it's not passed as a parameter in the handler signature in this pattern
         // Actually, in Next.js App Router, the second argument to the handler is { params }.
         // But my apiHandler wrapper might not be passing it?
@@ -187,7 +182,6 @@ export const AssetController = {
 
     // Delete asset
     delete: apiHandler(async (req: Request) => {
-        await connectDB();
         const url = new URL(req.url);
         const id = url.pathname.split('/').pop();
 
@@ -201,7 +195,6 @@ export const AssetController = {
 
     // Get stats (Total Value)
     stats: apiHandler(async (req: Request) => {
-        await connectDB();
         const assets = await Asset.find({});
 
         let totalAssetsValue = 0;

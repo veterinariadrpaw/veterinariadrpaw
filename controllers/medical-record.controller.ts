@@ -26,23 +26,17 @@ const createRecordSchema = z.object({
 });
 
 export const MedicalRecordController = {
-    create: apiHandler(async (req: Request) => {
+    create: apiHandler(async (req: Request, user: any) => {
         const body = await req.json();
 
-        // Auto-assign vet from token (middleware should have handled auth)
-        const { cookies } = await import("next/headers");
-        const { verifyToken } = await import("@/lib/jwt");
-        const cookieStore = await cookies();
-        const token = cookieStore.get("token")?.value;
-
-        if (!token) throw new AppError("Unauthorized", 401);
-        const decoded = verifyToken(token);
+        // User is passed from route handler (middleware handled auth)
+        if (!user || !user.id) throw new AppError("Unauthorized", 401);
 
         const data = createRecordSchema.parse(body);
 
         const record = await MedicalRecordService.create({
             ...data,
-            veterinarian: decoded.id,
+            veterinarian: user.id,
         } as any);
 
         return NextResponse.json(record, { status: 201 });

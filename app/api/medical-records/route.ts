@@ -15,5 +15,5 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    return MedicalRecordController.create(req);
+    return MedicalRecordController.create(req, user);
 }

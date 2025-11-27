@@ -9,6 +9,7 @@ interface MedicalRecord {
     diagnosis: string;
     treatment: string;
     notes: string;
+    motivo: string;
     veterinarian: { name: string };
 }
 
@@ -39,6 +40,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
     const [showForm, setShowForm] = useState(false);
 
     const [formData, setFormData] = useState({
+        motivo: "",
         diagnosis: "",
         treatment: "",
         notes: "",
@@ -56,19 +58,9 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                 fetch(`/api/appointments?petId=${id}`)
             ]);
 
-            if (petRes.ok) {
-                const data = await petRes.json();
-                console.log("Fetched pet data:", data);
-                setPet(data);
-            }
+            if (petRes.ok) setPet(await petRes.json());
             if (recordsRes.ok) setRecords(await recordsRes.json());
-
-            // Temporary: Fetch all appointments and filter by pet ID client-side
-            // Ideal: Update API to support ?petId=...
-            if (apptRes.ok) {
-                const allAppts = await apptRes.json();
-                setAppointments(allAppts);
-            }
+            if (apptRes.ok) setAppointments(await apptRes.json());
         } catch (error) {
             console.error("Error fetching data:", error);
         } finally {
@@ -82,13 +74,19 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
             const res = await fetch("/api/medical-records", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...formData, pet: id }),
+                body: JSON.stringify({
+                    pet: id,
+                    motivo: formData.motivo,
+                    diagnosis: formData.diagnosis,
+                    treatment: formData.treatment,
+                    notes: formData.notes
+                }),
             });
 
             if (res.ok) {
                 setShowForm(false);
-                setFormData({ diagnosis: "", treatment: "", notes: "" });
-                fetchData(); // Refresh
+                setFormData({ motivo: "", diagnosis: "", treatment: "", notes: "" });
+                fetchData();
             }
         } catch (error) {
             console.error("Error saving record:", error);
@@ -107,27 +105,9 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                 ← Volver
             </button>
 
-            {/* Pet Header */}
-            {/*
-                <div className="bg-white shadow rounded-lg p-6 mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-2">{pet.nombre}</h1>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-600">
-                        <div>
-                            <span className="font-semibold">Especie:</span> {pet.especie} ({pet.raza})
-                        </div>
-                        <div>
-                            <span className="font-semibold">Edad:</span> {pet.edad} años
-                        </div>
-                        <div>
-                            <span className="font-semibold">Propietario:</span> {pet.propietario?.name}
-                        </div>
-                    </div>
-                </div>
-            */}
-
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Medical History Section */}
+
+                {/* HISTORIAL MÉDICO */}
                 <div>
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-2xl font-bold text-gray-800">Historial Médico</h2>
@@ -142,6 +122,19 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                     {showForm && (
                         <div className="bg-white p-4 rounded-lg shadow mb-4 border border-indigo-100">
                             <form onSubmit={handleSubmit} className="space-y-4">
+
+                                {/* MOTIVO */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700">Motivo</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="mt-1 block w-full text-black border border-gray-300 rounded-md shadow-sm p-2"
+                                        value={formData.motivo}
+                                        onChange={(e) => setFormData({ ...formData, motivo: e.target.value })}
+                                    />
+                                </div>
+
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Diagnóstico</label>
                                     <input
@@ -152,6 +145,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                                         onChange={(e) => setFormData({ ...formData, diagnosis: e.target.value })}
                                     />
                                 </div>
+
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Tratamiento</label>
                                     <textarea
@@ -162,6 +156,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                                         onChange={(e) => setFormData({ ...formData, treatment: e.target.value })}
                                     />
                                 </div>
+
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Notas Adicionales</label>
                                     <textarea
@@ -171,6 +166,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                                     />
                                 </div>
+
                                 <button
                                     type="submit"
                                     className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
@@ -187,14 +183,27 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                         ) : (
                             records.map((record) => (
                                 <div key={record._id} className="bg-white shadow rounded-lg p-4 border-l-4 border-indigo-500">
+
                                     <div className="flex justify-between items-start mb-2">
-                                        <span className="text-sm text-gray-500">{new Date(record.date).toLocaleDateString()}</span>
-                                        <span className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">Dr. {record.veterinarian?.name}</span>
+                                        <span className="text-sm text-gray-500">
+                                            {new Date(record.date).toLocaleDateString()}
+                                        </span>
+                                        <span className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">
+                                            Dr. {record.veterinarian?.name}
+                                        </span>
                                     </div>
+
+                                    <p className="text-gray-700"><b>Motivo:</b> {record.motivo}</p>
                                     <h3 className="font-bold text-lg text-gray-800 mb-1">{record.diagnosis}</h3>
-                                    <p className="text-gray-600 mb-2"><span className="font-semibold">Tratamiento:</span> {record.treatment}</p>
+
+                                    <p className="text-gray-600 mb-2">
+                                        <span className="font-semibold">Tratamiento:</span> {record.treatment}
+                                    </p>
+
                                     {record.notes && (
-                                        <p className="text-sm text-gray-500 bg-gray-50 p-2 rounded">Note: {record.notes}</p>
+                                        <p className="text-sm text-gray-500 bg-gray-50 p-2 rounded">
+                                            Nota: {record.notes}
+                                        </p>
                                     )}
                                 </div>
                             ))
@@ -202,7 +211,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                     </div>
                 </div>
 
-                {/* Appointment History Section */}
+                {/* HISTORIAL DE CITAS */}
                 <div>
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">Historial de Citas</h2>
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -216,16 +225,22 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                                             <div className="text-sm font-medium text-indigo-600">
                                                 {new Date(appt.date).toLocaleString()}
                                             </div>
-                                            <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${appt.status === 'aceptada' ? 'bg-green-100 text-green-800' :
-                                                appt.status === 'cancelada' ? 'bg-red-100 text-red-800' :
-                                                    'bg-yellow-100 text-yellow-800'
-                                                }`}>
+                                            <span
+                                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${appt.status === 'aceptada'
+                                                        ? 'bg-green-100 text-green-800'
+                                                        : appt.status === 'cancelada'
+                                                            ? 'bg-red-100 text-red-800'
+                                                            : 'bg-yellow-100 text-yellow-800'
+                                                    }`}
+                                            >
                                                 {appt.status}
                                             </span>
                                         </div>
                                         <div className="mt-2 text-sm text-gray-700">
                                             <p><span className="font-semibold">Motivo:</span> {appt.reason}</p>
-                                            <p className="text-xs text-gray-500 mt-1">Vet: {appt.veterinarian?.name || 'Sin asignar'}</p>
+                                            <p className="text-xs text-gray-500 mt-1">
+                                                Vet: {appt.veterinarian?.name || "Sin asignar"}
+                                            </p>
                                         </div>
                                     </li>
                                 ))
@@ -233,6 +248,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     );

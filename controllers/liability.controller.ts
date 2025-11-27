@@ -1,7 +1,6 @@
 import { Liability, ILiability } from "@/models/Liability";
 import { apiHandler, AppError } from "@/lib/api-handler";
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
 import { z } from "zod";
 
 // Schemas
@@ -45,7 +44,6 @@ const calculateDetails = (liability: ILiability) => {
 export const LiabilityController = {
     // List liabilities
     list: apiHandler(async (req: Request) => {
-        await connectDB();
         const liabilities = await Liability.find({}).sort({ createdAt: -1 });
 
         const liabilitiesWithDetails = liabilities.map(l => calculateDetails(l));
@@ -55,7 +53,6 @@ export const LiabilityController = {
 
     // Create new liability
     create: apiHandler(async (req: Request) => {
-        await connectDB();
         const body = await req.json();
         const data = createLiabilitySchema.parse(body);
 
@@ -65,7 +62,6 @@ export const LiabilityController = {
 
     // Get by ID
     getById: apiHandler(async (req: Request) => {
-        await connectDB();
         const url = new URL(req.url);
         const id = url.pathname.split('/').pop();
 
@@ -79,7 +75,6 @@ export const LiabilityController = {
 
     // Update liability
     update: apiHandler(async (req: Request) => {
-        await connectDB();
         const body = await req.json();
         const { id, ...data } = updateLiabilitySchema.parse(body);
 
@@ -91,7 +86,6 @@ export const LiabilityController = {
 
     // Delete liability
     delete: apiHandler(async (req: Request) => {
-        await connectDB();
         const url = new URL(req.url);
         const id = url.pathname.split('/').pop();
 
@@ -105,7 +99,6 @@ export const LiabilityController = {
 
     // Stats
     stats: apiHandler(async (req: Request) => {
-        await connectDB();
         const liabilities = await Liability.find({});
 
         let totalDebt = 0;

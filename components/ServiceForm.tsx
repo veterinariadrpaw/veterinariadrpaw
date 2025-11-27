@@ -56,21 +56,36 @@ export default function ServiceForm({ initialData, onSubmit, isEditing = false }
 
     const fetchProducts = async () => {
         try {
+            console.log("Fetching products...");
             const res = await fetch("/api/inventory");
             if (res.ok) {
                 const data = await res.json();
+                console.log("Products received:", data);
                 setProducts(data);
+                console.log("setProducts called with", data.length, "products");
+            } else {
+                console.error("API error:", res.status);
             }
         } catch (error) {
             console.error("Error fetching products:", error);
         }
     };
 
+    // Debug: Log products state changes
+    useEffect(() => {
+        console.log("Products state changed. Length:", products.length);
+        if (products.length > 0) {
+            console.log("First product:", products[0]);
+        }
+    }, [products]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: name === "basePrice" || name === "operatingCost" || name === "duration" ? parseFloat(value) : value,
+            [name]: name === "basePrice" || name === "operatingCost" || name === "duration"
+                ? (value === "" ? 0 : parseFloat(value) || 0)
+                : value,
         }));
     };
 

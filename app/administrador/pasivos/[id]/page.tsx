@@ -162,7 +162,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 name="type"
                                 value={formData.type}
                                 onChange={handleChange}
-                                className="w-full text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="PRESTAMO">Préstamo</option>
                                 <option value="OBLIGACION">Obligación</option>
@@ -179,7 +179,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 value={formData.startDate}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -193,7 +193,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 onChange={handleChange}
                                 required
                                 rows={2}
-                                className="w-full text-gray-700 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full text-gray-700 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -209,7 +209,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 min="0"
                                 step="0.01"
                                 required
-                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -224,7 +224,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 onChange={handleChange}
                                 min="0"
                                 step="0.1"
-                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -239,7 +239,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 onChange={handleChange}
                                 min="1"
                                 required
-                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -254,7 +254,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 onChange={handleChange}
                                 min="0"
                                 step="0.01"
-                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                             <p className="text-xs text-gray-500 mt-1">
                                 💡 Actualice este campo cuando realice un pago

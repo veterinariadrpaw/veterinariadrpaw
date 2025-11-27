@@ -1,7 +1,6 @@
 import { CashFlow, ICashFlow } from "@/models/CashFlow";
 import { apiHandler, AppError } from "@/lib/api-handler";
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
 import { z } from "zod";
 
 // Schemas
@@ -18,14 +17,12 @@ const createCashFlowSchema = z.object({
 export const CashFlowController = {
     // List all transactions
     list: apiHandler(async (req: Request) => {
-        await connectDB();
         const transactions = await CashFlow.find({}).sort({ date: -1, createdAt: -1 });
         return NextResponse.json(transactions);
     }),
 
     // Create new transaction
     create: apiHandler(async (req: Request) => {
-        await connectDB();
         const body = await req.json();
         const data = createCashFlowSchema.parse(body);
 
@@ -35,7 +32,6 @@ export const CashFlowController = {
 
     // Get statistics (daily, monthly balances, current cash)
     stats: apiHandler(async (req: Request) => {
-        await connectDB();
 
         const now = new Date();
         const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -92,7 +88,6 @@ export const CashFlowController = {
 
     // Delete transaction
     delete: apiHandler(async (req: Request) => {
-        await connectDB();
         const url = new URL(req.url);
         const id = url.pathname.split('/').pop();
 

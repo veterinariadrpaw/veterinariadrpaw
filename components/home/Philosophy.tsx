@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Philosophy() {
     return (
         <div className="bg-teal-50 py-16 lg:py-24">
@@ -37,8 +39,14 @@ export default function Philosophy() {
                     </div>
                     <div className="mt-10 lg:mt-0">
                         <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-xl bg-gray-200 flex items-center justify-center">
-                            {/* Placeholder for an image */}
-                            <span className="text-gray-400 text-lg">Imagen de Filosofía</span>
+
+                            <Image
+                                src="/veterinarioatendiendo.jpeg"
+                                alt="Philosophy"
+                                width={1000}
+                                height={600}
+                                className="w-full h-full object-cover"
+                            />
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,9 @@ export default function LoginPage() {
             // Guardar token en cookie (expira en 7 días)
             document.cookie = `token=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Strict`;
 
+            // Disparar evento para que el Navbar se actualice
+            window.dispatchEvent(new Event('userLoggedIn'));
+
             // Redirigir según el rol
             const role = data.user.role;
             if (role === "cliente") router.push("/cliente");

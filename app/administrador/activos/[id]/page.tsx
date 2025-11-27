@@ -146,7 +146,8 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                style={{ color: "black" }}
                             />
                         </div>
 
@@ -158,7 +159,8 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                style={{ color: "black" }}
                             >
                                 {categories.map(cat => (
                                     <option key={cat} value={cat}>{cat}</option>
@@ -176,7 +178,8 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
                                 value={formData.acquisitionDate}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                style={{ color: "black" }}
                             />
                         </div>
 
@@ -191,7 +194,8 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
                                 onChange={handleChange}
                                 min="1"
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                style={{ color: "black" }}
                             />
                         </div>
 
@@ -207,7 +211,8 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
                                 min="0"
                                 step="0.01"
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                style={{ color: "black" }}
                             />
                         </div>
                     </div>
@@ -239,7 +244,8 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
                                     onChange={handleChange}
                                     min="1"
                                     required={formData.isDepreciable}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-3 py-2 border border-red rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-black"
+                                    style={{ color: "black" }}
                                 />
                             </div>
                         )}
