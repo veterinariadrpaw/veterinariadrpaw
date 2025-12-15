@@ -59,7 +59,7 @@ export default function Navbar() {
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="text-2xl font-bold text-teal-600">
-                            VetDrPaw
+                            Veterinaria DrPaw
                         </Link>
                     </div>
                     <div className="hidden min-[1000px]:ml-6 min-[1000px]:flex min-[1000px]:space-x-8">

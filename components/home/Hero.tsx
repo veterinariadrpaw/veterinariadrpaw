@@ -17,7 +17,6 @@ export default function Hero() {
             <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
                     Cuidado Veterinario <br className="hidden sm:inline" />
-                    <span className="text-teal-200">Reimaginado</span>
                 </h1>
                 <p className="mt-6 text-xl text-teal-100 max-w-3xl">
                     En VetDrPaw, combinamos tecnología de vanguardia con un trato compasivo para asegurar que tu mascota tenga la vida más larga y feliz posible.

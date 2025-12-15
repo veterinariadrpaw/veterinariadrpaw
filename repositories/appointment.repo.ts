@@ -9,7 +9,15 @@ export const AppointmentRepository = {
   },
   list: async (): Promise<IAppointment[]> => {
     await dbConnect();
-    return Appointment.find().populate("pet").populate("veterinarian");
+    return Appointment.find()
+      .populate({
+        path: "pet",
+        populate: {
+          path: "propietario",
+          select: "name telefono email"
+        }
+      })
+      .populate("veterinarian");
   },
   findById: async (id: string): Promise<IAppointment | null> => {
     await dbConnect();

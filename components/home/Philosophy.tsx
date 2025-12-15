@@ -41,11 +41,11 @@ export default function Philosophy() {
                         <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-xl bg-gray-200 flex items-center justify-center">
 
                             <Image
-                                src="/veterinarioatendiendo.jpeg"
+                                src="/image.png"
                                 alt="Philosophy"
-                                width={1000}
-                                height={600}
-                                className="w-full h-full object-cover"
+                                width={300}
+                                height={300}
+                                className="w-full h-full object-cover bg-teal-50"
                             />
                         </div>
                     </div>

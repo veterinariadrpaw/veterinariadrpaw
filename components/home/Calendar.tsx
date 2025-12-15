@@ -13,9 +13,8 @@ export default function Calendar() {
             {/* Calendario de Eventos */}
             <div className="max-w-6xl mx-auto w-full px-4 py-16">
                 <h2 className="text-3xl font-bold text-gray-200 mb-6 text-center">
-                    Calendario de Vacunación y Desparasitación
+                    Eventos y Campañas
                 </h2>
-
                 <CalendarContent />
             </div>
         </div>

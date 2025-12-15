@@ -88,7 +88,57 @@ export const AnalyticsController = {
             }
         ]);
 
-        return { cashFlow, expensesBreakdown };
+        // Calculate Net Flow and Accumulated Balance
+        // 1. Get initial balance before start of year
+        const initialBalanceResult = await CashFlow.aggregate([
+            { $match: { date: { $lt: startOfYear } } },
+            {
+                $group: {
+                    _id: null,
+                    totalIncome: {
+                        $sum: {
+                            $cond: [{ $eq: ["$type", "INGRESO"] }, "$amount", 0]
+                        }
+                    },
+                    totalExpense: {
+                        $sum: {
+                            $cond: [{ $eq: ["$type", "EGRESO"] }, "$amount", 0]
+                        }
+                    }
+                }
+            }
+        ]);
+
+        let currentBalance = 0;
+        if (initialBalanceResult.length > 0) {
+            currentBalance = initialBalanceResult[0].totalIncome - initialBalanceResult[0].totalExpense;
+        }
+
+        // 2. Process monthly data
+        const monthlyStats = [];
+        const months = new Set(cashFlow.map((c: any) => c._id.month));
+        const sortedMonths = Array.from(months).sort();
+
+        for (const month of sortedMonths) {
+            const incomeItem = cashFlow.find((c: any) => c._id.month === month && c._id.type === "INGRESO");
+            const expenseItem = cashFlow.find((c: any) => c._id.month === month && c._id.type === "EGRESO");
+
+            const income = incomeItem ? incomeItem.total : 0;
+            const expense = expenseItem ? expenseItem.total : 0;
+            const netFlow = income - expense;
+
+            currentBalance += netFlow;
+
+            monthlyStats.push({
+                month,
+                income,
+                expense,
+                netFlow,
+                accumulatedBalance: currentBalance
+            });
+        }
+
+        return { cashFlow, expensesBreakdown, monthlyStats };
     },
 
     getClientStats: async () => {
