@@ -4,16 +4,32 @@ import Philosophy from "@/components/home/Philosophy";
 import WelfarePolicy from "@/components/home/WelfarePolicy";
 import History from "@/components/home/History";
 import Calendar from "@/components/home/Calendar";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       <Hero />
-      <Values />
-      <Philosophy />
-      <WelfarePolicy />
-      <History />
-      <Calendar />
+
+      <ScrollReveal>
+        <Values />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <Philosophy />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <WelfarePolicy />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <History />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <Calendar />
+      </ScrollReveal>
     </div>
   );
 }

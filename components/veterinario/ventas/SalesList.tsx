@@ -1,43 +1,56 @@
 import Link from 'next/link';
 import React from 'react';
-
-export interface ISale {
-    _id: string;
-    total: number;
-    paymentMethod: string;
-    date: string;
-    client?: { name: string };
-    user: { name: string };
-    products: any[];
-}
+import { Card } from '@/components/ui/Card';
+import { SalesMobileCard, ISale } from './SalesMobileCard';
+export type { ISale };
+import { Pagination } from '@/components/ui/Pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 interface SalesListProps {
     sales: ISale[];
 }
 
 export const SalesList = ({ sales }: SalesListProps) => {
+    const {
+        paginatedItems: paginatedSales,
+        currentPage,
+        totalPages,
+        totalItems,
+        handlePageChange
+    } = usePagination(sales, 10);
+
+    if (sales.length === 0) {
+        return (
+            <div className="p-6 text-center text-gray-500 bg-white rounded-lg shadow">
+                No hay ventas registradas.
+            </div>
+        );
+    }
+
     return (
-        <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
-                <thead>
-                    <tr className="bg-gray-50 text-left">
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Fecha</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Cliente</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Total</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Método Pago</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Registrado Por</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sales.length === 0 ? (
-                        <tr>
-                            <td colSpan={6} className="py-4 px-4 text-center text-gray-500">
-                                No hay ventas registradas.
-                            </td>
+        <div className="space-y-4">
+            {/* Mobile View */}
+            <div className="md:hidden space-y-4">
+                {paginatedSales.map((sale) => (
+                    <SalesMobileCard key={sale._id} sale={sale} />
+                ))}
+            </div>
+
+            {/* Desktop View */}
+            <div className="hidden md:block overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-200">
+                    <thead>
+                        <tr className="bg-gray-50 text-left">
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Fecha</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Cliente</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Total</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Método Pago</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Registrado Por</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Acciones</th>
                         </tr>
-                    ) : (
-                        sales.map((sale) => (
+                    </thead>
+                    <tbody>
+                        {paginatedSales.map((sale) => (
                             <tr key={sale._id} className="hover:bg-gray-50">
                                 <td className="py-3 px-4 border-b text-gray-800">
                                     {new Date(sale.date).toLocaleString()}
@@ -63,10 +76,17 @@ export const SalesList = ({ sales }: SalesListProps) => {
                                     </Link>
                                 </td>
                             </tr>
-                        ))
-                    )}
-                </tbody>
-            </table>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                totalItems={totalItems}
+                onPageChange={handlePageChange}
+            />
         </div>
     );
 };

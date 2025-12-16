@@ -4,6 +4,7 @@ import { History } from "@/components/about/History";
 import { MissionVision } from "@/components/about/MissionVision";
 import { WhyChooseUs } from "@/components/about/WhyChooseUs";
 import { GallerySection } from "@/components/about/GallerySection";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function AboutPage() {
     return (
@@ -13,19 +14,27 @@ export default function AboutPage() {
             <AboutHeader />
 
             {/* Content */}
-            <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 space-y-24">
 
                 {/* Misión y Equipo */}
-                <MissionVision />
+                <ScrollReveal>
+                    <MissionVision />
+                </ScrollReveal>
 
                 {/* Historia de la veterinaria */}
-                <History />
+                <ScrollReveal delay={200}>
+                    <History />
+                </ScrollReveal>
 
                 {/* ¿Por qué elegirnos? */}
-                <WhyChooseUs />
+                <ScrollReveal>
+                    <WhyChooseUs />
+                </ScrollReveal>
 
                 {/* Contador de logros */}
-                <Achievements />
+                <ScrollReveal>
+                    <Achievements />
+                </ScrollReveal>
 
                 {/* Galería Dinámica */}
                 <GallerySection />

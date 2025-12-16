@@ -1,38 +1,58 @@
 import Link from 'next/link';
 import React from 'react';
 import { Product } from '@/types/product';
-import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/Table';
 import { Card } from '@/components/ui/Card';
+import { InventoryMobileCard } from './InventoryMobileCard';
+import { Pagination } from '@/components/ui/Pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 interface InventoryListProps {
     products: Product[];
 }
 
 export const InventoryList = ({ products }: InventoryListProps) => {
+    const {
+        paginatedItems: paginatedProducts,
+        currentPage,
+        totalPages,
+        totalItems,
+        handlePageChange
+    } = usePagination(products, 10);
+
+    if (products.length === 0) {
+        return (
+            <Card className="p-8 text-center text-gray-500">
+                No se encontraron productos.
+            </Card>
+        );
+    }
+
     return (
-        <Card className="overflow-hidden">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Producto</TableHead>
-                        <TableHead>Categoría</TableHead>
-                        <TableHead>Stock</TableHead>
-                        <TableHead>Precio Venta</TableHead>
-                        <TableHead>Estado</TableHead>
-                        <TableHead className="text-right">Acciones</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {products.length === 0 ? (
+        <div className="space-y-4">
+            {/* Mobile View */}
+            <div className="md:hidden space-y-4">
+                {paginatedProducts.map((product) => (
+                    <InventoryMobileCard key={product._id} product={product} />
+                ))}
+            </div>
+
+            {/* Desktop View */}
+            <Card className="hidden md:block overflow-hidden">
+                <Table>
+                    <TableHeader>
                         <TableRow>
-                            <TableCell colSpan={6} className="text-center text-gray-500">
-                                No se encontraron productos.
-                            </TableCell>
+                            <TableHead>Producto</TableHead>
+                            <TableHead>Categoría</TableHead>
+                            <TableHead>Stock</TableHead>
+                            <TableHead>Precio Venta</TableHead>
+                            <TableHead>Estado</TableHead>
+                            <TableHead className="text-right">Acciones</TableHead>
                         </TableRow>
-                    ) : (
-                        products.map((product) => {
+                    </TableHeader>
+                    <TableBody>
+                        {paginatedProducts.map((product) => {
                             const isLowStock = product.quantity <= product.minStock;
                             const isExpiring = product.expiryDate && new Date(product.expiryDate) <= new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
@@ -80,10 +100,17 @@ export const InventoryList = ({ products }: InventoryListProps) => {
                                     </TableCell>
                                 </TableRow>
                             );
-                        })
-                    )}
-                </TableBody>
-            </Table>
-        </Card>
+                        })}
+                    </TableBody>
+                </Table>
+            </Card>
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                totalItems={totalItems}
+                onPageChange={handlePageChange}
+            />
+        </div>
     );
 };

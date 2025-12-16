@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hero() {
     return (
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden isolate">
             <Image
                 src="/imagen2.jpg"
                 alt="Fondo de mascota"

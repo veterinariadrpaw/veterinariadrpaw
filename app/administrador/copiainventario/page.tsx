@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { BackupList } from "@/components/administrador/copiainventario/BackupList";
 
 interface Backup {
     _id: string;
@@ -163,65 +164,11 @@ export default function BackupsPage() {
             </div>
 
             {/* Backups Table */}
-            <div className="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Archivo</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Creado Por</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registros</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tamaño</th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {backups.map((backup) => (
-                            <tr key={backup._id} className="hover:bg-gray-50">
-                                <td className="px-6 py-4">
-                                    <div className="text-sm font-medium text-gray-900">{backup.filename}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${backup.type === 'MANUAL'
-                                        ? 'bg-blue-100 text-blue-800'
-                                        : backup.type === 'DAILY'
-                                            ? 'bg-green-100 text-green-800'
-                                            : 'bg-purple-100 text-purple-800'
-                                        }`}>
-                                        {backup.type}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {new Date(backup.createdAt).toLocaleString()}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {backup.createdBy}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {backup.recordCount} productos
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {formatBytes(backup.fileSize)}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button
-                                        onClick={() => handleDelete(backup._id)}
-                                        className="text-red-600 hover:text-red-900"
-                                    >
-                                        Eliminar
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {backups.length === 0 && (
-                    <div className="p-6 text-center text-gray-500">
-                        No hay copias de seguridad. Crea tu primera copia usando el botón superior.
-                    </div>
-                )}
-            </div>
+            <BackupList
+                backups={backups}
+                formatBytes={formatBytes}
+                onDelete={handleDelete}
+            />
         </div>
     );
 }

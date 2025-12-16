@@ -1,4 +1,5 @@
 import Sidebar from "@/components/layout/Sidebar";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const vetLinks = [
     { href: "/veterinario/dashboard", label: "Dashboard" },
@@ -26,7 +27,9 @@ export default function VetLayout({
 
             {/* Main Content */}
             <main className="flex-1 p-8 overflow-y-auto">
-                {children}
+                <ScrollReveal>
+                    {children}
+                </ScrollReveal>
             </main>
         </div>
     );

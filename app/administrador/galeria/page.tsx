@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { Card, CardContent } from "@/components/ui/Card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";
+import { GalleryList } from "@/components/administrador/galeria/GalleryList";
 
 export default function GalleryPage() {
     const [images, setImages] = useState<GalleryImage[]>([]);
@@ -114,52 +114,7 @@ export default function GalleryPage() {
             </Card>
 
             {/* Images List */}
-            <div className="bg-white shadow rounded-lg overflow-hidden">
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Vista Previa</TableHead>
-                            <TableHead>Título</TableHead>
-                            <TableHead>Fecha</TableHead>
-                            <TableHead>Acciones</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {images.map((img) => (
-                            <TableRow key={img._id}>
-                                <TableCell>
-                                    <img
-                                        src={img.imageUrl}
-                                        alt={img.title}
-                                        className="h-16 w-16 object-cover rounded-md border"
-                                    />
-                                </TableCell>
-                                <TableCell className="font-medium text-gray-900">{img.title}</TableCell>
-                                <TableCell className="text-gray-500">
-                                    {new Date(img.createdAt).toLocaleDateString()}
-                                </TableCell>
-                                <TableCell>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => handleDelete(img._id)}
-                                        className="text-red-600 hover:text-red-800"
-                                    >
-                                        Eliminar
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        {images.length === 0 && (
-                            <TableRow>
-                                <TableCell colSpan={4} className="text-center text-gray-500 py-8">
-                                    No hay imágenes en la galería.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </div>
+            <GalleryList images={images} onDelete={handleDelete} />
         </div>
     );
 }
