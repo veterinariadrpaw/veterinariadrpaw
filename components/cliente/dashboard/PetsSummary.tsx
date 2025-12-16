@@ -20,7 +20,7 @@ export const PetsSummary = ({ pets }: { pets: Pet[] }) => {
             </div>
 
             {pets.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-gray-700">
                     <p className="mb-4">Aún no has registrado ninguna mascota</p>
                     <Link
                         href="/cliente/mascotas"
@@ -47,7 +47,7 @@ export const PetsSummary = ({ pets }: { pets: Pet[] }) => {
                                     </h3>
                                     <p className="text-sm text-gray-600">{pet.especie}</p>
                                     {pet.edad !== undefined && (
-                                        <p className="text-xs text-gray-500">{pet.edad} años</p>
+                                        <p className="text-xs text-gray-700">{pet.edad} años</p>
                                     )}
                                 </div>
                             </div>

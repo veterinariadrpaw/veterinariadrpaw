@@ -89,7 +89,7 @@ export const Pagination = ({
                                 onPageChange(Math.max(1, currentPage - 1))
                             }
                             disabled={currentPage === 1}
-                            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <span className="sr-only">Previous</span>
                             ‹
@@ -100,7 +100,7 @@ export const Pagination = ({
                                 onClick={() => onPageChange(number)}
                                 className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${number === currentPage
                                     ? "z-10 bg-indigo-50 border-indigo-500 text-indigo-600"
-                                    : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
+                                    : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                                     }`}
                             >
                                 {number}
@@ -113,7 +113,7 @@ export const Pagination = ({
                                 )
                             }
                             disabled={currentPage === totalPages}
-                            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <span className="sr-only">Next</span>
                             ›

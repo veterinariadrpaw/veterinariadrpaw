@@ -210,7 +210,7 @@ export default function BalancePage() {
                                     {debtRatio > 10 && `${debtRatio.toFixed(0)}%`}
                                 </div>
                             </div>
-                            <div className="flex justify-between text-xs text-gray-500 mt-1">
+                            <div className="flex justify-between text-xs text-gray-700 mt-1">
                                 <span>💎 Patrimonio</span>
                                 <span>📉 Deuda</span>
                             </div>
@@ -229,7 +229,7 @@ export default function BalancePage() {
                             <p className="text-2xl font-bold text-green-700">
                                 {equityRatio.toFixed(1)}%
                             </p>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 Porcentaje de activos financiados con capital propio
                             </p>
                         </div>
@@ -239,7 +239,7 @@ export default function BalancePage() {
                             <p className="text-2xl font-bold text-red-700">
                                 {debtRatio.toFixed(1)}%
                             </p>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 Porcentaje de activos financiados con deuda
                             </p>
                         </div>
@@ -249,7 +249,7 @@ export default function BalancePage() {
                             <p className="text-2xl font-bold text-blue-700">
                                 ${(assetsStats?.totalDepreciation || 0).toLocaleString()}
                             </p>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 Pérdida de valor por uso y tiempo
                             </p>
                         </div>
@@ -264,32 +264,32 @@ export default function BalancePage() {
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-500 mb-1">Deuda Total</p>
+                        <p className="text-xs text-gray-700 mb-1">Deuda Total</p>
                         <p className="text-lg font-bold text-gray-800">
                             ${(liabilitiesStats?.totalDebt || 0).toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">Capital + Intereses</p>
+                        <p className="text-xs text-gray-600 mt-1">Capital + Intereses</p>
                     </div>
                     <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-500 mb-1">Total Pagado</p>
+                        <p className="text-xs text-gray-700 mb-1">Total Pagado</p>
                         <p className="text-lg font-bold text-green-600">
                             ${(liabilitiesStats?.totalPaid || 0).toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">En pasivos</p>
+                        <p className="text-xs text-gray-600 mt-1">En pasivos</p>
                     </div>
                     <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-500 mb-1">Valor Inicial Activos</p>
+                        <p className="text-xs text-gray-700 mb-1">Valor Inicial Activos</p>
                         <p className="text-lg font-bold text-gray-800">
                             ${(totalAssets + (assetsStats?.totalDepreciation || 0)).toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">Antes de depreciación</p>
+                        <p className="text-xs text-gray-600 mt-1">Antes de depreciación</p>
                     </div>
                     <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-500 mb-1">Valor Actual Activos</p>
+                        <p className="text-xs text-gray-700 mb-1">Valor Actual Activos</p>
                         <p className="text-lg font-bold text-blue-600">
                             ${totalAssets.toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">Después de depreciación</p>
+                        <p className="text-xs text-gray-600 mt-1">Después de depreciación</p>
                     </div>
                 </div>
             </div>

@@ -19,12 +19,12 @@ export const RoleMobileCard = ({ user, modifiedRole, onRoleChange, onSave }: Rol
         <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
             <div className="mb-3">
                 <p className="font-semibold text-gray-900">{user.name}</p>
-                <p className="text-sm text-gray-500">{user.email}</p>
+                <p className="text-sm text-gray-700">{user.email}</p>
             </div>
 
             <div className="flex justify-between items-center bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500 mb-1">Rol Actual</span>
+                    <span className="text-xs text-gray-700 mb-1">Rol Actual</span>
                     <span className={`px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full w-fit ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :
                         user.role === 'veterinario' ? 'bg-indigo-100 text-indigo-800' :
                             'bg-green-100 text-green-800'
@@ -34,7 +34,7 @@ export const RoleMobileCard = ({ user, modifiedRole, onRoleChange, onSave }: Rol
                 </div>
 
                 <div className="flex flex-col items-end">
-                    <span className="text-xs text-gray-500 mb-1">Nuevo Rol</span>
+                    <span className="text-xs text-gray-700 mb-1">Nuevo Rol</span>
                     <select
                         value={modifiedRole}
                         onChange={(e) => onRoleChange(user._id, e.target.value)}

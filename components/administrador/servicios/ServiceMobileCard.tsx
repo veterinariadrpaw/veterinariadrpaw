@@ -14,7 +14,7 @@ export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCard
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <h3 className="font-semibold text-gray-900">{service.name}</h3>
-                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">{service.description}</p>
+                    <p className="text-sm text-gray-700 mt-1 line-clamp-2">{service.description}</p>
                 </div>
                 <Badge variant={service.isActive ? "success" : "danger"}>
                     {service.isActive ? "Activo" : "Inactivo"}
@@ -23,15 +23,15 @@ export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCard
 
             <div className="flex justify-between items-center mt-3 text-sm text-gray-600">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Precio Base</span>
+                    <span className="text-xs text-gray-700">Precio Base</span>
                     <span className="font-medium text-gray-900">${service.basePrice.toFixed(2)}</span>
                 </div>
                 <div className="flex flex-col text-right">
-                    <span className="text-xs text-gray-500">Duración</span>
+                    <span className="text-xs text-gray-700">Duración</span>
                     <span className="font-medium text-gray-900">{service.duration} min</span>
                 </div>
                 <div className="flex flex-col text-right">
-                    <span className="text-xs text-gray-500">Insumos</span>
+                    <span className="text-xs text-gray-700">Insumos</span>
                     <span className="font-medium text-gray-900">{service.supplies?.length || 0}</span>
                 </div>
             </div>

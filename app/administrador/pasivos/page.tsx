@@ -97,22 +97,22 @@ export default function LiabilitiesPage() {
             {stats && (
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
-                        <h3 className="text-gray-500 text-sm font-medium">Deuda Total</h3>
+                        <h3 className="text-gray-700 text-sm font-medium">Deuda Total</h3>
                         <p className="text-2xl font-bold text-gray-800">${stats.totalDebt.toLocaleString()}</p>
-                        <p className="text-xs text-gray-400 mt-1">Capital + Intereses</p>
+                        <p className="text-xs text-gray-600 mt-1">Capital + Intereses</p>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
-                        <h3 className="text-gray-500 text-sm font-medium">Monto Pendiente</h3>
+                        <h3 className="text-gray-700 text-sm font-medium">Monto Pendiente</h3>
                         <p className="text-2xl font-bold text-gray-800">${stats.totalPending.toLocaleString()}</p>
-                        <p className="text-xs text-gray-400 mt-1">Por pagar</p>
+                        <p className="text-xs text-gray-600 mt-1">Por pagar</p>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
-                        <h3 className="text-gray-500 text-sm font-medium">Total Pagado</h3>
+                        <h3 className="text-gray-700 text-sm font-medium">Total Pagado</h3>
                         <p className="text-2xl font-bold text-gray-800">${stats.totalPaid.toLocaleString()}</p>
-                        <p className="text-xs text-gray-400 mt-1">Abonado hasta ahora</p>
+                        <p className="text-xs text-gray-600 mt-1">Abonado hasta ahora</p>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
-                        <h3 className="text-gray-500 text-sm font-medium">Total de Pasivos</h3>
+                        <h3 className="text-gray-700 text-sm font-medium">Total de Pasivos</h3>
                         <p className="text-2xl font-bold text-gray-800">{stats.count}</p>
                     </div>
                 </div>

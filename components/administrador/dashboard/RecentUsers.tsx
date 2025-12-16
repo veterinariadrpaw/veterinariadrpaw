@@ -12,7 +12,7 @@ export const RecentUsers = ({ users }: { users: User[] }) => {
             </CardHeader>
             <CardContent>
                 {users.length === 0 ? (
-                    <p className="text-gray-500">No hay usuarios registrados recientemente.</p>
+                    <p className="text-gray-700">No hay usuarios registrados recientemente.</p>
                 ) : (
                     <Table>
                         <TableHeader>
@@ -27,7 +27,7 @@ export const RecentUsers = ({ users }: { users: User[] }) => {
                             {users.map((user) => (
                                 <TableRow key={user._id}>
                                     <TableCell className="font-medium text-gray-900">{user.name}</TableCell>
-                                    <TableCell className="text-gray-500">{user.email}</TableCell>
+                                    <TableCell className="text-gray-700">{user.email}</TableCell>
                                     <TableCell>
                                         <Badge
                                             variant={
@@ -39,7 +39,7 @@ export const RecentUsers = ({ users }: { users: User[] }) => {
                                             {user.role}
                                         </Badge>
                                     </TableCell>
-                                    <TableCell className="text-gray-500">
+                                    <TableCell className="text-gray-700">
                                         {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
                                     </TableCell>
                                 </TableRow>

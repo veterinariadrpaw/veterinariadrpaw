@@ -39,7 +39,7 @@ export const Modal = ({ isOpen, onClose, title, children, footer, size = 'md' }:
                             </h3>
                             <button
                                 type="button"
-                                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none"
+                                className="rounded-md bg-white text-gray-600 hover:text-gray-700 focus:outline-none"
                                 onClick={onClose}
                             >
                                 <span className="sr-only">Cerrar</span>

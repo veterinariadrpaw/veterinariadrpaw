@@ -23,7 +23,7 @@ export const GalleryMobileCard = ({ image, onDelete }: GalleryMobileCardProps) =
                 />
                 <div>
                     <h3 className="font-semibold text-gray-900">{image.title}</h3>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                         {new Date(image.createdAt).toLocaleDateString()}
                     </p>
                 </div>

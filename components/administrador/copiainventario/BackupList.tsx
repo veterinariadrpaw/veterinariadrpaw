@@ -32,7 +32,7 @@ export const BackupList = ({ backups, formatBytes, onDelete }: BackupListProps) 
 
     if (backups.length === 0) {
         return (
-            <div className="p-6 text-center text-gray-500 bg-white rounded-lg shadow">
+            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
                 No hay copias de seguridad. Crea tu primera copia usando el botón superior.
             </div>
         );
@@ -82,16 +82,16 @@ export const BackupList = ({ backups, formatBytes, onDelete }: BackupListProps) 
                                         {backup.type}
                                     </span>
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {new Date(backup.createdAt).toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {backup.createdBy}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {backup.recordCount} productos
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {formatBytes(backup.fileSize)}
                                 </TableCell>
                                 <TableCell className="text-right text-sm font-medium">

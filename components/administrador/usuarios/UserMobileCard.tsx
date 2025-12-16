@@ -14,7 +14,7 @@ export const UserMobileCard = ({ user, onEdit, onDelete }: UserMobileCardProps) 
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <p className="font-semibold text-gray-900">{user.name}</p>
-                    <p className="text-sm text-gray-500">{user.email}</p>
+                    <p className="text-sm text-gray-700">{user.email}</p>
                 </div>
                 <Badge
                     variant={

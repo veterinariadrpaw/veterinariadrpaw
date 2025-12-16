@@ -36,7 +36,7 @@ export const LiabilityList = ({ liabilities, onDelete }: LiabilityListProps) => 
 
     if (liabilities.length === 0) {
         return (
-            <div className="p-6 text-center text-gray-500 bg-white rounded-lg shadow">
+            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
                 No hay pasivos registrados.
             </div>
         );
@@ -84,17 +84,17 @@ export const LiabilityList = ({ liabilities, onDelete }: LiabilityListProps) => 
                                 </TableCell>
                                 <TableCell>
                                     <div className="text-sm font-medium text-gray-900">{liability.description}</div>
-                                    <div className="text-xs text-gray-500">
+                                    <div className="text-xs text-gray-700">
                                         Inicio: {new Date(liability.startDate).toLocaleDateString()}
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     ${liability.amount.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {liability.interestRate}%
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {liability.termMonths} {liability.termMonths === 1 ? 'mes' : 'meses'}
                                 </TableCell>
                                 <TableCell className="text-sm font-bold text-red-600">

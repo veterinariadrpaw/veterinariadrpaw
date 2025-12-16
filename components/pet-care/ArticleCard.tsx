@@ -18,7 +18,7 @@ export const ArticleCard = ({ article }: { article: Article }) => {
                     <span className="px-3 py-1 bg-teal-100 text-teal-800 text-xs font-semibold rounded-full">
                         {article.category}
                     </span>
-                    <span className="text-gray-400 text-sm">{article.date}</span>
+                    <span className="text-gray-600 text-sm">{article.date}</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {article.title}

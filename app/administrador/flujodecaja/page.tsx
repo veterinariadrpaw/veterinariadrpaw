@@ -111,33 +111,33 @@ export default function CashFlowPage() {
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
-                        <h3 className="text-gray-500 text-sm font-medium">📅 Balance Diario</h3>
+                        <h3 className="text-gray-700 text-sm font-medium">📅 Balance Diario</h3>
                         <p className={`text-2xl font-bold ${stats.daily.balance >= 0 ? 'text-green-600' : 'text-red-600'
                             }`}>
                             ${stats.daily.balance.toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-gray-600 mt-1">
                             ↑ ${stats.daily.ingresos.toLocaleString()} /
                             ↓ ${stats.daily.egresos.toLocaleString()}
                         </p>
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-500">
-                        <h3 className="text-gray-500 text-sm font-medium">📊 Balance Mensual</h3>
+                        <h3 className="text-gray-700 text-sm font-medium">📊 Balance Mensual</h3>
                         <p className={`text-2xl font-bold ${stats.monthly.balance >= 0 ? 'text-green-600' : 'text-red-600'
                             }`}>
                             ${stats.monthly.balance.toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-gray-600 mt-1">
                             ↑ ${stats.monthly.ingresos.toLocaleString()} /
                             ↓ ${stats.monthly.egresos.toLocaleString()}
                         </p>
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-gray-500">
-                        <h3 className="text-gray-500 text-sm font-medium">📝 Transacciones</h3>
+                        <h3 className="text-gray-700 text-sm font-medium">📝 Transacciones</h3>
                         <p className="text-2xl font-bold text-gray-800">{stats.totalTransactions}</p>
-                        <p className="text-xs text-gray-400 mt-1">Total registrado</p>
+                        <p className="text-xs text-gray-600 mt-1">Total registrado</p>
                     </div>
                 </div>
             )}
@@ -163,18 +163,18 @@ export default function CashFlowPage() {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto</th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Fecha</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Tipo</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Categoría</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Descripción</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Monto</th>
+                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">Acciones</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                         {transactions.map((transaction) => (
                             <tr key={transaction._id} className="hover:bg-gray-50">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                     {new Date(transaction.date).toLocaleDateString()}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -192,7 +192,7 @@ export default function CashFlowPage() {
                                 </td>
                                 <td className="px-6 py-4">
                                     <div className="text-sm text-gray-900">{transaction.description}</div>
-                                    <div className="text-xs text-gray-500">
+                                    <div className="text-xs text-gray-700">
                                         Por: {transaction.createdBy}
                                         {transaction.relatedDocument && (
                                             <span className="ml-2 text-blue-600">🤖 Auto</span>
@@ -208,7 +208,7 @@ export default function CashFlowPage() {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     {transaction.relatedDocument ? (
-                                        <span className="text-gray-400 cursor-not-allowed" title="Entrada automática - no se puede eliminar">
+                                        <span className="text-gray-600 cursor-not-allowed" title="Entrada automática - no se puede eliminar">
                                             🔒 Automático
                                         </span>
                                     ) : (
@@ -225,7 +225,7 @@ export default function CashFlowPage() {
                     </tbody>
                 </table>
                 {transactions.length === 0 && (
-                    <div className="p-6 text-center text-gray-500">
+                    <div className="p-6 text-center text-gray-700">
                         No hay transacciones registradas. Registra tu primera transacción usando el botón superior.
                     </div>
                 )}

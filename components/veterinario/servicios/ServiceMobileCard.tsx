@@ -21,7 +21,7 @@ export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCard
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <h3 className="font-semibold text-gray-900">{service.name}</h3>
-                    <p className="text-sm text-gray-500 mt-1 truncate max-w-[200px]">
+                    <p className="text-sm text-gray-700 mt-1 truncate max-w-[200px]">
                         {service.description}
                     </p>
                 </div>
@@ -32,11 +32,11 @@ export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCard
 
             <div className="grid grid-cols-2 gap-2 mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Duración</span>
+                    <span className="text-xs text-gray-700">Duración</span>
                     <span className="font-medium">{service.duration} min</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Insumos</span>
+                    <span className="text-xs text-gray-700">Insumos</span>
                     <span className="font-medium">{service.supplies?.length || 0}</span>
                 </div>
                 <div className="flex flex-col col-span-2 mt-2 pt-2 border-t border-gray-200 items-center">

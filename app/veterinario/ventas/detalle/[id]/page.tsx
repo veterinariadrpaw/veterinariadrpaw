@@ -44,8 +44,8 @@ export default function SaleDetailPage() {
             <div className="text-center border-b pb-6 mb-6">
                 <h1 className="text-3xl font-bold text-gray-800">VetDrPaw</h1>
                 <p className="text-gray-600">Clínica Veterinaria</p>
-                <p className="text-sm text-gray-500 mt-2">Comprobante de Venta</p>
-                <p className="text-sm text-gray-500">#{sale._id.slice(-6).toUpperCase()}</p>
+                <p className="text-sm text-gray-700 mt-2">Comprobante de Venta</p>
+                <p className="text-sm text-gray-700">#{sale._id.slice(-6).toUpperCase()}</p>
             </div>
 
             {/* Info */}

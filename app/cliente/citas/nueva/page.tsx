@@ -159,7 +159,7 @@ export default function NewAppointmentPage() {
                             onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                             className="w-full text-black border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500"
                         />
-                        <p className="mt-1 text-sm text-gray-500">
+                        <p className="mt-1 text-sm text-gray-700">
                             Horario sugerido: 9:00 AM - 6:30 PM
                         </p>
                     </div>

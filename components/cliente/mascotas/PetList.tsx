@@ -31,7 +31,7 @@ export const PetList = ({ pets, onEdit, onDelete, showForm }: PetListProps) => {
     };
 
     if (pets.length === 0 && !showForm) {
-        return <p className="text-gray-500 text-center py-8">No tienes mascotas registradas aún.</p>;
+        return <p className="text-gray-700 text-center py-8">No tienes mascotas registradas aún.</p>;
     }
 
     return (

@@ -118,7 +118,7 @@ export default function ChangeAdminPasswordPage() {
                             onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
                             className="w-full text-black border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500"
                         />
-                        <p className="mt-1 text-sm text-gray-500">Mínimo 6 caracteres</p>
+                        <p className="mt-1 text-sm text-gray-700">Mínimo 6 caracteres</p>
                     </div>
 
                     {/* Confirm Password */}

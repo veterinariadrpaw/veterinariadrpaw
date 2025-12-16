@@ -138,7 +138,7 @@ export default function NewCashFlowPage() {
                                     <option key={cat} value={cat}>{cat.replace('_', ' ')}</option>
                                 ))}
                             </select>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 {formData.type === 'INGRESO'
                                     ? 'Fuente del ingreso'
                                     : 'Destino del gasto'}
@@ -206,7 +206,7 @@ export default function NewCashFlowPage() {
                                         {formData.type === 'INGRESO' ? '+' : '-'}${formData.amount.toLocaleString()}
                                     </span>
                                 </p>
-                                <p className="text-xs text-gray-500 mt-1">
+                                <p className="text-xs text-gray-700 mt-1">
                                     Categoría: {formData.category} | Fecha: {new Date(formData.date).toLocaleDateString()}
                                 </p>
                             </div>

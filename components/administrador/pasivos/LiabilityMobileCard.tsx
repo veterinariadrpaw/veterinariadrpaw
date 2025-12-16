@@ -29,31 +29,31 @@ export const LiabilityMobileCard = ({ liability, onDelete }: LiabilityMobileCard
                         {liability.type}
                     </Badge>
                     <h3 className="font-semibold text-gray-900">{liability.description}</h3>
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="text-xs text-gray-700 mt-0.5">
                         Inicio: {new Date(liability.startDate).toLocaleDateString()}
                     </p>
                 </div>
                 <div className="text-right">
                     <p className="text-lg font-bold text-red-600">${liability.pendingAmount.toLocaleString()}</p>
-                    <p className="text-xs text-gray-500">Pendiente</p>
+                    <p className="text-xs text-gray-700">Pendiente</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Monto Original</span>
+                    <span className="text-xs text-gray-700">Monto Original</span>
                     <span className="font-medium">${liability.amount.toLocaleString()}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Interés</span>
+                    <span className="text-xs text-gray-700">Interés</span>
                     <span className="font-medium">{liability.interestRate}%</span>
                 </div>
                 <div className="flex flex-col mt-2">
-                    <span className="text-xs text-gray-500">Pago Mensual</span>
+                    <span className="text-xs text-gray-700">Pago Mensual</span>
                     <span className="font-medium text-gray-900">${liability.monthlyPayment.toLocaleString()}</span>
                 </div>
                 <div className="flex flex-col mt-2">
-                    <span className="text-xs text-gray-500">Plazo</span>
+                    <span className="text-xs text-gray-700">Plazo</span>
                     <span className="font-medium">{liability.termMonths} meses</span>
                 </div>
 

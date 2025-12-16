@@ -40,24 +40,24 @@ export default function BusinessDashboard() {
             {/* Key Metrics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
-                    <h3 className="text-gray-500 text-sm font-medium">Ingresos (Mes)</h3>
+                    <h3 className="text-gray-700 text-sm font-medium">Ingresos (Mes)</h3>
                     <p className="text-2xl font-bold text-gray-800">${data.metrics.totalRevenue.toFixed(2)}</p>
                     <p className={`text-xs mt-2 ${data.metrics.growth >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                         {data.metrics.growth >= 0 ? '↑' : '↓'} {Math.abs(data.metrics.growth)}% vs mes anterior
                     </p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
-                    <h3 className="text-gray-500 text-sm font-medium">Ventas Totales</h3>
+                    <h3 className="text-gray-700 text-sm font-medium">Ventas Totales</h3>
                     <p className="text-2xl font-bold text-gray-800">{data.metrics.salesCount}</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-500">
-                    <h3 className="text-gray-500 text-sm font-medium">Ticket Promedio</h3>
+                    <h3 className="text-gray-700 text-sm font-medium">Ticket Promedio</h3>
                     <p className="text-2xl font-bold text-gray-800">
                         ${data.metrics.salesCount > 0 ? (data.metrics.totalRevenue / data.metrics.salesCount).toFixed(2) : "0.00"}
                     </p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
-                    <h3 className="text-gray-500 text-sm font-medium">Mes Anterior</h3>
+                    <h3 className="text-gray-700 text-sm font-medium">Mes Anterior</h3>
                     <p className="text-2xl font-bold text-gray-800">${data.metrics.lastMonthRevenue.toFixed(2)}</p>
                 </div>
             </div>

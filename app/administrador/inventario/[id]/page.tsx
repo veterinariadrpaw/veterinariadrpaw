@@ -167,7 +167,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
                             onClick={() => setActiveTab("details")}
                             className={`${activeTab === "details"
                                 ? "border-teal-500 text-teal-600"
-                                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                                : "border-transparent text-gray-700 hover:text-gray-700 hover:border-gray-300"
                                 } w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
                         >
                             Detalles
@@ -176,7 +176,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
                             onClick={() => setActiveTab("movement")}
                             className={`${activeTab === "movement"
                                 ? "border-teal-500 text-teal-600"
-                                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                                : "border-transparent text-gray-700 hover:text-gray-700 hover:border-gray-300"
                                 } w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
                         >
                             Control de Stock
@@ -303,7 +303,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
                             </div>
 
                             {/* History Table could go here, but I'll skip for brevity unless requested specifically */}
-                            <div className="text-sm text-gray-500 italic">
+                            <div className="text-sm text-gray-700 italic">
                                 * El historial de movimientos se puede consultar en la base de datos.
                             </div>
                         </div>

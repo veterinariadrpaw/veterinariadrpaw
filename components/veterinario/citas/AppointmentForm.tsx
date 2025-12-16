@@ -122,7 +122,7 @@ export default function AppointmentForm({
                                     <div className="font-medium">
                                         {client.name}
                                     </div>
-                                    <div className="text-xs text-gray-500">
+                                    <div className="text-xs text-gray-700">
                                         {client.email}
                                     </div>
                                 </li>

@@ -20,7 +20,7 @@ export const WhyChooseUs = () => {
                 <div className="text-center">
                     <div className="text-teal-700 text-5xl mb-4">💉</div>
                     <h3 className="text-xl text-black font-bold">Profesionales Capacitados</h3>
-                    <p className="text-gray-500 mt-2">
+                    <p className="text-gray-700 mt-2">
                         Veterinarios formados y actualizados con tecnología moderna.
                     </p>
                 </div>
@@ -28,7 +28,7 @@ export const WhyChooseUs = () => {
                 <div className="text-center">
                     <div className="text-teal-700 text-5xl mb-4">❤️</div>
                     <h3 className="text-xl text-black font-bold">Pasión por los Animales</h3>
-                    <p className="text-gray-500 mt-2">
+                    <p className="text-gray-700 mt-2">
                         Trabajamos por vocación, no solo por profesión.
                     </p>
                 </div>

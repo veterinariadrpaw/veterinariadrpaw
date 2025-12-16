@@ -22,7 +22,7 @@ export default function ReasonModal({ data, onClose }: ReasonModalProps) {
 
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-gray-600"
+                        className="text-gray-600 hover:text-gray-600"
                     >
                         <svg
                             className="w-6 h-6"

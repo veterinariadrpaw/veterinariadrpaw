@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createPet } from "@/services/cliente/pet.service";
+import { Input } from "@/components/ui/Input";
 
 export default function NuevaMascota() {
   const [form, setForm] = useState({
@@ -44,10 +45,10 @@ export default function NuevaMascota() {
       <h1>Nueva Mascota</h1>
 
       <form onSubmit={handleSubmit}>
-        <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre" />
-        <input name="especie" value={form.especie} onChange={handleChange} placeholder="Especie" />
-        <input name="edad" value={form.edad} onChange={handleChange} placeholder="Edad" />
-        <input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />
+        <Input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre" />
+        <Input name="especie" value={form.especie} onChange={handleChange} placeholder="Especie" />
+        <Input name="edad" value={form.edad} onChange={handleChange} placeholder="Edad" />
+        <Input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />
 
         <button type="submit">Guardar</button>
       </form>

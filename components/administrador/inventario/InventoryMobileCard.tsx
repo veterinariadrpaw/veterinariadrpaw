@@ -16,11 +16,11 @@ export const InventoryMobileCard = ({ product }: InventoryMobileCardProps) => {
                 <div>
                     <h3 className="font-semibold text-gray-900">{product.name}</h3>
                     {product.expiryDate && (
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="text-xs text-gray-700 mt-0.5">
                             Vence: {new Date(product.expiryDate).toLocaleDateString()}
                         </p>
                     )}
-                    <p className="text-sm text-gray-500 mt-1">{product.category}</p>
+                    <p className="text-sm text-gray-700 mt-1">{product.category}</p>
                 </div>
                 <div className="flex flex-col gap-1 items-end">
                     <Badge

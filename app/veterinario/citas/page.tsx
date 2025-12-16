@@ -75,7 +75,7 @@ export default function VetAppointmentsPage() {
                     />
 
                     {paginatedAppointments.length === 0 ? (
-                        <div className="text-center py-12 text-gray-500 bg-white rounded-lg shadow">
+                        <div className="text-center py-12 text-gray-700 bg-white rounded-lg shadow">
                             No hay citas {activeTab}s
                         </div>
                     ) : (

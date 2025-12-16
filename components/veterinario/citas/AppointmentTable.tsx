@@ -43,7 +43,7 @@ export default function AppointmentTable({
                                 <TableCell className="whitespace-nowrap text-sm text-gray-900">
                                     <div className="flex flex-col">
                                         <span className="font-medium">{fechaTexto}</span>
-                                        <span className="text-gray-500">{horaTexto}</span>
+                                        <span className="text-gray-700">{horaTexto}</span>
                                     </div>
                                 </TableCell>
 
@@ -52,13 +52,13 @@ export default function AppointmentTable({
                                     <div className="text-sm font-medium text-gray-900">
                                         {app.pet?.nombre}
                                     </div>
-                                    <div className="text-sm text-gray-500">
+                                    <div className="text-sm text-gray-700">
                                         {app.pet?.propietario?.name}
                                     </div>
                                 </TableCell>
 
                                 {/* MOTIVO */}
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     <div className="max-w-[220px]">
                                         {truncateText(app.reason, 30)}
                                     </div>

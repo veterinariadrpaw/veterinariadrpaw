@@ -23,7 +23,7 @@ export const InventoryList = ({ products }: InventoryListProps) => {
 
     if (products.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-500">
+            <Card className="p-8 text-center text-gray-700">
                 No se encontraron productos.
             </Card>
         );
@@ -61,12 +61,12 @@ export const InventoryList = ({ products }: InventoryListProps) => {
                                     <TableCell>
                                         <div className="text-sm font-medium text-gray-900">{product.name}</div>
                                         {product.expiryDate && (
-                                            <div className="text-xs text-gray-500">
+                                            <div className="text-xs text-gray-700">
                                                 Vence: {new Date(product.expiryDate).toLocaleDateString()}
                                             </div>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-sm text-gray-500">
+                                    <TableCell className="text-sm text-gray-700">
                                         {product.category}
                                     </TableCell>
                                     <TableCell>
@@ -74,7 +74,7 @@ export const InventoryList = ({ products }: InventoryListProps) => {
                                             {product.quantity}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="text-sm text-gray-500">
+                                    <TableCell className="text-sm text-gray-700">
                                         ${product.salePrice.toFixed(2)}
                                     </TableCell>
                                     <TableCell>

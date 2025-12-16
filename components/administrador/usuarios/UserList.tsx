@@ -25,7 +25,7 @@ export const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
 
     if (users.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-500">
+            <Card className="p-8 text-center text-gray-700">
                 No hay usuarios registrados.
             </Card>
         );
@@ -63,7 +63,7 @@ export const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
                                     <div className="text-sm font-medium text-gray-900">{user.name}</div>
                                 </TableCell>
                                 <TableCell>
-                                    <div className="text-sm text-gray-500">{user.email}</div>
+                                    <div className="text-sm text-gray-700">{user.email}</div>
                                 </TableCell>
                                 <TableCell>
                                     <Badge

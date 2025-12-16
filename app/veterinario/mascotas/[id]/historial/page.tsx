@@ -179,13 +179,13 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
 
                     <div className="space-y-4">
                         {records.length === 0 ? (
-                            <p className="text-gray-500 italic">No hay registros médicos.</p>
+                            <p className="text-gray-700 italic">No hay registros médicos.</p>
                         ) : (
                             records.map((record) => (
                                 <div key={record._id} className="bg-white shadow rounded-lg p-4 border-l-4 border-indigo-500">
 
                                     <div className="flex justify-between items-start mb-2">
-                                        <span className="text-sm text-gray-500">
+                                        <span className="text-sm text-gray-700">
                                             {new Date(record.date).toLocaleDateString()}
                                         </span>
                                         <span className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">
@@ -201,7 +201,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                                     </p>
 
                                     {record.notes && (
-                                        <p className="text-sm text-gray-500 bg-gray-50 p-2 rounded">
+                                        <p className="text-sm text-gray-700 bg-gray-50 p-2 rounded">
                                             Nota: {record.notes}
                                         </p>
                                     )}
@@ -217,7 +217,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                         <ul className="divide-y divide-gray-200">
                             {appointments.length === 0 ? (
-                                <li className="p-4 text-gray-500 italic">No hay citas registradas.</li>
+                                <li className="p-4 text-gray-700 italic">No hay citas registradas.</li>
                             ) : (
                                 appointments.map((appt) => (
                                     <li key={appt._id} className="p-4 hover:bg-gray-50">
@@ -227,10 +227,10 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                                             </div>
                                             <span
                                                 className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${appt.status === 'aceptada'
-                                                        ? 'bg-green-100 text-green-800'
-                                                        : appt.status === 'cancelada'
-                                                            ? 'bg-red-100 text-red-800'
-                                                            : 'bg-yellow-100 text-yellow-800'
+                                                    ? 'bg-green-100 text-green-800'
+                                                    : appt.status === 'cancelada'
+                                                        ? 'bg-red-100 text-red-800'
+                                                        : 'bg-yellow-100 text-yellow-800'
                                                     }`}
                                             >
                                                 {appt.status}
@@ -238,7 +238,7 @@ export default function PetHistoryPage({ params }: { params: Promise<{ id: strin
                                         </div>
                                         <div className="mt-2 text-sm text-gray-700">
                                             <p><span className="font-semibold">Motivo:</span> {appt.reason}</p>
-                                            <p className="text-xs text-gray-500 mt-1">
+                                            <p className="text-xs text-gray-700 mt-1">
                                                 Vet: {appt.veterinarian?.name || "Sin asignar"}
                                             </p>
                                         </div>

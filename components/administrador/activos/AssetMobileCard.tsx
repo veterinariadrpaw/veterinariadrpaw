@@ -22,25 +22,25 @@ export const AssetMobileCard = ({ asset, onDelete }: AssetMobileCardProps) => {
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <h3 className="font-semibold text-gray-900">{asset.name}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{asset.category}</p>
+                    <p className="text-sm text-gray-700 mt-1">{asset.category}</p>
                 </div>
                 <div className="text-right">
                     <p className="text-lg font-bold text-gray-900">${asset.totalValue.toLocaleString()}</p>
-                    <p className="text-xs text-gray-500">Valor Total</p>
+                    <p className="text-xs text-gray-700">Valor Total</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 mt-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Cantidad</span>
+                    <span className="text-xs text-gray-700">Cantidad</span>
                     <span className="font-medium">{asset.quantity}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Costo Unit.</span>
+                    <span className="text-xs text-gray-700">Costo Unit.</span>
                     <span className="font-medium">${asset.unitCost.toLocaleString()}</span>
                 </div>
                 <div className="flex flex-col col-span-2 mt-2 pt-2 border-t border-gray-200">
-                    <span className="text-xs text-gray-500">Adquisición</span>
+                    <span className="text-xs text-gray-700">Adquisición</span>
                     <span className="font-medium">{new Date(asset.acquisitionDate).toLocaleDateString()}</span>
                 </div>
             </div>

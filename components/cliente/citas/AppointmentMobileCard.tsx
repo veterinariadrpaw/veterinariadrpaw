@@ -31,7 +31,7 @@ export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobi
                             day: 'numeric'
                         })}
                     </h3>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-700">
                         {new Date(appointment.date).toLocaleTimeString('es-ES', {
                             hour: '2-digit',
                             minute: '2-digit'
@@ -42,15 +42,15 @@ export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobi
 
             <div className="grid grid-cols-1 gap-2 mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Mascota</span>
+                    <span className="text-xs text-gray-700">Mascota</span>
                     <span className="font-medium">{appointment.pet?.nombre || 'Desconocida'}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Veterinario</span>
+                    <span className="text-xs text-gray-700">Veterinario</span>
                     <span className="font-medium">{appointment.veterinarian?.name || 'Por asignar'}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Motivo</span>
+                    <span className="text-xs text-gray-700">Motivo</span>
                     <span className="italic">{appointment.reason}</span>
                 </div>
             </div>

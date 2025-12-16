@@ -30,14 +30,14 @@ export const GallerySection = () => {
                     <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
                         Nuestra Galería
                     </h2>
-                    <p className="mt-4 text-lg text-gray-500">
+                    <p className="mt-4 text-lg text-gray-700">
                         Un vistazo a nuestras instalaciones y pacientes felices.
                     </p>
                 </div>
 
                 {loading ? (
                     <div className="py-12 bg-gray-50 text-center animate-pulse">
-                        <p className="text-gray-500">Cargando galería...</p>
+                        <p className="text-gray-700">Cargando galería...</p>
                     </div>
                 ) : images.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -54,7 +54,7 @@ export const GallerySection = () => {
                                     <p className="text-sm font-medium text-gray-900 truncate">
                                         {img.title}
                                     </p>
-                                    <p className="text-xs text-gray-500 mt-1">
+                                    <p className="text-xs text-gray-700 mt-1">
                                         {new Date(img.createdAt).toLocaleDateString()}
                                     </p>
                                 </div>
@@ -63,7 +63,7 @@ export const GallerySection = () => {
                     </div>
                 ) : (
                     <div className="py-12 text-center">
-                        <p className="text-gray-500">No hay imágenes disponibles en este momento.</p>
+                        <p className="text-gray-700">No hay imágenes disponibles en este momento.</p>
                     </div>
                 )}
             </div>

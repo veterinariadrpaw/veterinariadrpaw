@@ -5,14 +5,14 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
                         <h3 className="text-xl font-bold text-teal-400 mb-4">Veterinaria DrPaw</h3>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-600 text-sm">
                             Cuidado veterinario de excelencia con un enfoque compasivo y moderno.
                             Tu mascota, nuestra prioridad.
                         </p>
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
-                        <ul className="space-y-2 text-gray-400 text-sm">
+                        <ul className="space-y-2 text-gray-600 text-sm">
                             <li><a href="/" className="hover:text-teal-400 transition-colors">Inicio</a></li>
                             <li><a href="/sobre" className="hover:text-teal-400 transition-colors">Sobre Nosotros</a></li>
                             <li><a href="/cuidado-mascota" className="hover:text-teal-400 transition-colors">Cuidados</a></li>
@@ -24,7 +24,7 @@ export default function Footer() {
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Contacto</h3>
-                        <ul className="space-y-2 text-gray-400 text-sm">
+                        <ul className="space-y-2 text-gray-600 text-sm">
                             <li>📍 Calle Cacha y Fundadores, Quito</li>
                             <li>📞 (+593) 099 539 8645</li>
                             <li>Horarios de Atención: Lunes a Sábado de 9:00 a 18:30</li>
@@ -32,7 +32,7 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="mt-8 border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <div className="mt-8 border-t border-gray-800 pt-8 text-center text-gray-700 text-sm">
                     &copy; {new Date().getFullYear()} Veterinaria DrPaw. Todos los derechos reservados.
                 </div>
             </div>

@@ -93,7 +93,7 @@ export default function NewLiabilityPage() {
                                 <option value="PRESTAMO">Préstamo</option>
                                 <option value="OBLIGACION">Obligación</option>
                             </select>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 {formData.type === 'PRESTAMO'
                                     ? 'Deuda con entidad financiera o terceros'
                                     : 'Pago mensual recurrente (arriendo, servicios, etc.)'}
@@ -158,7 +158,7 @@ export default function NewLiabilityPage() {
                                 step="0.1"
                                 className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 Dejar en 0 si no genera intereses
                             </p>
                         </div>
@@ -191,7 +191,7 @@ export default function NewLiabilityPage() {
                                 step="0.01"
                                 className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 Opcional: si ya se han realizado pagos
                             </p>
                         </div>
@@ -227,7 +227,7 @@ export default function NewLiabilityPage() {
                                     </p>
                                 </div>
                             </div>
-                            <p className="text-xs text-gray-500 mt-3">
+                            <p className="text-xs text-gray-700 mt-3">
                                 * Estos cálculos son estimados basados en interés simple mensual
                             </p>
                         </div>

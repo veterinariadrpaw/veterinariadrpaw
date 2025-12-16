@@ -47,7 +47,7 @@ export default function Values() {
                                     <h3 className="text-2xl font-bold text-white mb-3 transform transition-all duration-300 group-hover:scale-105">
                                         {value.title}
                                     </h3>
-                                    <p className="text-gray-100 text-base leading-relaxed opacity-90">
+                                    <p className="text-gray-400 text-base leading-relaxed opacity-90">
                                         {value.description}
                                     </p>
 

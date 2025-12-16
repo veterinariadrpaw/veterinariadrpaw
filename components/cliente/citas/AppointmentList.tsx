@@ -25,7 +25,7 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
 
     if (appointments.length === 0) {
         return (
-            <div className="px-4 py-8 text-center text-gray-500 bg-white rounded-lg shadow">
+            <div className="px-4 py-8 text-center text-gray-700 bg-white rounded-lg shadow">
                 <p className="mb-4">No tienes citas programadas.</p>
                 <Link
                     href="/cliente/citas/nueva"
@@ -51,7 +51,7 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
             </div>
 
             {/* Desktop View */}
-            <Card className="hidden md:block overflow-hidden">
+            <Card className="hidden md:block text-black overflow-hidden">
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -67,7 +67,7 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
                         {paginatedAppointments.map((appointment) => (
                             <TableRow key={appointment._id}>
                                 <TableCell>
-                                    <div className="text-sm font-medium text-teal-600">
+                                    <div className="text-sm font-medium text-teal-700">
                                         {new Date(appointment.date).toLocaleDateString('es-ES', {
                                             weekday: 'long',
                                             year: 'numeric',
@@ -75,23 +75,23 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
                                             day: 'numeric'
                                         })}
                                     </div>
-                                    <div className="text-sm text-gray-500">
+                                    <div className="text-sm text-gray-700">
                                         {new Date(appointment.date).toLocaleTimeString('es-ES', {
                                             hour: '2-digit',
                                             minute: '2-digit'
                                         })}
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {appointment.pet?.nombre || 'Desconocida'}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {appointment.veterinarian?.name || 'Por asignar'}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500 max-w-xs truncate">
+                                <TableCell className="text-sm text-gray-700 max-w-xs truncate">
                                     {appointment.reason}
                                     {appointment.notas && appointment.status === 'completada' && (
-                                        <div className="mt-1 text-xs text-gray-400 italic">
+                                        <div className="mt-1 text-xs text-gray-600 italic">
                                             Notas: {appointment.notas}
                                         </div>
                                     )}

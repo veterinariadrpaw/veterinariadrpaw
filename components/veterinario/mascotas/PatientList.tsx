@@ -24,15 +24,15 @@ export const PatientList = ({ patients = [] }: PatientListProps) => {
                         <TableRow key={pet._id}>
                             <TableCell className="whitespace-nowrap">
                                 <div className="text-sm font-medium text-gray-900">{pet.nombre}</div>
-                                <div className="text-sm text-gray-500">{pet.edad} años</div>
+                                <div className="text-sm text-gray-700">{pet.edad} años</div>
                             </TableCell>
                             <TableCell className="whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{pet.especie}</div>
-                                <div className="text-sm text-gray-500">{pet.raza}</div>
+                                <div className="text-sm text-gray-700">{pet.raza}</div>
                             </TableCell>
                             <TableCell className="whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{pet.propietario?.name || 'N/A'}</div>
-                                <div className="text-sm text-gray-500">{pet.propietario?.email || 'N/A'}</div>
+                                <div className="text-sm text-gray-700">{pet.propietario?.email || 'N/A'}</div>
                             </TableCell>
                             <TableCell className="whitespace-nowrap text-sm font-medium">
                                 <Link

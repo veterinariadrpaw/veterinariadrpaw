@@ -25,7 +25,7 @@ export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
 
     if (services.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-500">
+            <Card className="p-8 text-center text-gray-700">
                 No hay servicios registrados.
             </Card>
         );
@@ -62,7 +62,7 @@ export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
                             <TableRow key={service._id}>
                                 <TableCell>
                                     <div className="font-medium text-gray-900">{service.name}</div>
-                                    <div className="text-sm text-gray-500 truncate max-w-xs">
+                                    <div className="text-sm text-gray-700 truncate max-w-xs">
                                         {service.description}
                                     </div>
                                 </TableCell>

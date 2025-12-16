@@ -21,7 +21,7 @@ export const SalesList = ({ sales }: SalesListProps) => {
 
     if (sales.length === 0) {
         return (
-            <div className="p-6 text-center text-gray-500 bg-white rounded-lg shadow">
+            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
                 No hay ventas registradas.
             </div>
         );

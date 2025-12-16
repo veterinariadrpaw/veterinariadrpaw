@@ -22,7 +22,7 @@ export const BackupMobileCard = ({ backup, formatBytes, onDelete }: BackupMobile
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <h3 className="font-semibold text-gray-900 break-all">{backup.filename}</h3>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                         {new Date(backup.createdAt).toLocaleString()}
                     </p>
                 </div>
@@ -33,15 +33,15 @@ export const BackupMobileCard = ({ backup, formatBytes, onDelete }: BackupMobile
 
             <div className="grid grid-cols-2 gap-2 mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Registros</span>
+                    <span className="text-xs text-gray-700">Registros</span>
                     <span className="font-medium">{backup.recordCount}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Tamaño</span>
+                    <span className="text-xs text-gray-700">Tamaño</span>
                     <span className="font-medium">{formatBytes(backup.fileSize)}</span>
                 </div>
                 <div className="flex flex-col col-span-2 mt-2 pt-2 border-t border-gray-200">
-                    <span className="text-xs text-gray-500">Creado Por</span>
+                    <span className="text-xs text-gray-700">Creado Por</span>
                     <span className="font-medium">{backup.createdBy}</span>
                 </div>
             </div>

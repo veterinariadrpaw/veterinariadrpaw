@@ -31,7 +31,7 @@ export const RoleList = ({ users, modifiedRoles, onRoleChange, onSave }: RoleLis
 
     if (users.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-500">
+            <Card className="p-8 text-center text-gray-700">
                 No hay usuarios registrados.
             </Card>
         );
@@ -68,7 +68,7 @@ export const RoleList = ({ users, modifiedRoles, onRoleChange, onSave }: RoleLis
                             <TableRow key={user._id}>
                                 <TableCell>
                                     <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                                    <div className="text-sm text-gray-500">{user.email}</div>
+                                    <div className="text-sm text-gray-700">{user.email}</div>
                                 </TableCell>
                                 <TableCell>
                                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :

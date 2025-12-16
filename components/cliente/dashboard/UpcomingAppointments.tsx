@@ -31,7 +31,7 @@ export const UpcomingAppointments = ({ appointments }: { appointments: Appointme
                                         minute: '2-digit'
                                     })} • 🐾 {apt.pet.nombre}
                                 </p>
-                                <p className="text-xs text-gray-500 mt-1">{apt.reason}</p>
+                                <p className="text-xs text-gray-700 mt-1">{apt.reason}</p>
                             </div>
                             <span className={`px-2 py-1 text-xs font-semibold rounded-full ${apt.status === 'aceptada' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                                 }`}>

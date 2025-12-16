@@ -22,23 +22,23 @@ export const SalesMobileCard = ({ sale }: SalesMobileCardProps) => {
                     <h3 className="font-semibold text-gray-900">
                         {sale.client?.name || "Cliente General"}
                     </h3>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                         {new Date(sale.date).toLocaleString()}
                     </p>
                 </div>
                 <div className="text-right">
                     <p className="text-lg font-bold text-gray-900">${sale.total.toFixed(2)}</p>
-                    <p className="text-xs text-gray-500">Total</p>
+                    <p className="text-xs text-gray-700">Total</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Método Pago</span>
+                    <span className="text-xs text-gray-700">Método Pago</span>
                     <span className="font-medium">{sale.paymentMethod}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Registrado Por</span>
+                    <span className="text-xs text-gray-700">Registrado Por</span>
                     <span className="font-medium">{sale.user?.name || "N/A"}</span>
                 </div>
             </div>

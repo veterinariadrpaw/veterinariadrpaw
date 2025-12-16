@@ -132,19 +132,19 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                             </div>
                             <div className="grid grid-cols-3 gap-4 mt-4">
                                 <div className="text-center">
-                                    <p className="text-xs text-gray-500">Deuda Total</p>
+                                    <p className="text-xs text-gray-700">Deuda Total</p>
                                     <p className="text-lg font-bold text-gray-900">
                                         ${totalDebt.toLocaleString()}
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <p className="text-xs text-gray-500">Pendiente</p>
+                                    <p className="text-xs text-gray-700">Pendiente</p>
                                     <p className="text-lg font-bold text-red-600">
                                         ${pendingAmount.toLocaleString()}
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <p className="text-xs text-gray-500">Meses Restantes</p>
+                                    <p className="text-xs text-gray-700">Meses Restantes</p>
                                     <p className="text-lg font-bold text-blue-600">
                                         {monthsRemaining}
                                     </p>
@@ -256,7 +256,7 @@ export default function EditLiabilityPage({ params }: { params: Promise<{ id: st
                                 step="0.01"
                                 className="w-full px-3 text-gray-700 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-700 mt-1">
                                 💡 Actualice este campo cuando realice un pago
                             </p>
                         </div>

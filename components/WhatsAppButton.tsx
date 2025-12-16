@@ -30,7 +30,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
 
     if (!hasPhoneNumber) {
         return (
-            <div className={`text-xs text-gray-400 ${className}`} title="El cliente no tiene teléfono registrado">
+            <div className={`text-xs text-gray-600 ${className}`} title="El cliente no tiene teléfono registrado">
                 Sin teléfono
             </div>
         );

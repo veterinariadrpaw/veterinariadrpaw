@@ -23,7 +23,7 @@ export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
 
     if (services.length === 0) {
         return (
-            <div className="p-6 text-center text-gray-500 bg-white rounded-lg shadow">
+            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
                 No hay servicios registrados.
             </div>
         );
@@ -60,7 +60,7 @@ export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
                             <tr key={service._id} className="hover:bg-gray-50">
                                 <td className="py-3 px-4 border-b text-gray-800">
                                     <div className="font-medium">{service.name}</div>
-                                    <div className="text-sm text-gray-500 truncate max-w-xs">
+                                    <div className="text-sm text-gray-700 truncate max-w-xs">
                                         {service.description}
                                     </div>
                                 </td>

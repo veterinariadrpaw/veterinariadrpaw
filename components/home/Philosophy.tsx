@@ -9,7 +9,7 @@ export default function Philosophy() {
                         <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
                             Nuestra Filosofía
                         </h2>
-                        <p className="mt-3 max-w-3xl text-lg text-gray-500">
+                        <p className="mt-3 max-w-3xl text-lg text-gray-700">
                             Creemos que la salud animal es integral. No solo tratamos enfermedades, sino que promovemos el bienestar físico y emocional de cada paciente.
                         </p>
                         <div className="mt-8 space-y-4">
@@ -21,7 +21,7 @@ export default function Philosophy() {
                                 </div>
                                 <div className="ml-4">
                                     <h4 className="text-lg leading-6 font-medium text-gray-900">Medicina Preventiva</h4>
-                                    <p className="mt-2 text-base text-gray-500">Enfoque en prevenir antes que curar.</p>
+                                    <p className="mt-2 text-base text-gray-700">Enfoque en prevenir antes que curar.</p>
                                 </div>
                             </div>
                             <div className="flex items-center">
@@ -32,7 +32,7 @@ export default function Philosophy() {
                                 </div>
                                 <div className="ml-4">
                                     <h4 className="text-lg leading-6 font-medium text-gray-900">Tecnología Humana</h4>
-                                    <p className="mt-2 text-base text-gray-500">Equipos modernos con trato cálido.</p>
+                                    <p className="mt-2 text-base text-gray-700">Equipos modernos con trato cálido.</p>
                                 </div>
                             </div>
                         </div>

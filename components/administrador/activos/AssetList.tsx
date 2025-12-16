@@ -33,7 +33,7 @@ export const AssetList = ({ assets, onDelete }: AssetListProps) => {
 
     if (assets.length === 0) {
         return (
-            <div className="p-6 text-center text-gray-500 bg-white rounded-lg shadow">
+            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
                 No hay activos registrados.
             </div>
         );
@@ -77,16 +77,16 @@ export const AssetList = ({ assets, onDelete }: AssetListProps) => {
                                         {asset.category}
                                     </span>
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {asset.quantity}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     ${asset.unitCost.toLocaleString()}
                                 </TableCell>
                                 <TableCell className="text-sm font-bold text-gray-900">
                                     ${asset.totalValue.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-700">
                                     {new Date(asset.acquisitionDate).toLocaleDateString()}
                                 </TableCell>
                                 <TableCell className="text-right text-sm font-medium">

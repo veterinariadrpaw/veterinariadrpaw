@@ -29,7 +29,7 @@ export const GalleryList = ({ images, onDelete }: GalleryListProps) => {
 
     if (images.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-500">
+            <Card className="p-8 text-center text-gray-700">
                 No hay imágenes en la galería.
             </Card>
         );
@@ -70,7 +70,7 @@ export const GalleryList = ({ images, onDelete }: GalleryListProps) => {
                                     />
                                 </TableCell>
                                 <TableCell className="font-medium text-gray-900">{img.title}</TableCell>
-                                <TableCell className="text-gray-500">
+                                <TableCell className="text-gray-700">
                                     {new Date(img.createdAt).toLocaleDateString()}
                                 </TableCell>
                                 <TableCell>

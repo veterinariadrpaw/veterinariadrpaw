@@ -9,7 +9,7 @@ export const ServicesHeader = () => {
             <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                 Cuidado Integral para tu Mascota
             </p>
-            <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+            <p className="mt-4 max-w-2xl text-xl text-gray-700 mx-auto">
                 Servicios médicos, preventivos y complementarios para asegurar
                 la salud y bienestar de tu mejor amigo.
             </p>
