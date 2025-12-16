@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Modal } from '@/components/ui/Modal';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Button } from '@/components/ui/Button';
 
 interface UserModalProps {
     isOpen: boolean;
@@ -23,60 +27,54 @@ export const UserModal = ({ isOpen, onClose, onSave, initialData }: UserModalPro
         onSave(formData);
     };
 
-    if (!isOpen) return null;
-
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-50">
-            <div className="bg-white p-8 rounded-lg shadow-xl w-96">
-                <h2 className="text-xl font-bold mb-4">{initialData ? "Editar Usuario" : "Nuevo Usuario"}</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
-                        <input
-                            type="text"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                        <input
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                    </div>
-                    <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Rol</label>
-                        <select
-                            value={formData.role}
-                            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        >
-                            <option value="cliente">Cliente</option>
-                            <option value="veterinario">Veterinario</option>
-                            <option value="administrador">Administrador</option>
-                        </select>
-                    </div>
-                    <div className="flex justify-end">
-                        <button
-                            type="button"
-                            onClick={onClose}
-                            className="mr-2 px-4 py-2 text-gray-500 hover:text-gray-700"
-                        >
-                            Cancelar
-                        </button>
-                        <button
-                            type="submit"
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                        >
-                            Guardar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            title={initialData ? "Editar Usuario" : "Nuevo Usuario"}
+            footer={
+                <>
+                    <Button variant="outline" onClick={onClose} className="mr-2">
+                        Cancelar
+                    </Button>
+                    <Button onClick={handleSubmit}>
+                        Guardar
+                    </Button>
+                </>
+            }
+        >
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <Input
+                        label="Nombre"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                    />
+                </div>
+                <div>
+                    <Input
+                        label="Email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                    />
+                </div>
+                <div>
+                    <Label htmlFor="role" className="mb-1">Rol</Label>
+                    <select
+                        id="role"
+                        value={formData.role}
+                        onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    >
+                        <option value="cliente">Cliente</option>
+                        <option value="veterinario">Veterinario</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+            </form>
+        </Modal>
     );
 };

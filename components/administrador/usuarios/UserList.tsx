@@ -1,5 +1,9 @@
 import React from 'react';
 import { User } from '@/types/user';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/Table';
+import { Card } from '@/components/ui/Card';
 
 interface UserListProps {
     users: User[];
@@ -9,51 +13,60 @@ interface UserListProps {
 
 export const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
     return (
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                    <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rol</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+        <Card className="overflow-hidden">
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Nombre</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Rol</TableHead>
+                        <TableHead>Acciones</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
                     {users.map((user) => (
-                        <tr key={user._id}>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                        <TableRow key={user._id}>
+                            <TableCell>
                                 <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            </TableCell>
+                            <TableCell>
                                 <div className="text-sm text-gray-500">{user.email}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :
-                                    user.role === 'veterinario' ? 'bg-indigo-100 text-indigo-800' :
-                                        'bg-green-100 text-green-800'
-                                    }`}>
+                            </TableCell>
+                            <TableCell>
+                                <Badge
+                                    variant={
+                                        user.role === 'administrador' ? 'info' :
+                                            user.role === 'veterinario' ? 'default' :
+                                                'success'
+                                    }
+                                >
                                     {user.role}
-                                </span>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <button
-                                    onClick={() => onEdit(user)}
-                                    className="text-indigo-600 hover:text-indigo-900 mr-4"
-                                >
-                                    Editar
-                                </button>
-                                <button
-                                    onClick={() => onDelete(user._id)}
-                                    className="text-red-600 hover:text-red-900"
-                                >
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
+                                </Badge>
+                            </TableCell>
+                            <TableCell className="text-sm font-medium">
+                                <div className="flex space-x-2">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => onEdit(user)}
+                                        className="text-indigo-600 hover:text-indigo-900"
+                                    >
+                                        Editar
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => onDelete(user._id)}
+                                        className="text-red-600 hover:text-red-900"
+                                    >
+                                        Eliminar
+                                    </Button>
+                                </div>
+                            </TableCell>
+                        </TableRow>
                     ))}
-                </tbody>
-            </table>
-        </div>
+                </TableBody>
+            </Table>
+        </Card>
     );
 };

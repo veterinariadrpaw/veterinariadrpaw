@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@/components/ui/Button';
 import { Pet } from '@/types/pet';
 
 interface PetListProps {
@@ -45,18 +46,22 @@ export const PetList = ({ pets, onEdit, onDelete, showForm }: PetListProps) => {
                     </div>
 
                     <div className="mt-4 flex justify-end space-x-2 border-t pt-4">
-                        <button
+                        <Button
+                            variant="ghost"
+                            size="sm"
                             onClick={() => onEdit(pet)}
-                            className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                            className="text-indigo-600 hover:text-indigo-800"
                         >
                             Editar
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="sm"
                             onClick={() => onDelete(pet._id)}
-                            className="text-red-600 hover:text-red-800 text-sm font-medium"
+                            className="text-red-600 hover:text-red-800"
                         >
                             Eliminar
-                        </button>
+                        </Button>
                     </div>
                 </div>
             ))}

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Appointment, User, AppointmentFormData, ReasonModalData, AppointmentStatus } from "@/components/veterinario/citas/types";
-import { filterByStatus, getPaginatedData, getTotalPages } from "@/components/veterinario/citas/utils";
+import { useState } from "react";
+import { ReasonModalData } from "@/components/veterinario/citas/types";
+import { useVetAppointments } from "@/hooks/useVetAppointments";
 import AppointmentForm from "@/components/veterinario/citas/AppointmentForm";
 import AppointmentTabs from "@/components/veterinario/citas/AppointmentTabs";
 import AppointmentMobileCard from "@/components/veterinario/citas/AppointmentMobileCard";
@@ -11,115 +11,35 @@ import AppointmentPagination from "@/components/veterinario/citas/AppointmentPag
 import ReasonModal from "@/components/veterinario/citas/ReasonModal";
 
 export default function VetAppointmentsPage() {
-    const [appointments, setAppointments] = useState<Appointment[]>([]);
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [showForm, setShowForm] = useState(false);
+    const {
+        appointments,
+        currentUser,
+        loading,
+        activeTab,
+        setActiveTab,
+        currentPage,
+        totalPages,
+        totalItems,
+        paginatedAppointments,
+        handlePageChange,
+        updateStatus,
+        createAppointment
+    } = useVetAppointments();
 
+    const [showForm, setShowForm] = useState(false);
     const [showReasonModal, setShowReasonModal] = useState(false);
     const [selectedReason, setSelectedReason] = useState<ReasonModalData | null>(null);
 
-    const [activeTab, setActiveTab] = useState<AppointmentStatus>("pendiente");
-
-    const [currentPage, setCurrentPage] = useState({
-        pendiente: 1,
-        aceptada: 1,
-        cancelada: 1,
-    });
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        try {
-            const [apptRes, userRes] = await Promise.all([
-                fetch("/api/appointments"),
-                fetch("/api/users/me"),
-            ]);
-
-            if (apptRes.ok) {
-                const data = await apptRes.json();
-                setAppointments(data);
-            }
-
-            if (userRes.ok) {
-                const data = await userRes.json();
-                setCurrentUser(data);
-            }
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleSubmit = async (formData: AppointmentFormData) => {
-        if (!currentUser) return;
-
-        try {
-            const res = await fetch("/api/appointments", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    ...formData,
-                    veterinarian: currentUser._id,
-                }),
-            });
-
-            if (res.ok) {
-                setShowForm(false);
-                const apptRes = await fetch("/api/appointments");
-                if (apptRes.ok) {
-                    setAppointments(await apptRes.json());
-                }
-            } else {
-                const err = await res.json();
-                alert("Error creando cita: " + err.message);
-            }
-        } catch (error) {
-            console.error("Error creating appointment:", error);
-        }
-    };
-
-    const updateStatus = async (id: string, status: string) => {
-        try {
-            const res = await fetch(`/api/appointments?id=${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ status }),
-            });
-
-            if (res.ok) {
-                const apptRes = await fetch("/api/appointments");
-                if (apptRes.ok) {
-                    setAppointments(await apptRes.json());
-                }
-            }
-        } catch (error) {
-            console.error("Error updating status:", error);
+    const handleSubmit = async (formData: any) => {
+        const success = await createAppointment(formData);
+        if (success) {
+            setShowForm(false);
         }
     };
 
     const handleViewReason = (reason: string, pet: string, date: string) => {
         setSelectedReason({ reason, pet, date });
         setShowReasonModal(true);
-    };
-
-    // Get filtered and paginated appointments for current tab
-    const filteredAppointments = filterByStatus(appointments, activeTab);
-    const totalPages = getTotalPages(filteredAppointments.length);
-    const paginatedAppointments = getPaginatedData(
-        filteredAppointments,
-        currentPage[activeTab]
-    );
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage((prev) => ({ ...prev, [activeTab]: page }));
-    };
-
-    const handleTabChange = (tab: AppointmentStatus) => {
-        setActiveTab(tab);
     };
 
     return (
@@ -151,7 +71,7 @@ export default function VetAppointmentsPage() {
                     <AppointmentTabs
                         activeTab={activeTab}
                         appointments={appointments}
-                        onTabChange={handleTabChange}
+                        onTabChange={setActiveTab}
                     />
 
                     {paginatedAppointments.length === 0 ? (
@@ -181,9 +101,9 @@ export default function VetAppointmentsPage() {
 
                             {/* Pagination */}
                             <AppointmentPagination
-                                currentPage={currentPage[activeTab]}
+                                currentPage={currentPage}
                                 totalPages={totalPages}
-                                totalItems={filteredAppointments.length}
+                                totalItems={totalItems}
                                 onPageChange={handlePageChange}
                             />
                         </>

@@ -1,74 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Pet } from "@/types/pet";
+import { useState } from "react";
+import { Pet } from '@/types/pet';
+import { usePets } from "@/hooks/usePets";
 import { PetForm } from "@/components/cliente/mascotas/PetForm";
 import { PetList } from "@/components/cliente/mascotas/PetList";
 
 export default function MyPetsPage() {
-  const [pets, setPets] = useState<Pet[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { pets, loading, savePet, deletePet } = usePets();
   const [showForm, setShowForm] = useState(false);
   const [editingPet, setEditingPet] = useState<Pet | null>(null);
 
-  useEffect(() => {
-    fetchPets();
-  }, []);
-
-  const fetchPets = async () => {
-    try {
-      const res = await fetch("/api/pets?my_pets=true");
-      if (res.ok) {
-        const data = await res.json();
-        setPets(data);
-      }
-    } catch (error) {
-      console.error("Error fetching pets:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleSubmit = async (formData: any) => {
-    try {
-      const url = editingPet ? `/api/pets?id=${editingPet._id}` : "/api/pets";
-      const method = editingPet ? "PUT" : "POST";
-
-      const res = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        setShowForm(false);
-        setEditingPet(null);
-        fetchPets();
-      }
-    } catch (error) {
-      console.error("Error saving pet:", error);
+    const success = await savePet(formData, !!editingPet, editingPet?._id);
+    if (success) {
+      setShowForm(false);
+      setEditingPet(null);
     }
   };
 
   const handleEdit = (pet: Pet) => {
     setEditingPet(pet);
     setShowForm(true);
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm("¿Estás seguro de eliminar esta mascota?")) return;
-
-    try {
-      const res = await fetch(`/api/pets?id=${id}`, {
-        method: "DELETE",
-      });
-
-      if (res.ok) {
-        fetchPets();
-      }
-    } catch (error) {
-      console.error("Error deleting pet:", error);
-    }
   };
 
   const cancelForm = () => {
@@ -106,7 +59,7 @@ export default function MyPetsPage() {
         <PetList
           pets={pets}
           onEdit={handleEdit}
-          onDelete={handleDelete}
+          onDelete={deletePet}
           showForm={showForm}
         />
       )}

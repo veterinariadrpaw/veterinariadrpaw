@@ -1,5 +1,6 @@
 import React from 'react';
 import { AdminDashboardStats } from '@/types/dashboard';
+import { Card, CardContent } from '@/components/ui/Card';
 
 export const DashboardStatsCards = ({ stats }: { stats: AdminDashboardStats }) => {
     return (

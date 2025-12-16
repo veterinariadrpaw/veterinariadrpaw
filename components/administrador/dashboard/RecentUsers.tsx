@@ -1,45 +1,53 @@
 import React from 'react';
 import { User } from '@/types/user';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/Table';
 
 export const RecentUsers = ({ users }: { users: User[] }) => {
     return (
-        <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Registros Recientes</h2>
-            {users.length === 0 ? (
-                <p className="text-gray-500">No hay usuarios registrados recientemente.</p>
-            ) : (
-                <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rol</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha Registro</th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+        <Card>
+            <CardHeader>
+                <CardTitle>Registros Recientes</CardTitle>
+            </CardHeader>
+            <CardContent>
+                {users.length === 0 ? (
+                    <p className="text-gray-500">No hay usuarios registrados recientemente.</p>
+                ) : (
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Nombre</TableHead>
+                                <TableHead>Email</TableHead>
+                                <TableHead>Rol</TableHead>
+                                <TableHead>Fecha Registro</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
                             {users.map((user) => (
-                                <tr key={user._id}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{user.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :
-                                            user.role === 'veterinario' ? 'bg-indigo-100 text-indigo-800' :
-                                                'bg-green-100 text-green-800'
-                                            }`}>
+                                <TableRow key={user._id}>
+                                    <TableCell className="font-medium text-gray-900">{user.name}</TableCell>
+                                    <TableCell className="text-gray-500">{user.email}</TableCell>
+                                    <TableCell>
+                                        <Badge
+                                            variant={
+                                                user.role === 'administrador' ? 'info' :
+                                                    user.role === 'veterinario' ? 'default' :
+                                                        'success'
+                                            }
+                                        >
                                             {user.role}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell className="text-gray-500">
                                         {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
-                                    </td>
-                                </tr>
+                                    </TableCell>
+                                </TableRow>
                             ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
-        </div>
+                        </TableBody>
+                    </Table>
+                )}
+            </CardContent>
+        </Card>
     );
 };

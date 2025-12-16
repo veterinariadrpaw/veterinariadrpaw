@@ -3,6 +3,7 @@ import { Achievements } from "@/components/about/Achievements";
 import { History } from "@/components/about/History";
 import { MissionVision } from "@/components/about/MissionVision";
 import { WhyChooseUs } from "@/components/about/WhyChooseUs";
+import { GallerySection } from "@/components/about/GallerySection";
 
 export default function AboutPage() {
     return (
@@ -25,6 +26,9 @@ export default function AboutPage() {
 
                 {/* Contador de logros */}
                 <Achievements />
+
+                {/* Galería Dinámica */}
+                <GallerySection />
 
             </div>
         </div>

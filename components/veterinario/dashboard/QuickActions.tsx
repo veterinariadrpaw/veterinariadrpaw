@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import React from 'react';
+import { Button } from '@/components/ui/Button';
 
 export const QuickActions = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <Link href="/veterinario/citas" className="bg-indigo-600 text-white p-4 rounded-lg shadow hover:bg-indigo-700 text-center font-bold transition-colors">
-                + Nueva Cita
+            <Link href="/veterinario/citas" className="block">
+                <Button className="w-full py-8 text-lg bg-indigo-600 hover:bg-indigo-700">
+                    + Nueva Cita
+                </Button>
             </Link>
-            <Link href="/veterinario/mascotas" className="bg-white text-indigo-600 border border-indigo-600 p-4 rounded-lg shadow hover:bg-indigo-50 text-center font-bold transition-colors">
-                Ver Pacientes
+            <Link href="/veterinario/mascotas" className="block">
+                <Button variant="outline" className="w-full py-8 text-lg border-indigo-600 text-indigo-600 hover:bg-indigo-50">
+                    Ver Pacientes
+                </Button>
             </Link>
         </div>
     );

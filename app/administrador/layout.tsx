@@ -12,6 +12,7 @@ const adminLinks = [
     { href: "/administrador/flujodecaja", label: "Flujo de Caja" },
     { href: "/administrador/copiainventario", label: "Copias de Inventario" },
     { href: "/administrador/negocio", label: "📊 Negocio" },
+    { href: "/administrador/galeria", label: "Galería" },
 ];
 
 export default function administradorLayout({

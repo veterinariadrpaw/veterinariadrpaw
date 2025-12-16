@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { User, Pet, AppointmentFormData } from "./types";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { Label } from "@/components/ui/Label";
 
 interface AppointmentFormProps {
     currentUser: User | null;
@@ -90,13 +93,12 @@ export default function AppointmentForm({
             >
                 {/* Client Search */}
                 <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <Label className="block text-sm font-medium text-gray-700">
                         Buscar Cliente
-                    </label>
+                    </Label>
 
-                    <input
+                    <Input
                         type="text"
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
                         placeholder="Nombre o email..."
                         value={clientSearch}
                         onChange={(e) => {
@@ -114,7 +116,7 @@ export default function AppointmentForm({
                             {clients.map((client) => (
                                 <li
                                     key={client._id}
-                                    className="px-4 py-2 hover:bg-indigo-50 cursor-pointer"
+                                    className="px-4 py-2 hover:bg-indigo-50 cursor-pointer text-gray-900"
                                     onClick={() => handleClientSelect(client)}
                                 >
                                     <div className="font-medium">
@@ -131,14 +133,14 @@ export default function AppointmentForm({
 
                 {/* Pet Select */}
                 <div>
-                    <label className="block text-sm text-black font-medium">
+                    <Label className="block text-sm text-black font-medium">
                         Mascota
-                    </label>
+                    </Label>
 
                     <select
                         required
                         disabled={!selectedClient}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 disabled:bg-gray-100 text-black"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 disabled:bg-gray-100 text-black h-10"
                         value={formData.pet}
                         onChange={(e) =>
                             setFormData({ ...formData, pet: e.target.value })
@@ -160,14 +162,13 @@ export default function AppointmentForm({
 
                 {/* Date and Time */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <Label className="block text-sm font-medium text-gray-700">
                         Fecha y Hora
-                    </label>
+                    </Label>
 
-                    <input
+                    <Input
                         type="datetime-local"
                         required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
                         value={formData.date}
                         onChange={(e) =>
                             setFormData({ ...formData, date: e.target.value })
@@ -177,14 +178,13 @@ export default function AppointmentForm({
 
                 {/* Reason */}
                 <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <Label className="block text-sm font-medium text-gray-700">
                         Motivo
-                    </label>
+                    </Label>
 
-                    <input
+                    <Input
                         type="text"
                         required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
                         value={formData.reason}
                         onChange={(e) =>
                             setFormData({ ...formData, reason: e.target.value })
@@ -194,13 +194,13 @@ export default function AppointmentForm({
 
                 {/* Submit Button */}
                 <div className="md:col-span-2">
-                    <button
+                    <Button
                         type="submit"
                         disabled={!formData.pet}
-                        className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors disabled:bg-gray-400"
+                        className="w-full"
                     >
                         Guardar Cita
-                    </button>
+                    </Button>
                 </div>
             </form>
         </div>

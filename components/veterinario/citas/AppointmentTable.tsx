@@ -1,5 +1,8 @@
 import { Appointment } from "./types";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 
 interface AppointmentTableProps {
     appointments: Appointment[];
@@ -19,53 +22,43 @@ export default function AppointmentTable({
 }: AppointmentTableProps) {
     return (
         <div className="hidden md:block bg-white shadow sm:rounded-lg">
-            <table className="w-full table-fixed border-collapse">
-                <thead className="bg-gray-50">
-                    <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Fecha/Hora
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Paciente
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Motivo
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Detalle
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody className="bg-white divide-y divide-gray-200">
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Fecha/Hora</TableHead>
+                        <TableHead>Paciente</TableHead>
+                        <TableHead>Motivo</TableHead>
+                        <TableHead>Detalle</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
                     {appointments.map((app) => {
                         const fecha = new Date(app.date);
                         const fechaTexto = fecha.toLocaleDateString();
                         const horaTexto = fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
                         return (
-                            <tr key={app._id}>
-
+                            <TableRow key={app._id}>
                                 {/* FECHA ARRIBA - HORA ABAJO */}
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <TableCell className="whitespace-nowrap text-sm text-gray-900">
                                     <div className="flex flex-col">
                                         <span className="font-medium">{fechaTexto}</span>
                                         <span className="text-gray-500">{horaTexto}</span>
                                     </div>
-                                </td>
+                                </TableCell>
 
                                 {/* PACIENTE */}
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <TableCell className="whitespace-nowrap">
                                     <div className="text-sm font-medium text-gray-900">
                                         {app.pet?.nombre}
                                     </div>
                                     <div className="text-sm text-gray-500">
                                         {app.pet?.propietario?.name}
                                     </div>
-                                </td>
+                                </TableCell>
 
                                 {/* MOTIVO */}
-                                <td className="px-6 py-4 text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-500">
                                     <div className="max-w-[220px]">
                                         {truncateText(app.reason, 30)}
                                     </div>
@@ -78,14 +71,14 @@ export default function AppointmentTable({
                                                 fecha.toLocaleString()
                                             )
                                         }
-                                        className="text-indigo-600 hover:text-indigo-900 text-xs underline"
+                                        className="text-indigo-600 hover:text-indigo-900 text-xs underline mt-1"
                                     >
                                         Ver completo
                                     </button>
-                                </td>
+                                </TableCell>
 
                                 {/* COLUMNA DETALLE (VETERINARIO + ESTADO + ACCIONES) */}
-                                <td className="px-6 py-4 text-sm text-gray-700">
+                                <TableCell className="text-sm text-gray-700">
                                     <div className="flex flex-col">
 
                                         {/* Veterinario */}
@@ -94,47 +87,48 @@ export default function AppointmentTable({
                                         </span>
 
                                         {/* Estado */}
-                                        <span
-                                            className={`px-2 py-0.5 w-fit text-xs leading-5 font-semibold rounded-full mb-2 ${app.status === "aceptada"
-                                                    ? "bg-green-100 text-green-800"
-                                                    : app.status === "cancelada"
-                                                        ? "bg-red-100 text-red-800"
-                                                        : "bg-yellow-100 text-yellow-800"
-                                                }`}
-                                        >
-                                            {app.status}
-                                        </span>
+                                        <div className="mb-2">
+                                            <Badge
+                                                variant={
+                                                    app.status === "aceptada" ? "success" :
+                                                        app.status === "cancelada" ? "danger" : "warning"
+                                                }
+                                            >
+                                                {app.status}
+                                            </Badge>
+                                        </div>
 
-                                        {/* Acciones UNA POR LÍNEA */}
-                                        <button
-                                            onClick={() =>
-                                                onUpdateStatus(app._id, "aceptada")
-                                            }
-                                            className="text-green-600 hover:text-green-900 text-sm mb-1"
-                                        >
-                                            Aceptar
-                                        </button>
+                                        {/* Acciones */}
+                                        <div className="flex flex-col gap-1">
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => onUpdateStatus(app._id, "aceptada")}
+                                                className="text-green-600 hover:text-green-900 justify-start px-0 h-auto py-0.5"
+                                            >
+                                                Aceptar
+                                            </Button>
 
-                                        <button
-                                            onClick={() =>
-                                                onUpdateStatus(app._id, "cancelada")
-                                            }
-                                            className="text-red-600 hover:text-red-900 text-sm mb-1"
-                                        >
-                                            Cancelar
-                                        </button>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => onUpdateStatus(app._id, "cancelada")}
+                                                className="text-red-600 hover:text-red-900 justify-start px-0 h-auto py-0.5"
+                                            >
+                                                Cancelar
+                                            </Button>
 
-                                        <div className="mt-1">
-                                            <WhatsAppButton appointment={app} />
+                                            <div className="mt-1">
+                                                <WhatsAppButton appointment={app} />
+                                            </div>
                                         </div>
                                     </div>
-                                </td>
-
-                            </tr>
+                                </TableCell>
+                            </TableRow>
                         );
                     })}
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
         </div>
     );
 }
