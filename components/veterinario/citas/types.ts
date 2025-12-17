@@ -7,6 +7,8 @@ export interface Appointment {
         _id: string;
         nombre: string;
         especie?: string;
+        raza?: string;
+        edad?: string;
         propietario: {
             name: string;
             telefono?: string;

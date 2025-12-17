@@ -1,5 +1,6 @@
 import { Appointment } from "./types";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import GoogleCalendarButton from "@/components/GoogleCalendarButton";
 
 interface AppointmentMobileCardProps {
     appointment: Appointment;
@@ -46,10 +47,10 @@ export default function AppointmentMobileCard({
             <p className="mt-2">
                 <span
                     className={`px-2 py-1 text-xs font-semibold rounded-full ${appointment.status === "aceptada"
-                            ? "bg-green-100 text-green-800"
-                            : appointment.status === "cancelada"
-                                ? "bg-red-100 text-red-800"
-                                : "bg-yellow-100 text-yellow-800"
+                        ? "bg-green-100 text-green-800"
+                        : appointment.status === "cancelada"
+                            ? "bg-red-100 text-red-800"
+                            : "bg-yellow-100 text-yellow-800"
                         }`}
                 >
                     {appointment.status}
@@ -72,6 +73,7 @@ export default function AppointmentMobileCard({
                 </button>
 
                 <WhatsAppButton appointment={appointment} />
+                <GoogleCalendarButton appointment={appointment} />
             </div>
         </div>
     );
