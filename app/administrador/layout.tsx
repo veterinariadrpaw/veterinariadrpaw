@@ -14,6 +14,7 @@ const adminLinks = [
     { href: "/administrador/copiainventario", label: "Copias de Inventario" },
     { href: "/administrador/negocio", label: "Negocio" },
     { href: "/administrador/pet-care", label: "Cuidado Mascota" },
+    { href: "/administrador/calendario", label: "Calendario" },
     { href: "/administrador/galeria", label: "Galería" },
 ];
 
