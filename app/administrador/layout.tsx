@@ -12,7 +12,8 @@ const adminLinks = [
     { href: "/administrador/balance", label: "Balance General" },
     { href: "/administrador/flujodecaja", label: "Flujo de Caja" },
     { href: "/administrador/copiainventario", label: "Copias de Inventario" },
-    { href: "/administrador/negocio", label: "📊 Negocio" },
+    { href: "/administrador/negocio", label: "Negocio" },
+    { href: "/administrador/pet-care", label: "Cuidado Mascota" },
     { href: "/administrador/galeria", label: "Galería" },
 ];
 

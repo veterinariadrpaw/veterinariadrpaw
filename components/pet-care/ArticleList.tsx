@@ -1,41 +1,44 @@
-import React from "react";
+'use client';
+import React, { useEffect, useState } from "react";
 import { ArticleCard, Article } from "./ArticleCard";
 
 export const ArticleList = () => {
-    const articles: Article[] = [
-        {
-            title: "La importancia de la vacunación anual",
-            excerpt:
-                "Las vacunas protegen contra enfermedades mortales como moquillo, parvovirus y leptospirosis. Mantener el calendario al día reduce riesgos epidemiológicos.",
-            date: "23 Nov 2023",
-            category: "Salud Preventiva",
-            link: "https://www.avma.org/resources/pet-owners/petcare/vaccinations",
-        },
-        {
-            title: "Nutrición adecuada para cachorros según estudios veterinarios",
-            excerpt:
-                "Los cachorros requieren dietas ricas en proteínas y minerales para el desarrollo óseo. Un déficit temprano puede causar displasias y problemas musculares.",
-            date: "15 Nov 2023",
-            category: "Nutrición",
-            link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6566793/",
-        },
-        {
-            title: "Señales científicas del estrés en gatos",
-            excerpt:
-                "El estrés crónico en gatos puede causar enfermedades urinarias y problemas de comportamiento. Aprende a identificar signos clínicos validados.",
-            date: "02 Nov 2023",
-            category: "Comportamiento",
-            link: "https://journals.sagepub.com/doi/10.1177/1098612X15571880",
-        },
-        {
-            title: "Cuidado dental en perros mayores basado en evidencia",
-            excerpt:
-                "La enfermedad periodontal afecta al 80% de los perros mayores. La limpieza y prevención reducen infecciones y problemas cardíacos asociados.",
-            date: "28 Oct 2023",
-            category: "Geriatría",
-            link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7099669/",
-        },
-    ];
+    const [articles, setArticles] = useState<Article[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchArticles = async () => {
+            try {
+                const res = await fetch("/api/pet-care");
+                if (res.ok) {
+                    const data = await res.json();
+                    setArticles(data);
+                }
+            } catch (error) {
+                console.error("Error fetching articles:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchArticles();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center p-12">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+            </div>
+        );
+    }
+
+    if (articles.length === 0) {
+        return (
+            <div className="text-center p-12 bg-white rounded-lg shadow mt-12">
+                <p className="text-gray-500">No hay artículos disponibles en este momento.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-2">
