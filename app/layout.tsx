@@ -22,13 +22,7 @@ export default function RootLayout({
 
         <Navbar />
 
-        <main
-          className="
-            flex-1
-            overflow-x-hidden
-            overflow-y-auto
-          "
-        >
+        <main className="flex-1">
           {children}
         </main>
 

@@ -13,9 +13,9 @@ export default function Home() {
 
       <WelfarePolicy />
 
-      <ScrollReveal><History /></ScrollReveal>
+      <History />
 
-      <ScrollReveal><Philosophy /></ScrollReveal>
+      <Philosophy />
 
       <Values />
 
