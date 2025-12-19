@@ -11,21 +11,13 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white">
       <Hero />
 
-      <ScrollReveal>
-        <Values />
-      </ScrollReveal>
+      <WelfarePolicy />
 
-      <ScrollReveal>
-        <Philosophy />
-      </ScrollReveal>
+      <ScrollReveal><History /></ScrollReveal>
 
-      <ScrollReveal>
-        <WelfarePolicy />
-      </ScrollReveal>
+      <ScrollReveal><Philosophy /></ScrollReveal>
 
-      <ScrollReveal>
-        <History />
-      </ScrollReveal>
+      <Values />
 
       <ScrollReveal>
         <Calendar />

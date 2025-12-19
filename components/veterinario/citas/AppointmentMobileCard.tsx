@@ -22,7 +22,7 @@ export default function AppointmentMobileCard({
     const [expandedReason, setExpandedReason] = useState(false);
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow border">
+        <div className="bg-white p-4 rounded-lg shadow border overflow-hidden">
             {/* FECHA */}
             <p className="text-sm font-semibold text-gray-700">
                 {new Date(appointment.date).toLocaleString()}
@@ -45,7 +45,7 @@ export default function AppointmentMobileCard({
             </p>
 
             {/* MOTIVO (INLINE, CLICK PARA VER MÁS) */}
-            <div className="mt-2 text-sm text-gray-700">
+            <div className="mt-2 text-sm text-gray-700 break-words">
                 {truncateText(appointment.reason, 40)}
             </div>
 
@@ -57,7 +57,7 @@ export default function AppointmentMobileCard({
             </button>
 
             {expandedReason && (
-                <div className="mt-1 text-xs text-gray-700">
+                <div className="mt-1 text-xs text-gray-700 break-words">
                     {appointment.reason}
                 </div>
             )}
@@ -71,10 +71,10 @@ export default function AppointmentMobileCard({
             <p className="mt-2">
                 <span
                     className={`px-2 py-1 text-xs font-semibold rounded-full ${appointment.status === "aceptada"
-                            ? "bg-green-100 text-green-800"
-                            : appointment.status === "cancelada"
-                                ? "bg-red-100 text-red-800"
-                                : "bg-yellow-100 text-yellow-800"
+                        ? "bg-green-100 text-green-800"
+                        : appointment.status === "cancelada"
+                            ? "bg-red-100 text-red-800"
+                            : "bg-yellow-100 text-yellow-800"
                         }`}
                 >
                     {appointment.status}

@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
+/* Variables base */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* Tema inline (Next 15/16 + Tailwind v4) */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,6 +14,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,7 +22,18 @@
   }
 }
 
+/* 🔒 BLOQUEO GLOBAL DE DESBORDES */
+html,
 body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Body base */
+body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;

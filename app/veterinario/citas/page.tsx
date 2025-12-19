@@ -43,8 +43,8 @@ export default function VetAppointmentsPage() {
     };
 
     return (
-        <div className="p-4 md:p-0">
-            <div className="flex justify-between items-center mb-6">
+        <div className="p-4 md:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <h1 className="text-3xl font-bold text-gray-800">Gestión de Citas</h1>
                 <button
                     onClick={() => {
