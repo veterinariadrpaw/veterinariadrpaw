@@ -32,7 +32,7 @@ export const UserMobileCard = ({ user, onEdit, onDelete }: UserMobileCardProps) 
                     variant="ghost"
                     size="sm"
                     onClick={() => onEdit(user)}
-                    className="text-indigo-600 hover:text-indigo-900"
+                    className="text-black hover:text-black"
                 >
                     Editar
                 </Button>

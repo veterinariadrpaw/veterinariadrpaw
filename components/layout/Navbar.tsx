@@ -112,7 +112,8 @@ export default function Navbar() {
                         onClick={() => setIsOpen(!isOpen)}
                         className="
     min-[1000px]:hidden
-    p-3
+    flex items-center justify-center
+    h-10 w-10
     text-2xl
     rounded-md
     text-gray-600

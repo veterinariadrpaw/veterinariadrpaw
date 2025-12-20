@@ -67,7 +67,7 @@ export const UserModal = ({ isOpen, onClose, onSave, initialData }: UserModalPro
                         id="role"
                         value={formData.role}
                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="p-3 block w-full text-black rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     >
                         <option value="cliente">Cliente</option>
                         <option value="veterinario">Veterinario</option>

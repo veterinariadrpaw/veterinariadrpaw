@@ -31,7 +31,7 @@ export const RoleList = ({ users, modifiedRoles, onRoleChange, onSave }: RoleLis
 
     if (users.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-700">
+            <Card className="p-8 text-center text-black">
                 No hay usuarios registrados.
             </Card>
         );
