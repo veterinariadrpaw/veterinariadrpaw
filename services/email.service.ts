@@ -1,53 +1,67 @@
 import crypto from "crypto";
+import { Resend } from "resend";
 
 export interface EmailOptions {
-    to: string;
-    subject: string;
-    html: string;
+  to: string;
+  subject: string;
+  html: string;
 }
 
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
 export const EmailService = {
-    /**
-     * Sends an email. In development, logs to console.
-     * In production, integrate with Resend, SendGrid, or Nodemailer.
-     */
-    send: async (options: EmailOptions): Promise<void> => {
-        const isDev = process.env.NODE_ENV === "development";
+  /**
+   * Sends an email using Resend in production, logs to console in development
+   */
+  send: async (options: EmailOptions): Promise<void> => {
+    const isDev = process.env.NODE_ENV === "development";
+    const hasResendKey = !!process.env.RESEND_API_KEY;
 
-        if (isDev) {
-            console.log("\n📧 ===== EMAIL SENT (DEV MODE) =====");
-            console.log(`To: ${options.to}`);
-            console.log(`Subject: ${options.subject}`);
-            console.log(`Body:\n${options.html}`);
-            console.log("=====================================\n");
-            return;
-        }
+    // Development mode or no Resend key: log to console
+    if (isDev || !hasResendKey) {
+      console.log("\n📧 ===== EMAIL SENT (DEV MODE) =====");
+      console.log(`To: ${options.to}`);
+      console.log(`Subject: ${options.subject}`);
+      console.log(`Body:\n${options.html}`);
+      console.log("=====================================\n");
 
-        // TODO: Integrate with real email service
-        // Example with Resend:
-        // const resend = new Resend(process.env.RESEND_API_KEY);
-        // await resend.emails.send({
-        //   from: 'noreply@vetdrpaw.com',
-        //   to: options.to,
-        //   subject: options.subject,
-        //   html: options.html,
-        // });
+      if (!isDev && !hasResendKey) {
+        console.warn("⚠️  RESEND_API_KEY not configured. Emails will only be logged to console.");
+      }
+      return;
+    }
 
-        throw new Error("Email service not configured for production");
-    },
+    // Production mode with Resend
+    try {
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "VetDrPaw <noreply@vetdrpaw.com>";
 
-    /**
-     * Sends activation email to guest user
-     */
-    sendActivationEmail: async (
-        email: string,
-        name: string,
-        token: string
-    ): Promise<void> => {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-        const activationUrl = `${baseUrl}/activar?token=${token}`;
+      await resend!.emails.send({
+        from: fromEmail,
+        to: options.to,
+        subject: options.subject,
+        html: options.html,
+      });
 
-        const html = `
+      console.log(`✅ Email sent successfully to ${options.to}`);
+    } catch (error) {
+      console.error("❌ Error sending email with Resend:", error);
+      throw new Error("Failed to send email");
+    }
+  },
+
+  /**
+   * Sends activation email to guest user
+   */
+  sendActivationEmail: async (
+    email: string,
+    name: string,
+    token: string
+  ): Promise<void> => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const activationUrl = `${baseUrl}/activar?token=${token}`;
+
+    const html = `
       <!DOCTYPE html>
       <html>
         <head>
@@ -95,17 +109,17 @@ export const EmailService = {
       </html>
     `;
 
-        await EmailService.send({
-            to: email,
-            subject: "Activa tu cuenta en VetDrPaw 🐾",
-            html,
-        });
-    },
+    await EmailService.send({
+      to: email,
+      subject: "Activa tu cuenta en VetDrPaw 🐾",
+      html,
+    });
+  },
 
-    /**
-     * Generates a secure random token
-     */
-    generateToken: (): string => {
-        return crypto.randomBytes(32).toString("hex");
-    },
+  /**
+   * Generates a secure random token
+   */
+  generateToken: (): string => {
+    return crypto.randomBytes(32).toString("hex");
+  },
 };
