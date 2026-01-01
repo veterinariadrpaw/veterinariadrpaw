@@ -68,8 +68,13 @@ function ActivationContent() {
             const data = await res.json();
 
             if (!res.ok) {
-                throw new Error(data.error || "Error al activar la cuenta");
+                if (Array.isArray(data.errors) && data.errors.length > 0) {
+                    throw new Error(data.errors[0].message);
+                }
+
+                throw new Error(data.message || "Error al activar la cuenta");
             }
+
 
             // Store token in localStorage
             localStorage.setItem("token", data.token);

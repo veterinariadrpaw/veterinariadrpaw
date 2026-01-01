@@ -3,7 +3,7 @@ import { ZodError } from "zod";
 
 export class AppError extends Error {
     statusCode: number;
-    constructor(message: string, statusCode: number) {
+    constructor(message: string, statusCode = 400) {
         super(message);
         this.statusCode = statusCode;
     }
@@ -16,24 +16,41 @@ export const apiHandler = (handler: HandlerFunction) => {
         try {
             return await handler(req, ...args);
         } catch (err: any) {
-            console.error("API Error:", err);
 
+            // VALIDACIÓN (400)
             if (err instanceof ZodError) {
                 return NextResponse.json(
-                    { message: "Validation Error", errors: (err as ZodError) },
+                    {
+                        error: "VALIDATION_ERROR",
+                        message: "Datos inválidos",
+                        fields: err.issues.map((e: any) => ({
+                            field: e.path.join("."),
+                            message: e.message
+                        }))
+                    },
                     { status: 400 }
                 );
             }
 
+            // ERRORES CONTROLADOS DE NEGOCIO
             if (err instanceof AppError) {
                 return NextResponse.json(
-                    { message: err.message },
+                    {
+                        error: "APP_ERROR",
+                        message: err.message
+                    },
                     { status: err.statusCode }
                 );
             }
 
+            // ERROR DESCONOCIDO
+            console.error("[UNHANDLED API ERROR]", err);
+
             return NextResponse.json(
-                { message: "Internal Server Error" },
+                {
+                    error: "INTERNAL_SERVER_ERROR",
+                    message: "Ocurrió un error inesperado"
+                },
                 { status: 500 }
             );
         }

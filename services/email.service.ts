@@ -17,9 +17,10 @@ export const EmailService = {
   send: async (options: EmailOptions): Promise<void> => {
     const isDev = process.env.NODE_ENV === "development";
     const hasResendKey = !!process.env.RESEND_API_KEY;
+    const forceSend = process.env.SEND_REAL_EMAILS === "true";
 
-    // Development mode or no Resend key: log to console
-    if (isDev || !hasResendKey) {
+    // Development mode (without force) or no Resend key: log to console
+    if ((isDev && !forceSend) || !hasResendKey) {
       console.log("\n📧 ===== EMAIL SENT (DEV MODE) =====");
       console.log(`To: ${options.to}`);
       console.log(`Subject: ${options.subject}`);
@@ -34,7 +35,7 @@ export const EmailService = {
 
     // Production mode with Resend
     try {
-      const fromEmail = process.env.RESEND_FROM_EMAIL || "VetDrPaw <noreply@vetdrpaw.com>";
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "VetDrPaw <noreply@vetetinariadrpaw.com>";
 
       await resend!.emails.send({
         from: fromEmail,
@@ -67,12 +68,17 @@ export const EmailService = {
         <head>
           <meta charset="utf-8">
           <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
             .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-            .button { display: inline-block; padding: 15px 30px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
-            .footer { text-align: center; margin-top: 20px; color: #666; font-size: 12px; }
+            .header { background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); color: white; padding: 40px 30px; text-align: center; border-radius: 12px 12px 0 0; }
+            .header h1 { margin: 0; font-size: 28px; font-weight: 700; }
+            .content { background: #f9fafb; padding: 40px 30px; border-radius: 0 0 12px 12px; }
+            .content h2 { color: #0f766e; margin-top: 0; }
+            .button { display: inline-block; padding: 16px 32px; background: #0d9488; color: white !important; text-decoration: none; border-radius: 8px; margin: 24px 0; font-weight: 600; box-shadow: 0 4px 6px rgba(13, 148, 136, 0.2); }
+            .button:hover { background: #0f766e; }
+            .url-box { background: #fff; padding: 16px; border-radius: 8px; word-break: break-all; border: 1px solid #e5e7eb; margin: 16px 0; }
+            .footer { text-align: center; margin-top: 24px; color: #6b7280; font-size: 13px; }
+            .highlight { background: #ccfbf1; padding: 12px; border-radius: 6px; border-left: 4px solid #0d9488; margin: 16px 0; }
           </style>
         </head>
         <body>
@@ -91,7 +97,7 @@ export const EmailService = {
               </div>
               
               <p>O copia y pega este enlace en tu navegador:</p>
-              <p style="background: #fff; padding: 10px; border-radius: 5px; word-break: break-all;">
+              <p class="url-box">
                 ${activationUrl}
               </p>
               
