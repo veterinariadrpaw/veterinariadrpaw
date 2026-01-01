@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
 import { Service } from '@/types/service';
-import { Card } from '@/components/ui/Card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/Table';
 import { ServiceMobileCard } from './ServiceMobileCard';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations } from 'next-intl';
 
 interface ServiceListProps {
     services: Service[];
@@ -13,6 +12,9 @@ interface ServiceListProps {
 }
 
 export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
+    const t = useTranslations('VetPanel.services');
+    const tc = useTranslations('ClientPanel.common');
+
     const {
         paginatedItems: paginatedServices,
         currentPage,
@@ -24,7 +26,7 @@ export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
     if (services.length === 0) {
         return (
             <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
-                No hay servicios registrados.
+                {t('noServices')}
             </div>
         );
     }
@@ -47,30 +49,30 @@ export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>
                         <tr className="bg-gray-50 text-left">
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Nombre</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Precio Base</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Duración (min)</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Insumos</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Estado</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Acciones</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.name')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.basePrice')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.duration')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.supplies')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.status')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{tc('actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {paginatedServices.map((service) => (
                             <tr key={service._id} className="hover:bg-gray-50">
                                 <td className="py-3 px-4 border-b text-gray-800">
-                                    <div className="font-medium">{service.name}</div>
+                                    <div className="font-medium text-black">{service.name}</div>
                                     <div className="text-sm text-gray-700 truncate max-w-xs">
                                         {service.description}
                                     </div>
                                 </td>
-                                <td className="py-3 px-4 border-b text-gray-800">
+                                <td className="py-3 px-4 border-b text-black">
                                     ${service.basePrice.toFixed(2)}
                                 </td>
-                                <td className="py-3 px-4 border-b text-gray-800">
+                                <td className="py-3 px-4 border-b text-black">
                                     {service.duration}
                                 </td>
-                                <td className="py-3 px-4 border-b text-gray-800">
+                                <td className="py-3 px-4 border-b text-black">
                                     {service.supplies?.length || 0}
                                 </td>
                                 <td className="py-3 px-4 border-b">
@@ -80,22 +82,22 @@ export const ServiceList = ({ services, onToggleStatus }: ServiceListProps) => {
                                             : "bg-red-100 text-red-800"
                                             }`}
                                     >
-                                        {service.isActive ? "Activo" : "Inactivo"}
+                                        {service.isActive ? t('status.active') : t('status.inactive')}
                                     </span>
                                 </td>
                                 <td className="py-3 px-4 border-b space-x-2">
                                     <Link
                                         href={`/veterinario/servicios/editar/${service._id}`}
-                                        className="text-blue-600 hover:underline"
+                                        className="text-blue-600 hover:underline font-bold"
                                     >
-                                        Editar
+                                        {tc('edit')}
                                     </Link>
                                     <button
                                         onClick={() => onToggleStatus(service._id)}
-                                        className={`text-sm hover:underline ${service.isActive ? "text-red-600" : "text-green-600"
+                                        className={`text-sm hover:underline font-bold ${service.isActive ? "text-red-600" : "text-green-600"
                                             }`}
                                     >
-                                        {service.isActive ? "Desactivar" : "Activar"}
+                                        {service.isActive ? t('actions.deactivate') : t('actions.activate')}
                                     </button>
                                 </td>
                             </tr>

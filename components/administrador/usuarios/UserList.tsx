@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/Card';
 import { UserMobileCard } from './UserMobileCard';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations } from 'next-intl';
 
 interface UserListProps {
     users: User[];
@@ -15,6 +16,10 @@ interface UserListProps {
 }
 
 export const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
+    const t = useTranslations('AdminDashboard.users');
+    const tr = useTranslations('AdminDashboard.roles');
+    const tc = useTranslations('ClientPanel.common');
+
     const {
         paginatedItems: paginatedUsers,
         currentPage,
@@ -25,8 +30,8 @@ export const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
 
     if (users.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-700">
-                No hay usuarios registrados.
+            <Card className="p-8 text-center text-gray-700 font-bold">
+                {t('noUsers')}
             </Card>
         );
     }
@@ -50,20 +55,20 @@ export const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Nombre</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Rol</TableHead>
-                            <TableHead>Acciones</TableHead>
+                            <TableHead>{t('table.name')}</TableHead>
+                            <TableHead>{t('table.email')}</TableHead>
+                            <TableHead>{t('table.role')}</TableHead>
+                            <TableHead>{t('table.actions')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {paginatedUsers.map((user) => (
                             <TableRow key={user._id}>
                                 <TableCell>
-                                    <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                                    <div className="text-sm font-bold text-gray-900">{user.name}</div>
                                 </TableCell>
                                 <TableCell>
-                                    <div className="text-sm text-gray-700">{user.email}</div>
+                                    <div className="text-sm text-gray-700 font-bold">{user.email}</div>
                                 </TableCell>
                                 <TableCell>
                                     <Badge
@@ -73,26 +78,26 @@ export const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
                                                     'success'
                                         }
                                     >
-                                        {user.role}
+                                        {tr(user.role as any)}
                                     </Badge>
                                 </TableCell>
-                                <TableCell className="text-sm font-medium">
+                                <TableCell className="text-sm font-bold">
                                     <div className="flex space-x-2">
                                         <Button
                                             variant="ghost"
                                             size="sm"
                                             onClick={() => onEdit(user)}
-                                            className="text-indigo-600 hover:text-indigo-900"
+                                            className="text-indigo-600 hover:text-indigo-900 font-bold"
                                         >
-                                            Editar
+                                            {tc('actions.edit')}
                                         </Button>
                                         <Button
                                             variant="ghost"
                                             size="sm"
                                             onClick={() => onDelete(user._id)}
-                                            className="text-red-600 hover:text-red-900"
+                                            className="text-red-600 hover:text-red-900 font-bold"
                                         >
-                                            Eliminar
+                                            {tc('actions.delete')}
                                         </Button>
                                     </div>
                                 </TableCell>

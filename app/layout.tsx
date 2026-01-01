@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,22 +13,26 @@ export const metadata: Metadata = {
   description: "Clínica veterinaria de excelencia",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="es" className="h-full w-full">
-      <body className="min-h-screen flex flex-col overflow-x-hidden w-full">
+    <html lang={locale} className="h-full w-full">
+      <body className={`${inter.className} min-h-screen flex flex-col overflow-x-hidden w-full`}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <Navbar />
 
-        <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
 
-        <main className="flex-1">
-          {children}
-        </main>
-
-        <Footer />
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 
 interface AppointmentTableProps {
     appointments: Appointment[];
@@ -22,6 +23,10 @@ export default function AppointmentTable({
     onUpdateStatus,
     onViewReason,
 }: AppointmentTableProps) {
+    const t = useTranslations('VetPanel.appointments.table');
+    const tc = useTranslations('ClientPanel.common');
+    const ta = useTranslations('ClientPanel.appointments.table');
+    const locale = useLocale();
 
     // ✅ EL STATE VA AQUÍ
     const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -30,23 +35,32 @@ export default function AppointmentTable({
 
     const [selectedPet, setSelectedPet] = useState<any | null>(null);
 
+    const getStatusKey = (status: string) => {
+        switch (status) {
+            case 'pendiente': return 'pending';
+            case 'aceptada': return 'accepted';
+            case 'cancelada': return 'cancelled';
+            case 'completada': return 'completed';
+            default: return status;
+        }
+    };
 
     return (
         <div className="hidden md:block bg-white shadow sm:rounded-lg">
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Fecha/Hora</TableHead>
-                        <TableHead>Paciente</TableHead>
-                        <TableHead>Motivo</TableHead>
-                        <TableHead>Detalle</TableHead>
+                        <TableHead className="text-black">{t('dateTime')}</TableHead>
+                        <TableHead className="text-black">{t('patient')}</TableHead>
+                        <TableHead className="text-black">{t('reason')}</TableHead>
+                        <TableHead className="text-black">{t('detail')}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {appointments.map((app) => {
                         const fecha = new Date(app.date);
-                        const fechaTexto = fecha.toLocaleDateString();
-                        const horaTexto = fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                        const fechaTexto = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US');
+                        const horaTexto = fecha.toLocaleTimeString(locale === 'es' ? 'es-ES' : 'en-US', { hour: "2-digit", minute: "2-digit" });
 
                         return (
                             <TableRow key={app._id}>
@@ -81,7 +95,7 @@ export default function AppointmentTable({
                                             </div>
 
                                             <div>
-                                                Edad: {app.pet?.edad ? `${app.pet.edad} años` : "N/D"}
+                                                {t('age')}: {app.pet?.edad ? `${app.pet.edad} ${Number(app.pet.edad) === 1 ? tc('year') : tc('years')}` : t('notDefined')}
                                             </div>
                                         </div>
                                     )}
@@ -102,7 +116,7 @@ export default function AppointmentTable({
                                         }
                                         className="text-gray-900 hover:text-indigo-900 text-xs underline mt-1"
                                     >
-                                        Ver completo
+                                        {t('viewFull')}
                                     </button>
 
                                     {expandedReasonId === app._id && (
@@ -117,7 +131,7 @@ export default function AppointmentTable({
                                 <TableCell className="text-sm text-gray-700">
                                     <div className="flex flex-col">
                                         <span className="font-medium text-gray-900 mb-1">
-                                            {app.veterinarian?.name || "Sin asignar"}
+                                            {app.veterinarian?.name || ta('unassigned')}
                                         </span>
 
                                         <div className="mb-2">
@@ -129,8 +143,9 @@ export default function AppointmentTable({
                                                             ? "danger"
                                                             : "warning"
                                                 }
+                                                className="capitalize"
                                             >
-                                                {app.status}
+                                                {ta(getStatusKey(app.status))}
                                             </Badge>
                                         </div>
 
@@ -141,7 +156,7 @@ export default function AppointmentTable({
                                                 onClick={() => onUpdateStatus(app._id, "aceptada")}
                                                 className="text-green-600 hover:text-green-900 justify-start px-0 h-auto py-0.5"
                                             >
-                                                Aceptar
+                                                {t('accept')}
                                             </Button>
 
                                             <Button
@@ -150,7 +165,7 @@ export default function AppointmentTable({
                                                 onClick={() => onUpdateStatus(app._id, "cancelada")}
                                                 className="text-red-600 hover:text-red-900 justify-start px-0 h-auto py-0.5"
                                             >
-                                                Cancelar
+                                                {t('cancel')}
                                             </Button>
 
                                             <div className="mt-1 flex flex-col gap-1">

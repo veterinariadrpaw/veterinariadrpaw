@@ -1,10 +1,12 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import { ArticleCard, Article } from "./ArticleCard";
+import { useTranslations } from 'next-intl';
 
 export const ArticleList = () => {
     const [articles, setArticles] = useState<Article[]>([]);
     const [loading, setLoading] = useState(true);
+    const t = useTranslations('PetCare');
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -35,7 +37,7 @@ export const ArticleList = () => {
     if (articles.length === 0) {
         return (
             <div className="text-center p-12 bg-white rounded-lg shadow mt-12">
-                <p className="text-gray-500">No hay artículos disponibles en este momento.</p>
+                <p className="text-gray-500">{t('noArticles')}</p>
             </div>
         );
     }

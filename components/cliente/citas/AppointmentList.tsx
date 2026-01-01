@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { AppointmentMobileCard } from './AppointmentMobileCard';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface AppointmentListProps {
     appointments: Appointment[];
@@ -15,6 +16,10 @@ interface AppointmentListProps {
 }
 
 export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps) => {
+    const t = useTranslations('ClientPanel.appointments');
+    const tc = useTranslations('ClientPanel.common');
+    const locale = useLocale();
+
     const {
         paginatedItems: paginatedAppointments,
         currentPage,
@@ -23,15 +28,25 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
         handlePageChange
     } = usePagination(appointments, 10);
 
+    const getStatusKey = (status: string) => {
+        switch (status) {
+            case 'pendiente': return 'table.pending';
+            case 'aceptada': return 'table.accepted';
+            case 'cancelada': return 'table.cancelled';
+            case 'completada': return 'table.completed';
+            default: return status;
+        }
+    };
+
     if (appointments.length === 0) {
         return (
             <div className="px-4 py-8 text-center text-gray-700 bg-white rounded-lg shadow">
-                <p className="mb-4">No tienes citas programadas.</p>
+                <p className="mb-4">{t('noAppointments')}</p>
                 <Link
                     href="/cliente/citas/nueva"
                     className="text-teal-600 hover:text-teal-800 font-medium"
                 >
-                    Solicita tu primera cita →
+                    {t('requestFirst')}
                 </Link>
             </div>
         );
@@ -55,20 +70,20 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Fecha y Hora</TableHead>
-                            <TableHead>Mascota</TableHead>
-                            <TableHead>Veterinario</TableHead>
-                            <TableHead>Motivo</TableHead>
-                            <TableHead>Estado</TableHead>
-                            <TableHead>Acciones</TableHead>
+                            <TableHead>{t('table.dateTime')}</TableHead>
+                            <TableHead>{t('table.pet')}</TableHead>
+                            <TableHead>{t('table.veterinarian')}</TableHead>
+                            <TableHead>{t('table.reason')}</TableHead>
+                            <TableHead>{t('table.status')}</TableHead>
+                            <TableHead>{tc('actions')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {paginatedAppointments.map((appointment) => (
                             <TableRow key={appointment._id}>
                                 <TableCell>
-                                    <div className="text-sm font-medium text-teal-700">
-                                        {new Date(appointment.date).toLocaleDateString('es-ES', {
+                                    <div className="text-sm font-medium text-teal-700 capitalize">
+                                        {new Date(appointment.date).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
                                             weekday: 'long',
                                             year: 'numeric',
                                             month: 'long',
@@ -76,23 +91,23 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
                                         })}
                                     </div>
                                     <div className="text-sm text-gray-700">
-                                        {new Date(appointment.date).toLocaleTimeString('es-ES', {
+                                        {new Date(appointment.date).toLocaleTimeString(locale === 'es' ? 'es-ES' : 'en-US', {
                                             hour: '2-digit',
                                             minute: '2-digit'
                                         })}
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-sm text-gray-700">
-                                    {appointment.pet?.nombre || 'Desconocida'}
+                                    {appointment.pet?.nombre || t('table.unknown')}
                                 </TableCell>
                                 <TableCell className="text-sm text-gray-700">
-                                    {appointment.veterinarian?.name || 'Por asignar'}
+                                    {appointment.veterinarian?.name || t('table.unassigned')}
                                 </TableCell>
                                 <TableCell className="text-sm text-gray-700 max-w-xs truncate">
                                     {appointment.reason}
                                     {appointment.notas && appointment.status === 'completada' && (
                                         <div className="mt-1 text-xs text-gray-600 italic">
-                                            Notas: {appointment.notas}
+                                            {t('table.notes')}: {appointment.notas}
                                         </div>
                                     )}
                                 </TableCell>
@@ -103,8 +118,9 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
                                                 appointment.status === 'cancelada' ? 'danger' :
                                                     appointment.status === 'completada' ? 'info' : 'warning'
                                         }
+                                        className="capitalize"
                                     >
-                                        {appointment.status}
+                                        {t(getStatusKey(appointment.status))}
                                     </Badge>
                                 </TableCell>
                                 <TableCell>
@@ -115,7 +131,7 @@ export const AppointmentList = ({ appointments, onCancel }: AppointmentListProps
                                             onClick={() => onCancel(appointment._id)}
                                             className="text-red-600 hover:text-red-800"
                                         >
-                                            Cancelar
+                                            {tc('cancel')}
                                         </Button>
                                     )}
                                 </TableCell>

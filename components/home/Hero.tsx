@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 export default function Hero() {
+    const t = useTranslations('Hero');
+
     return (
         <div className="relative overflow-hidden isolate">
             <Image
@@ -16,23 +19,23 @@ export default function Hero() {
             </div>
             <div className="relative max-w-7xl mx-auto py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                    Cuidado Veterinario <br className="hidden sm:inline" />
+                    {t('title')} <br className="hidden sm:inline" />
                 </h1>
                 <p className="mt-6 text-lg sm:text-xl text-teal-50 max-w-3xl leading-relaxed">
-                    En VetDrPaw, combinamos tecnología de vanguardia con un trato compasivo para asegurar que tu mascota tenga la vida más larga y feliz posible.
+                    {t('description')}
                 </p>
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
                     <Link
                         href="/contacto"
                         className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-teal-900 bg-teal-50 hover:bg-teal-100 transition-smooth shadow-md hover:shadow-lg"
                     >
-                        Contáctanos
+                        {t('contact')}
                     </Link>
                     <Link
                         href="/sobre"
                         className="inline-flex items-center justify-center px-6 py-3 border-2 border-teal-100 text-base font-medium rounded-lg text-white bg-teal-700/50 hover:bg-teal-700 backdrop-blur-sm transition-smooth"
                     >
-                        Conócenos
+                        {t('about')}
                     </Link>
                 </div>
             </div>

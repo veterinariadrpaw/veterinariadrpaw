@@ -5,6 +5,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { RoleMobileCard } from './RoleMobileCard';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations } from 'next-intl';
 
 interface User {
     _id: string;
@@ -21,6 +22,9 @@ interface RoleListProps {
 }
 
 export const RoleList = ({ users, modifiedRoles, onRoleChange, onSave }: RoleListProps) => {
+    const t = useTranslations('AdminDashboard.roles');
+    const tr = useTranslations('AdminDashboard.roleLabels');
+
     const {
         paginatedItems: paginatedUsers,
         currentPage,
@@ -31,8 +35,8 @@ export const RoleList = ({ users, modifiedRoles, onRoleChange, onSave }: RoleLis
 
     if (users.length === 0) {
         return (
-            <Card className="p-8 text-center text-black">
-                No hay usuarios registrados.
+            <Card className="p-8 text-center text-black font-bold">
+                {t('noUsers')}
             </Card>
         );
     }
@@ -57,46 +61,46 @@ export const RoleList = ({ users, modifiedRoles, onRoleChange, onSave }: RoleLis
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Usuario</TableHead>
-                            <TableHead>Rol Actual</TableHead>
-                            <TableHead>Nuevo Rol</TableHead>
-                            <TableHead>Acción</TableHead>
+                            <TableHead className="font-bold">{t('table.user')}</TableHead>
+                            <TableHead className="font-bold">{t('table.currentRole')}</TableHead>
+                            <TableHead className="font-bold">{t('table.newRole')}</TableHead>
+                            <TableHead className="font-bold text-right">{t('table.action')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {paginatedUsers.map((user) => (
                             <TableRow key={user._id}>
                                 <TableCell>
-                                    <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                                    <div className="text-sm text-gray-700">{user.email}</div>
+                                    <div className="text-sm font-bold text-gray-900">{user.name}</div>
+                                    <div className="text-sm text-gray-700 font-bold">{user.email}</div>
                                 </TableCell>
                                 <TableCell>
-                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :
+                                    <span className={`px-2 inline-flex text-xs leading-5 font-bold rounded-full ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :
                                         user.role === 'veterinario' ? 'bg-indigo-100 text-indigo-800' :
                                             'bg-green-100 text-green-800'
                                         }`}>
-                                        {user.role}
+                                        {tr(user.role as any)}
                                     </span>
                                 </TableCell>
                                 <TableCell>
                                     <select
                                         value={modifiedRoles[user._id] || user.role}
                                         onChange={(e) => onRoleChange(user._id, e.target.value)}
-                                        className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border text-black"
+                                        className="mt-1 block pl-3 pr-10 py-2 text-base font-bold border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border text-black"
                                     >
-                                        <option value="cliente">Cliente</option>
-                                        <option value="veterinario">Veterinario</option>
-                                        <option value="administrador">Administrador</option>
+                                        <option value="cliente">{tr('cliente')}</option>
+                                        <option value="veterinario">{tr('veterinario')}</option>
+                                        <option value="administrador">{tr('administrador')}</option>
                                     </select>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="text-right">
                                     {modifiedRoles[user._id] && modifiedRoles[user._id] !== user.role && (
                                         <Button
                                             size="sm"
                                             onClick={() => onSave(user._id)}
-                                            className="bg-indigo-600 text-white hover:bg-indigo-700"
+                                            className="bg-indigo-600 text-white hover:bg-indigo-700 font-bold"
                                         >
-                                            Actualizar
+                                            {t('updateRole')}
                                         </Button>
                                     )}
                                 </TableCell>

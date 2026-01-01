@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { CalendarEventItem } from "@/hooks/useCalendarEvents";
+import { useTranslations } from "next-intl";
 
 interface CalendarEventFormProps {
     initialData?: Partial<CalendarEventItem>;
@@ -11,6 +12,9 @@ interface CalendarEventFormProps {
 }
 
 export default function CalendarEventForm({ initialData, onSubmit, onCancel, isEditing = false }: CalendarEventFormProps) {
+    const t = useTranslations('AdminDashboard.calendar.form');
+    const tc = useTranslations('ClientPanel.common');
+
     const [formData, setFormData] = useState({
         title: "",
         date: new Date().toISOString().split('T')[0],
@@ -45,49 +49,49 @@ export default function CalendarEventForm({ initialData, onSubmit, onCancel, isE
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label className="block text-sm font-medium text-gray-700">Título del Evento</label>
+                <label className="block text-sm font-bold text-gray-700">{t('titleLabel')}</label>
                 <input
                     type="text"
                     name="title"
                     required
-                    placeholder="Ej: Jornada de Vacunación"
+                    placeholder={t('titlePlaceholder')}
                     value={formData.title}
                     onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-black"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 font-bold focus:ring-teal-500 focus:border-teal-500 text-black"
                 />
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Fecha</label>
+                <label className="block text-sm font-bold text-gray-700">{t('dateLabel')}</label>
                 <input
                     type="date"
                     name="date"
                     required
                     value={formData.date}
                     onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-black"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 font-bold focus:ring-teal-500 focus:border-teal-500 text-black"
                 />
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Descripción</label>
+                <label className="block text-sm font-bold text-gray-700">{t('descriptionLabel')}</label>
                 <textarea
                     name="description"
                     required
                     rows={3}
-                    placeholder="Detalles sobre el evento..."
+                    placeholder={t('descriptionPlaceholder')}
                     value={formData.description}
                     onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-black"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 font-bold focus:ring-teal-500 focus:border-teal-500 text-black"
                 />
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Ubicación (Opcional)</label>
+                <label className="block text-sm font-bold text-gray-700">{t('locationLabel')}</label>
                 <input
                     type="text"
                     name="location"
-                    placeholder="Ej: Clínica Principal / Parque Central"
+                    placeholder={t('locationPlaceholder')}
                     value={formData.location}
                     onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-black"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 font-bold focus:ring-teal-500 focus:border-teal-500 text-black"
                 />
             </div>
 
@@ -95,16 +99,16 @@ export default function CalendarEventForm({ initialData, onSubmit, onCancel, isE
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
+                    className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors font-bold"
                 >
-                    Cancelar
+                    {tc('cancelar')}
                 </button>
                 <button
                     type="submit"
                     disabled={loading}
-                    className="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-colors disabled:opacity-50"
+                    className="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-colors disabled:opacity-50 font-bold"
                 >
-                    {loading ? "Guardando..." : isEditing ? "Actualizar Evento" : "Crear Evento"}
+                    {loading ? tc('guardando') : isEditing ? t('updateEvent') : t('createEvent')}
                 </button>
             </div>
         </form>

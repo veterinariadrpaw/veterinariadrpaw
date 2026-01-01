@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button';
+import { useTranslations } from 'next-intl';
 
 interface User {
     _id: string;
@@ -15,34 +16,37 @@ interface RoleMobileCardProps {
 }
 
 export const RoleMobileCard = ({ user, modifiedRole, onRoleChange, onSave }: RoleMobileCardProps) => {
+    const t = useTranslations('AdminDashboard.roles');
+    const tr = useTranslations('AdminDashboard.roleLabels');
+
     return (
         <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
             <div className="mb-3">
-                <p className="font-semibold text-gray-900">{user.name}</p>
-                <p className="text-sm text-gray-700">{user.email}</p>
+                <p className="font-bold text-gray-900">{user.name}</p>
+                <p className="text-sm text-gray-700 font-bold">{user.email}</p>
             </div>
 
             <div className="flex justify-between items-center bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-700 mb-1">Rol Actual</span>
-                    <span className={`px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full w-fit ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :
+                    <span className="text-xs text-gray-700 mb-1 font-bold">{t('table.currentRole')}</span>
+                    <span className={`px-2 py-0.5 inline-flex text-xs leading-5 font-bold rounded-full w-fit ${user.role === 'administrador' ? 'bg-purple-100 text-purple-800' :
                         user.role === 'veterinario' ? 'bg-indigo-100 text-indigo-800' :
                             'bg-green-100 text-green-800'
                         }`}>
-                        {user.role}
+                        {tr(user.role as any)}
                     </span>
                 </div>
 
                 <div className="flex flex-col items-end">
-                    <span className="text-xs text-gray-700 mb-1">Nuevo Rol</span>
+                    <span className="text-xs text-gray-700 mb-1 font-bold">{t('table.newRole')}</span>
                     <select
                         value={modifiedRole}
                         onChange={(e) => onRoleChange(user._id, e.target.value)}
-                        className="block w-32 pl-2 pr-8 py-1 text-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md border text-black"
+                        className="block w-32 pl-2 pr-8 py-1 text-sm font-bold border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md border text-black"
                     >
-                        <option value="cliente">Cliente</option>
-                        <option value="veterinario">Veterinario</option>
-                        <option value="administrador">Administrador</option>
+                        <option value="cliente">{tr('cliente')}</option>
+                        <option value="veterinario">{tr('veterinario')}</option>
+                        <option value="administrador">{tr('administrador')}</option>
                     </select>
                 </div>
             </div>
@@ -52,9 +56,9 @@ export const RoleMobileCard = ({ user, modifiedRole, onRoleChange, onSave }: Rol
                     <Button
                         size="sm"
                         onClick={() => onSave(user._id)}
-                        className="bg-indigo-600 text-white hover:bg-indigo-700 w-full justify-center"
+                        className="bg-indigo-600 text-white hover:bg-indigo-700 w-full justify-center font-bold"
                     >
-                        Actualizar Rol
+                        {t('updateRole')}
                     </Button>
                 </div>
             )}

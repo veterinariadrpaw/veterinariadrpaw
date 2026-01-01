@@ -1,16 +1,21 @@
 import Link from 'next/link';
 import React from 'react';
 import { Appointment } from '@/types/appointment';
+import { useTranslations, useLocale } from 'next-intl';
 
 export const UpcomingAppointments = ({ appointments }: { appointments: Appointment[] }) => {
+    const t = useTranslations('ClientPanel.dashboard');
+    const tc = useTranslations('ClientPanel.common');
+    const locale = useLocale();
+
     if (appointments.length === 0) return null;
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-800">Próximas Citas</h2>
+                <h2 className="text-xl font-bold text-gray-800">{t('upcomingAppts')}</h2>
                 <Link href="/cliente/citas" className="text-sm text-teal-600 hover:text-teal-700 font-medium">
-                    Ver todas →
+                    {tc('viewAll')}
                 </Link>
             </div>
             <div className="space-y-3">
@@ -18,15 +23,15 @@ export const UpcomingAppointments = ({ appointments }: { appointments: Appointme
                     <div key={apt._id} className="p-4 border border-gray-200 rounded-lg hover:shadow-sm transition-shadow">
                         <div className="flex justify-between items-start">
                             <div className="flex-1">
-                                <p className="font-semibold text-gray-800">
-                                    {new Date(apt.date).toLocaleDateString('es-ES', {
+                                <p className="font-semibold text-gray-800 capitalize">
+                                    {new Date(apt.date).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
                                         weekday: 'long',
                                         month: 'long',
                                         day: 'numeric'
                                     })}
                                 </p>
                                 <p className="text-sm text-gray-600 mt-1">
-                                    🕒 {new Date(apt.date).toLocaleTimeString('es-ES', {
+                                    🕒 {new Date(apt.date).toLocaleTimeString(locale === 'es' ? 'es-ES' : 'en-US', {
                                         hour: '2-digit',
                                         minute: '2-digit'
                                     })} • 🐾 {apt.pet.nombre}

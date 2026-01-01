@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { X, UserPlus, Mail, Phone, User, Loader2, CheckCircle, PawPrint } from "lucide-react";
 import { PetRegistrationForm } from "./PetRegistrationForm";
+import { useTranslations } from "next-intl";
 
 interface GuestUserFormProps {
     onClose: () => void;
@@ -10,6 +11,10 @@ interface GuestUserFormProps {
 }
 
 export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
+    const t = useTranslations('VetPanel.guestRegistration');
+    const tp = useTranslations('ClientPanel.profile');
+    const tc = useTranslations('ClientPanel.common');
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -36,7 +41,7 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
             const data = await res.json();
 
             if (!res.ok) {
-                throw new Error(data.error || "Error al crear usuario invitado");
+                throw new Error(data.error || t('errorCreating'));
             }
 
             setSuccess(true);
@@ -98,11 +103,11 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
                             <UserPlus className="text-white" size={24} />
                         </div>
                         <h2 className="text-2xl font-bold text-gray-800">
-                            Registrar Cliente Invitado
+                            {t('title')}
                         </h2>
                     </div>
-                    <p className="text-gray-600 text-sm">
-                        Crea una cuenta temporal para tu cliente. Recibirá un email para activar su cuenta.
+                    <p className="text-gray-600 text-sm font-bold">
+                        {t('subtitle')}
                     </p>
                 </div>
 
@@ -112,29 +117,29 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
                         <div className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
                             <CheckCircle className="text-green-600" size={20} />
                             <div>
-                                <p className="text-green-800 font-semibold">¡Usuario creado exitosamente!</p>
-                                <p className="text-green-700 text-sm">
-                                    Se ha enviado un email de activación a {formData.email}
+                                <p className="text-green-800 font-bold">{t('success')}</p>
+                                <p className="text-green-700 text-sm font-bold">
+                                    {t('emailSent', { email: formData.email })}
                                 </p>
                             </div>
                         </div>
 
                         {/* Next Steps */}
                         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                            <p className="text-blue-800 font-semibold mb-3">¿Qué deseas hacer ahora?</p>
+                            <p className="text-blue-800 font-bold mb-3">{t('nextSteps')}</p>
                             <div className="space-y-2">
                                 <button
                                     onClick={handleAddPet}
-                                    className="w-full px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition font-medium flex items-center justify-center gap-2 shadow-md"
+                                    className="w-full px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition font-bold flex items-center justify-center gap-2 shadow-md"
                                 >
                                     <PawPrint size={20} />
-                                    Agregar Mascota
+                                    {t('addPet')}
                                 </button>
                                 <button
                                     onClick={handleFinish}
-                                    className="w-full px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium"
+                                    className="w-full px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-bold"
                                 >
-                                    Finalizar
+                                    {t('finish')}
                                 </button>
                             </div>
                         </div>
@@ -144,7 +149,7 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
                 {/* Error Message */}
                 {error && (
                     <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                        <p className="text-red-800 text-sm">{error}</p>
+                        <p className="text-red-800 text-sm font-bold">{error}</p>
                     </div>
                 )}
 
@@ -152,9 +157,9 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
                 {!success && (
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Name Field */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Nombre Completo *
+                        <div className="text-black">
+                            <label className="block text-sm font-bold text-gray-700 mb-2">
+                                {tp('fullName')} *
                             </label>
                             <div className="relative">
                                 <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -173,9 +178,9 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
                         </div>
 
                         {/* Email Field */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Email *
+                        <div className="text-black">
+                            <label className="block text-sm font-bold text-gray-700 mb-2">
+                                {tp('email')} *
                             </label>
                             <div className="relative">
                                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -193,9 +198,9 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
                         </div>
 
                         {/* Phone Field */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Teléfono (opcional)
+                        <div className="text-black">
+                            <label className="block text-sm font-bold text-gray-700 mb-2">
+                                {tp('phone')} ({tc('optional')})
                             </label>
                             <div className="relative">
                                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -216,25 +221,25 @@ export function GuestUserForm({ onClose, onSuccess }: GuestUserFormProps) {
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium"
+                                className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-bold"
                                 disabled={loading}
                             >
-                                Cancelar
+                                {tc('cancel')}
                             </button>
                             <button
                                 type="submit"
-                                className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:from-purple-600 hover:to-indigo-700 transition font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:from-purple-600 hover:to-indigo-700 transition font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                 disabled={loading}
                             >
                                 {loading ? (
                                     <>
                                         <Loader2 className="animate-spin" size={20} />
-                                        Creando...
+                                        {tc('creating')}...
                                     </>
                                 ) : (
                                     <>
                                         <UserPlus size={20} />
-                                        Crear Usuario
+                                        {t('createUser')}
                                     </>
                                 )}
                             </button>

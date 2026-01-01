@@ -2,21 +2,25 @@ import Link from 'next/link';
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/Table';
 import { Pet } from '@/types/pet';
+import { useTranslations } from 'next-intl';
 
 interface PatientListProps {
     patients: Pet[];
 }
 
 export const PatientList = ({ patients = [] }: PatientListProps) => {
+    const t = useTranslations('VetPanel.patients');
+    const tc = useTranslations('ClientPanel.common');
+
     return (
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Mascota</TableHead>
-                        <TableHead>Especie/Raza</TableHead>
-                        <TableHead>Propietario</TableHead>
-                        <TableHead>Acciones</TableHead>
+                        <TableHead className="text-black">{t('table.pet')}</TableHead>
+                        <TableHead className="text-black">{t('table.speciesBreed')}</TableHead>
+                        <TableHead className="text-black">{t('table.owner')}</TableHead>
+                        <TableHead className="text-black">{tc('actions')}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -24,7 +28,9 @@ export const PatientList = ({ patients = [] }: PatientListProps) => {
                         <TableRow key={pet._id}>
                             <TableCell className="whitespace-nowrap">
                                 <div className="text-sm font-medium text-gray-900">{pet.nombre}</div>
-                                <div className="text-sm text-gray-700">{pet.edad} años</div>
+                                <div className="text-sm text-gray-700">
+                                    {pet.edad} {pet.edad === 1 ? tc('year') : tc('years')}
+                                </div>
                             </TableCell>
                             <TableCell className="whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{pet.especie}</div>
@@ -39,7 +45,7 @@ export const PatientList = ({ patients = [] }: PatientListProps) => {
                                     href={`/veterinario/mascotas/${pet._id}/historial`}
                                     className="text-indigo-600 hover:text-indigo-900 font-bold"
                                 >
-                                    Ver Historial
+                                    {t('table.viewHistory')}
                                 </Link>
                             </TableCell>
                         </TableRow>

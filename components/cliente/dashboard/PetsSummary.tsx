@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
 import { Pet } from '@/types/pet';
+import { useTranslations } from 'next-intl';
 
 export const PetsSummary = ({ pets }: { pets: Pet[] }) => {
+    const t = useTranslations('ClientPanel.dashboard');
+    const tc = useTranslations('ClientPanel.common');
+
     const getSpeciesEmoji = (especie: string) => {
         const especieLower = especie.toLowerCase();
         if (especieLower.includes('perro')) return '🐕';
@@ -13,20 +17,20 @@ export const PetsSummary = ({ pets }: { pets: Pet[] }) => {
     return (
         <div className="bg-white p-6 rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-800">Mis Mascotas</h2>
+                <h2 className="text-xl font-bold text-gray-800">{tc('pets') || 'Mis Mascotas'}</h2>
                 <Link href="/cliente/mascotas" className="text-sm text-teal-600 hover:text-teal-700 font-medium">
-                    Ver todas →
+                    {tc('viewAll')}
                 </Link>
             </div>
 
             {pets.length === 0 ? (
                 <div className="text-center py-8 text-gray-700">
-                    <p className="mb-4">Aún no has registrado ninguna mascota</p>
+                    <p className="mb-4">{t('noPets')}</p>
                     <Link
                         href="/cliente/mascotas"
                         className="inline-block bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-colors"
                     >
-                        Registrar mi primera mascota
+                        {t('registerFirst')}
                     </Link>
                 </div>
             ) : (
@@ -47,7 +51,7 @@ export const PetsSummary = ({ pets }: { pets: Pet[] }) => {
                                     </h3>
                                     <p className="text-sm text-gray-600">{pet.especie}</p>
                                     {pet.edad !== undefined && (
-                                        <p className="text-xs text-gray-700">{pet.edad} años</p>
+                                        <p className="text-xs text-gray-700">{pet.edad} {pet.edad === 1 ? tc('year') : tc('years')}</p>
                                     )}
                                 </div>
                             </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface SidebarLink {
     href: string;
@@ -27,6 +28,7 @@ export default function Sidebar({
 }: SidebarProps) {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
+    const t = useTranslations('Sidebar');
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -83,7 +85,7 @@ export default function Sidebar({
                         href="/"
                         className={`block py-3 px-6 ${hoverColor} transition-colors mt-10 border-t ${borderColor}`}
                     >
-                        Volver al Inicio
+                        {t('goHome')}
                     </Link>
                 </nav>
             </aside>

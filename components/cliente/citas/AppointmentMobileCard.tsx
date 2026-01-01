@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Appointment } from '@/types/appointment';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface AppointmentMobileCardProps {
     appointment: Appointment;
@@ -9,6 +10,20 @@ interface AppointmentMobileCardProps {
 }
 
 export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobileCardProps) => {
+    const t = useTranslations('ClientPanel.appointments');
+    const tc = useTranslations('ClientPanel.common');
+    const locale = useLocale();
+
+    const getStatusKey = (status: string) => {
+        switch (status) {
+            case 'pendiente': return 'table.pending';
+            case 'aceptada': return 'table.accepted';
+            case 'cancelada': return 'table.cancelled';
+            case 'completada': return 'table.completed';
+            default: return status;
+        }
+    };
+
     return (
         <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
             <div className="flex justify-between items-start mb-2">
@@ -19,12 +34,12 @@ export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobi
                                 appointment.status === 'cancelada' ? 'danger' :
                                     appointment.status === 'completada' ? 'info' : 'warning'
                         }
-                        className="mb-1"
+                        className="mb-1 capitalize"
                     >
-                        {appointment.status}
+                        {t(getStatusKey(appointment.status))}
                     </Badge>
-                    <h3 className="font-semibold text-teal-600">
-                        {new Date(appointment.date).toLocaleDateString('es-ES', {
+                    <h3 className="font-semibold text-teal-600 capitalize">
+                        {new Date(appointment.date).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
                             weekday: 'long',
                             year: 'numeric',
                             month: 'long',
@@ -32,7 +47,7 @@ export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobi
                         })}
                     </h3>
                     <p className="text-sm text-gray-700">
-                        {new Date(appointment.date).toLocaleTimeString('es-ES', {
+                        {new Date(appointment.date).toLocaleTimeString(locale === 'es' ? 'es-ES' : 'en-US', {
                             hour: '2-digit',
                             minute: '2-digit'
                         })}
@@ -42,15 +57,15 @@ export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobi
 
             <div className="grid grid-cols-1 gap-2 mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-700">Mascota</span>
-                    <span className="font-medium">{appointment.pet?.nombre || 'Desconocida'}</span>
+                    <span className="text-xs text-gray-700">{t('table.pet')}</span>
+                    <span className="font-medium">{appointment.pet?.nombre || t('table.unknown')}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-700">Veterinario</span>
-                    <span className="font-medium">{appointment.veterinarian?.name || 'Por asignar'}</span>
+                    <span className="text-xs text-gray-700">{t('table.veterinarian')}</span>
+                    <span className="font-medium">{appointment.veterinarian?.name || t('table.unassigned')}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-700">Motivo</span>
+                    <span className="text-xs text-gray-700">{t('table.reason')}</span>
                     <span className="italic">{appointment.reason}</span>
                 </div>
             </div>
@@ -58,7 +73,7 @@ export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobi
             {appointment.notas && appointment.status === 'completada' && (
                 <div className="mt-3 p-3 bg-blue-50 rounded border border-blue-200 text-sm">
                     <p className="text-gray-700">
-                        <strong>Notas del veterinario:</strong> {appointment.notas}
+                        <strong>{t('table.notes')}:</strong> {appointment.notas}
                     </p>
                 </div>
             )}
@@ -71,7 +86,7 @@ export const AppointmentMobileCard = ({ appointment, onCancel }: AppointmentMobi
                         onClick={() => onCancel(appointment._id)}
                         className="text-red-600 hover:text-red-800 w-full justify-center"
                     >
-                        Cancelar Cita
+                        {tc('cancel')}
                     </Button>
                 </div>
             )}

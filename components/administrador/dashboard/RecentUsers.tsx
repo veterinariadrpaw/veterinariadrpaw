@@ -3,24 +3,30 @@ import { User } from '@/types/user';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/Table';
+import { useTranslations, useLocale } from 'next-intl';
 
 export const RecentUsers = ({ users }: { users: User[] }) => {
+    const t = useTranslations('AdminDashboard.dashboard.recentRecords');
+    const tr = useTranslations('AdminDashboard.roles');
+    const tc = useTranslations('ClientPanel.common');
+    const locale = useLocale();
+
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Registros Recientes</CardTitle>
+                <CardTitle>{t('title')}</CardTitle>
             </CardHeader>
             <CardContent>
                 {users.length === 0 ? (
-                    <p className="text-gray-700">No hay usuarios registrados recientemente.</p>
+                    <p className="text-gray-700">{t('noRecords')}</p>
                 ) : (
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Nombre</TableHead>
-                                <TableHead>Email</TableHead>
-                                <TableHead>Rol</TableHead>
-                                <TableHead>Fecha Registro</TableHead>
+                                <TableHead>{t('table.name')}</TableHead>
+                                <TableHead>{t('table.email')}</TableHead>
+                                <TableHead>{t('table.role')}</TableHead>
+                                <TableHead>{t('table.date')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -36,11 +42,11 @@ export const RecentUsers = ({ users }: { users: User[] }) => {
                                                         'success'
                                             }
                                         >
-                                            {user.role}
+                                            {tr(user.role as any)}
                                         </Badge>
                                     </TableCell>
                                     <TableCell className="text-gray-700">
-                                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString(locale) : tc('notAvailable')}
                                     </TableCell>
                                 </TableRow>
                             ))}

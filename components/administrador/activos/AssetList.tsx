@@ -5,6 +5,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { AssetMobileCard } from './AssetMobileCard';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations } from 'next-intl';
 
 interface Asset {
     _id: string;
@@ -23,6 +24,9 @@ interface AssetListProps {
 }
 
 export const AssetList = ({ assets, onDelete }: AssetListProps) => {
+    const t = useTranslations('AdminDashboard.assets');
+    const tc = useTranslations('ClientPanel.common');
+
     const {
         paginatedItems: paginatedAssets,
         currentPage,
@@ -33,8 +37,8 @@ export const AssetList = ({ assets, onDelete }: AssetListProps) => {
 
     if (assets.length === 0) {
         return (
-            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
-                No hay activos registrados.
+            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow font-bold">
+                {t('noAssets')}
             </div>
         );
     }
@@ -57,50 +61,50 @@ export const AssetList = ({ assets, onDelete }: AssetListProps) => {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Nombre</TableHead>
-                            <TableHead>Categoría</TableHead>
-                            <TableHead>Cantidad</TableHead>
-                            <TableHead>Costo Unit.</TableHead>
-                            <TableHead>Valor Actual</TableHead>
-                            <TableHead>Adquisición</TableHead>
-                            <TableHead className="text-right">Acciones</TableHead>
+                            <TableHead className="font-bold">{t('table.name')}</TableHead>
+                            <TableHead className="font-bold">{t('table.category')}</TableHead>
+                            <TableHead className="font-bold">{t('table.quantity')}</TableHead>
+                            <TableHead className="font-bold">{t('table.unitCost')}</TableHead>
+                            <TableHead className="font-bold">{t('table.totalValue')}</TableHead>
+                            <TableHead className="font-bold">{t('table.acquisition')}</TableHead>
+                            <TableHead className="text-right font-bold">{tc('acciones')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {paginatedAssets.map((asset) => (
                             <TableRow key={asset._id} className="hover:bg-gray-50">
                                 <TableCell>
-                                    <div className="text-sm font-medium text-gray-900">{asset.name}</div>
+                                    <div className="text-sm font-bold text-gray-900">{asset.name}</div>
                                 </TableCell>
                                 <TableCell>
-                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                    <span className="px-2 inline-flex text-xs leading-5 font-bold rounded-full bg-gray-100 text-gray-800">
                                         {asset.category}
                                     </span>
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-700">
+                                <TableCell className="text-sm text-gray-700 font-bold">
                                     {asset.quantity}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-700">
+                                <TableCell className="text-sm text-gray-700 font-bold">
                                     ${asset.unitCost.toLocaleString()}
                                 </TableCell>
                                 <TableCell className="text-sm font-bold text-gray-900">
                                     ${asset.totalValue.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-700">
+                                <TableCell className="text-sm text-gray-700 font-bold">
                                     {new Date(asset.acquisitionDate).toLocaleDateString()}
                                 </TableCell>
-                                <TableCell className="text-right text-sm font-medium">
+                                <TableCell className="text-right text-sm font-bold">
                                     <Link
                                         href={`/administrador/activos/${asset._id}`}
                                         className="text-indigo-600 hover:text-indigo-900 mr-4"
                                     >
-                                        Editar
+                                        {tc('editar')}
                                     </Link>
                                     <button
                                         onClick={() => onDelete(asset._id)}
                                         className="text-red-600 hover:text-red-900"
                                     >
-                                        Eliminar
+                                        {tc('eliminar')}
                                     </button>
                                 </TableCell>
                             </TableRow>

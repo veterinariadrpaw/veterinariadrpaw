@@ -3,6 +3,7 @@ import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Button } from '@/components/ui/Button';
+import { useTranslations } from 'next-intl';
 
 interface UserModalProps {
     isOpen: boolean;
@@ -12,6 +13,11 @@ interface UserModalProps {
 }
 
 export const UserModal = ({ isOpen, onClose, onSave, initialData }: UserModalProps) => {
+    const t = useTranslations('AdminDashboard.users.modal');
+    const tr = useTranslations('AdminDashboard.roles');
+    const tp = useTranslations('ClientPanel.profile');
+    const tc = useTranslations('ClientPanel.common');
+
     const [formData, setFormData] = useState({ name: "", email: "", role: "cliente" });
 
     useEffect(() => {
@@ -31,47 +37,49 @@ export const UserModal = ({ isOpen, onClose, onSave, initialData }: UserModalPro
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title={initialData ? "Editar Usuario" : "Nuevo Usuario"}
+            title={initialData ? t('editTitle') : t('newTitle')}
             footer={
                 <>
-                    <Button variant="outline" onClick={onClose} className="mr-2">
-                        Cancelar
+                    <Button variant="outline" onClick={onClose} className="mr-2 font-bold">
+                        {tc('cancel')}
                     </Button>
-                    <Button onClick={handleSubmit}>
-                        Guardar
+                    <Button onClick={handleSubmit} className="font-bold">
+                        {tc('actions.save')}
                     </Button>
                 </>
             }
         >
             <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
+                <div className="text-black">
                     <Input
-                        label="Nombre"
+                        label={tp('fullName')}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
+                        className="font-bold"
                     />
                 </div>
-                <div>
+                <div className="text-black">
                     <Input
-                        label="Email"
+                        label={tp('email')}
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
+                        className="font-bold"
                     />
                 </div>
-                <div>
-                    <Label htmlFor="role" className="mb-1">Rol</Label>
+                <div className="text-black">
+                    <Label htmlFor="role" className="mb-1 font-bold">{tp('position')}</Label>
                     <select
                         id="role"
                         value={formData.role}
                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        className="p-3 block w-full text-black rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="p-3 block w-full text-black rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-bold"
                     >
-                        <option value="cliente">Cliente</option>
-                        <option value="veterinario">Veterinario</option>
-                        <option value="administrador">Administrador</option>
+                        <option value="cliente">{tr('cliente')}</option>
+                        <option value="veterinario">{tr('veterinario')}</option>
+                        <option value="administrador">{tr('administrador')}</option>
                     </select>
                 </div>
             </form>

@@ -1,15 +1,19 @@
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '@/components/ui/Button';
+import { useTranslations } from 'next-intl';
 
 export const AppointmentHeader = () => {
+    const t = useTranslations('ClientPanel.appointments');
+    const td = useTranslations('ClientPanel.dashboard.quickActions');
+
     return (
         <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-800">Mis Citas</h1>
+            <h1 className="text-3xl font-bold text-gray-800">{t('title')}</h1>
             <Link href="/cliente/citas/nueva">
-                <Button className="bg-teal-600 hover:bg-teal-700 flex items-center gap-2">
+                <Button className="bg-teal-600 hover:bg-teal-700 flex items-center gap-2 text-white">
                     <span className="text-xl">📅</span>
-                    Nueva Cita
+                    {td('newAppt')}
                 </Button>
             </Link>
         </div>

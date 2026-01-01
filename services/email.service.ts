@@ -19,17 +19,22 @@ export const EmailService = {
     const hasResendKey = !!process.env.RESEND_API_KEY;
     const forceSend = process.env.SEND_REAL_EMAILS === "true";
 
+    console.log("🔍 [EmailService Debug]:", {
+      isDev,
+      hasResendKey,
+      resendKeyPrefix: process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.substring(0, 5) : "none",
+      forceSend,
+      nodeEnv: process.env.NODE_ENV,
+      sendRealEmails: process.env.SEND_REAL_EMAILS
+    });
+
     // Development mode (without force) or no Resend key: log to console
     if ((isDev && !forceSend) || !hasResendKey) {
-      console.log("\n📧 ===== EMAIL SENT (DEV MODE) =====");
+      console.log("\n📧 ===== EMAIL SENDING SKIPPED (MOCK MODE) =====");
+      console.log(`Reason: ${!hasResendKey ? "Missing RESEND_API_KEY" : (isDev && !forceSend ? "Development mode (SEND_REAL_EMAILS != true)" : "Unknown")}`);
       console.log(`To: ${options.to}`);
       console.log(`Subject: ${options.subject}`);
-      console.log(`Body:\n${options.html}`);
-      console.log("=====================================\n");
-
-      if (!isDev && !hasResendKey) {
-        console.warn("⚠️  RESEND_API_KEY not configured. Emails will only be logged to console.");
-      }
+      console.log("================================================\n");
       return;
     }
 

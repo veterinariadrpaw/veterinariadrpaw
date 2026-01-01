@@ -1,20 +1,23 @@
 import React from 'react';
 import { AdminDashboardStats } from '@/types/dashboard';
+import { useTranslations } from 'next-intl';
 
 export const DashboardStatsCards = ({ stats }: { stats: AdminDashboardStats }) => {
+    const t = useTranslations('AdminDashboard.dashboard.stats');
+
     const statCards = [
         {
-            label: 'Total Usuarios',
+            label: t('totalUsers'),
             value: stats.totalUsers,
             color: 'teal'
         },
         {
-            label: 'Veterinarios',
+            label: t('vets'),
             value: stats.vets,
             color: 'cyan'
         },
         {
-            label: 'Clientes',
+            label: t('clients'),
             value: stats.clients,
             color: 'emerald'
         }
@@ -26,8 +29,8 @@ export const DashboardStatsCards = ({ stats }: { stats: AdminDashboardStats }) =
                 <div
                     key={stat.label}
                     className={`bg-white p-6 rounded-xl shadow-md border-t-4 transition-smooth hover:shadow-lg ${stat.color === 'teal' ? 'border-teal-500' :
-                            stat.color === 'cyan' ? 'border-cyan-500' :
-                                'border-emerald-500'
+                        stat.color === 'cyan' ? 'border-cyan-500' :
+                            'border-emerald-500'
                         }`}
                 >
                     <h3 className="text-gray-600 text-sm font-medium uppercase tracking-wide">

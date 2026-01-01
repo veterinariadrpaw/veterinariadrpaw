@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
-import { Card } from '@/components/ui/Card';
 import { SalesMobileCard, ISale } from './SalesMobileCard';
 export type { ISale };
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface SalesListProps {
     sales: ISale[];
@@ -15,6 +15,10 @@ const truncate = (text: string, limit: number = 20) => {
 };
 
 export const SalesList = ({ sales }: SalesListProps) => {
+    const t = useTranslations('VetPanel.sales');
+    const tc = useTranslations('ClientPanel.common');
+    const locale = useLocale();
+
     const {
         paginatedItems: paginatedSales,
         currentPage,
@@ -26,7 +30,7 @@ export const SalesList = ({ sales }: SalesListProps) => {
     if (sales.length === 0) {
         return (
             <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
-                No hay ventas registradas.
+                {t('noSales')}
             </div>
         );
     }
@@ -45,34 +49,34 @@ export const SalesList = ({ sales }: SalesListProps) => {
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>
                         <tr className="bg-gray-50 text-left">
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Fecha</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Cliente</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Total</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Método Pago</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Registrado Por</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.date')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.client')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.total')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.paymentMethod')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.registeredBy')}</th>
 
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Paciente</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Cita</th>
-                            <th className="py-3 px-4 border-b font-semibold text-gray-700">Acciones</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.pet')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{t('table.appointment')}</th>
+                            <th className="py-3 px-4 border-b font-semibold text-gray-700">{tc('actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {paginatedSales.map((sale) => (
                             <tr key={sale._id} className="hover:bg-gray-50">
                                 <td className="py-3 px-4 border-b text-gray-800">
-                                    {new Date(sale.date).toLocaleString()}
+                                    {new Date(sale.date).toLocaleString(locale === 'es' ? 'es-ES' : 'en-US')}
                                 </td>
                                 <td className="py-3 px-4 border-b text-gray-800">
-                                    {sale.client?.name || "Cliente General"}
+                                    {sale.client?.name || t('generalClient')}
                                 </td>
-                                <td className="py-3 px-4 border-b text-gray-800 font-bold">
+                                <td className="py-3 px-4 border-b text-black font-bold">
                                     ${sale.total.toFixed(2)}
                                 </td>
                                 <td className="py-3 px-4 border-b text-gray-800">
                                     {sale.paymentMethod}
                                 </td>
                                 <td className="py-3 px-4 border-b text-gray-800">
-                                    {sale.user?.name || "N/A"}
+                                    {sale.user?.name || tc('notAvailable')}
                                 </td>
 
                                 <td className="py-3 px-4 border-b text-gray-800" title={sale.pet ? `${sale.pet.nombre} (${sale.pet.especie})` : ""}>
@@ -83,9 +87,9 @@ export const SalesList = ({ sales }: SalesListProps) => {
                                 </td><td className="py-3 px-4 border-b">
                                     <Link
                                         href={`/veterinario/ventas/detalle/${sale._id}`}
-                                        className="text-blue-600 hover:underline"
+                                        className="text-blue-600 hover:underline font-bold"
                                     >
-                                        Ver Factura
+                                        {t('table.viewInvoice')}
                                     </Link>
                                 </td>
                             </tr>

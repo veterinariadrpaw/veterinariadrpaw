@@ -1,10 +1,12 @@
 import React from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/Table';
 import { GalleryMobileCard } from './GalleryMobileCard';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations } from 'next-intl';
 
 interface GalleryImage {
     _id: string;
@@ -19,6 +21,9 @@ interface GalleryListProps {
 }
 
 export const GalleryList = ({ images, onDelete }: GalleryListProps) => {
+    const t = useTranslations('AdminDashboard.gallery');
+    const tc = useTranslations('ClientPanel.common');
+
     const {
         paginatedItems: paginatedImages,
         currentPage,
@@ -29,8 +34,8 @@ export const GalleryList = ({ images, onDelete }: GalleryListProps) => {
 
     if (images.length === 0) {
         return (
-            <Card className="p-8 text-center text-gray-700">
-                No hay imágenes en la galería.
+            <Card className="p-8 text-center text-gray-700 font-bold">
+                {t('noImages')}
             </Card>
         );
     }
@@ -53,24 +58,26 @@ export const GalleryList = ({ images, onDelete }: GalleryListProps) => {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Vista Previa</TableHead>
-                            <TableHead>Título</TableHead>
-                            <TableHead>Fecha</TableHead>
-                            <TableHead>Acciones</TableHead>
+                            <TableHead className="font-bold">{t('table.preview')}</TableHead>
+                            <TableHead className="font-bold">{t('table.title')}</TableHead>
+                            <TableHead className="font-bold">{t('table.date')}</TableHead>
+                            <TableHead className="font-bold">{tc('acciones')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {paginatedImages.map((img) => (
                             <TableRow key={img._id}>
                                 <TableCell>
-                                    <img
+                                    <Image
                                         src={img.imageUrl}
                                         alt={img.title}
+                                        width={64}
+                                        height={64}
                                         className="h-16 w-16 object-cover rounded-md border"
                                     />
                                 </TableCell>
-                                <TableCell className="font-medium text-gray-900">{img.title}</TableCell>
-                                <TableCell className="text-gray-700">
+                                <TableCell className="font-bold text-gray-900">{img.title}</TableCell>
+                                <TableCell className="text-gray-700 font-bold">
                                     {new Date(img.createdAt).toLocaleDateString()}
                                 </TableCell>
                                 <TableCell>
@@ -78,9 +85,9 @@ export const GalleryList = ({ images, onDelete }: GalleryListProps) => {
                                         variant="ghost"
                                         size="sm"
                                         onClick={() => onDelete(img._id)}
-                                        className="text-red-600 hover:text-red-800"
+                                        className="text-red-600 hover:text-red-800 font-bold"
                                     >
-                                        Eliminar
+                                        {tc('eliminar')}
                                     </Button>
                                 </TableCell>
                             </TableRow>

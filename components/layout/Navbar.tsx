@@ -1,8 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from 'next-intl';
+import LocaleSwitcher from "./LocaleSwitcher";
 
 interface User {
     role: string;
@@ -13,6 +16,7 @@ export default function Navbar() {
     const [user, setUser] = useState<User | null>(null);
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
+    const t = useTranslations('Navbar');
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -37,6 +41,14 @@ export default function Navbar() {
         router.refresh();
     };
 
+    const navLinks = [
+        { label: t('home'), href: "/" },
+        { label: t('about'), href: "/sobre" },
+        { label: t('services'), href: "/servicios" },
+        { label: t('care'), href: "/cuidado-mascota" },
+        { label: t('contact'), href: "/contacto" },
+    ];
+
     return (
         <nav className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 w-full overflow-x-hidden print:hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,10 +59,12 @@ export default function Navbar() {
                         className="flex items-center gap-2 shrink-0"
                     >
                         {/* Logo */}
-                        <img
+                        <Image
                             src="/icon.svg"
                             alt="DrPaw logo"
-                            className="h-8 w-8 sm:h-9 sm:w-9 "
+                            width={36}
+                            height={36}
+                            className="h-8 w-8 sm:h-9 sm:w-9"
                         />
 
                         {/* Texto: solo en pantallas >= sm */}
@@ -62,16 +76,10 @@ export default function Navbar() {
 
                     {/* Desktop menu */}
                     <div className="hidden min-[1000px]:flex space-x-8">
-                        {[
-                            ["Inicio", "/"],
-                            ["Sobre Nosotros", "/sobre"],
-                            ["Servicios", "/servicios"],
-                            ["Cuidados", "/cuidado-mascota"],
-                            ["Contacto", "/contacto"],
-                        ].map(([label, href]) => (
+                        {navLinks.map(({ label, href }) => (
                             <Link
                                 key={href}
-                                href={href}
+                                href={href as any}
                                 className="text-sm font-medium text-gray-700 hover:text-gray-900 border-b-2 border-transparent hover:border-teal-500 transition-colors"
                             >
                                 {label}
@@ -80,29 +88,30 @@ export default function Navbar() {
 
                         {user && (
                             <Link
-                                href={`/${user.role}`}
+                                href={`/${user.role}` as any}
                                 className="text-sm font-medium text-gray-700 hover:text-gray-900 border-b-2 border-transparent hover:border-teal-500"
                             >
-                                Perfil
+                                {t('profile')}
                             </Link>
                         )}
                     </div>
 
                     {/* Desktop action */}
-                    <div className="hidden min-[1000px]:flex">
+                    <div className="hidden min-[1000px]:flex items-center gap-4">
+                        <LocaleSwitcher />
                         {user ? (
                             <button
                                 onClick={handleLogout}
                                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm"
                             >
-                                Cerrar Sesión
+                                {t('logout')}
                             </button>
                         ) : (
                             <Link
                                 href="/login"
                                 className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-full text-sm"
                             >
-                                Agendar Cita
+                                {t('bookAppointment')}
                             </Link>
                         )}
                     </div>
@@ -132,16 +141,10 @@ export default function Navbar() {
                     } min-[1000px]:hidden w-full max-w-full overflow-x-hidden`}
             >
                 <div className="px-4 py-2 space-y-1">
-                    {[
-                        ["Inicio", "/"],
-                        ["Sobre Nosotros", "/sobre"],
-                        ["Servicios", "/servicios"],
-                        ["Cuidados", "/cuidado-mascota"],
-                        ["Contacto", "/contacto"],
-                    ].map(([label, href]) => (
+                    {navLinks.map(({ label, href }) => (
                         <Link
                             key={href}
-                            href={href}
+                            href={href as any}
                             onClick={() => setIsOpen(false)}
                             className="block py-2 text-base font-medium text-gray-700 hover:bg-gray-100 break-words"
                         >
@@ -151,15 +154,19 @@ export default function Navbar() {
 
                     {user && (
                         <Link
-                            href={`/${user.role}`}
+                            href={`/${user.role}` as any}
                             onClick={() => setIsOpen(false)}
                             className="block py-2 text-base font-medium text-gray-700 hover:bg-gray-100 break-words"
                         >
-                            Perfil
+                            {t('profile')}
                         </Link>
                     )}
 
                     <div className="pt-3 border-t">
+                        <div className="py-2 flex justify-between items-center">
+                            <span className="text-gray-700 text-sm font-medium">{t('language')}</span>
+                            <LocaleSwitcher />
+                        </div>
                         {user ? (
                             <button
                                 onClick={() => {
@@ -168,7 +175,7 @@ export default function Navbar() {
                                 }}
                                 className="w-full text-left py-2 text-gray-700"
                             >
-                                Cerrar Sesión
+                                {t('logout')}
                             </button>
                         ) : (
                             <Link
@@ -176,7 +183,7 @@ export default function Navbar() {
                                 onClick={() => setIsOpen(false)}
                                 className="block py-2 text-gray-700"
                             >
-                                Agendar Cita
+                                {t('bookAppointment')}
                             </Link>
                         )}
                     </div>

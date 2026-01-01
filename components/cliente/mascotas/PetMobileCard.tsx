@@ -1,5 +1,6 @@
 import { Pet } from '@/types/pet';
 import { Button } from '@/components/ui/Button';
+import { useTranslations } from 'next-intl';
 
 interface PetMobileCardProps {
     pet: Pet;
@@ -8,6 +9,9 @@ interface PetMobileCardProps {
 }
 
 export const PetMobileCard = ({ pet, onEdit, onDelete }: PetMobileCardProps) => {
+    const t = useTranslations('ClientPanel.pets');
+    const tc = useTranslations('ClientPanel.common');
+
     const getSpeciesEmoji = (especie: string) => {
         const especieLower = especie.toLowerCase();
         if (especieLower.includes('perro')) return '🐕';
@@ -30,14 +34,16 @@ export const PetMobileCard = ({ pet, onEdit, onDelete }: PetMobileCardProps) => 
             </div>
 
             <div className="space-y-2 text-sm text-gray-600">
-                <p><strong>Raza:</strong> {pet.raza}</p>
-                {pet.sexo && <p><strong>Sexo:</strong> {pet.sexo}</p>}
-                {pet.edad !== undefined && <p><strong>Edad:</strong> {pet.edad} años</p>}
-                {pet.peso && <p><strong>Peso:</strong> {pet.peso} kg</p>}
-                {pet.color && <p><strong>Color:</strong> {pet.color}</p>}
-                {pet.esterilizado && <p className="text-blue-600">✓ Esterilizado</p>}
+                <p><strong>{t('form.breed')}:</strong> {pet.raza}</p>
+                {pet.sexo && <p><strong>{t('form.sex')}:</strong> {pet.sexo}</p>}
+                {pet.edad !== undefined && (
+                    <p><strong>{t('table.age')}:</strong> {pet.edad} {pet.edad === 1 ? tc('year') : tc('years')}</p>
+                )}
+                {pet.peso && <p><strong>{t('form.weight')}:</strong> {pet.peso} kg</p>}
+                {pet.color && <p><strong>{t('form.color')}:</strong> {pet.color}</p>}
+                {pet.esterilizado && <p className="text-blue-600">✓ {t('table.sterilized')}</p>}
                 {pet.alergias && pet.alergias.length > 0 && (
-                    <p className="text-red-600"><strong>Alergias:</strong> {pet.alergias.join(", ")}</p>
+                    <p className="text-red-600"><strong>{t('form.allergies')}:</strong> {pet.alergias.join(", ")}</p>
                 )}
             </div>
 
@@ -48,7 +54,7 @@ export const PetMobileCard = ({ pet, onEdit, onDelete }: PetMobileCardProps) => 
                     onClick={() => onEdit(pet)}
                     className="text-indigo-600 hover:text-indigo-800"
                 >
-                    Editar
+                    {tc('edit')}
                 </Button>
                 <Button
                     variant="ghost"
@@ -56,7 +62,7 @@ export const PetMobileCard = ({ pet, onEdit, onDelete }: PetMobileCardProps) => 
                     onClick={() => onDelete(pet._id)}
                     className="text-red-600 hover:text-red-800"
                 >
-                    Eliminar
+                    {tc('delete')}
                 </Button>
             </div>
         </div>

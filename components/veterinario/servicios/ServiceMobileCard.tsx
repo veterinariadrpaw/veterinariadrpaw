@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface Service {
     _id: string;
@@ -16,6 +17,9 @@ interface ServiceMobileCardProps {
 }
 
 export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCardProps) => {
+    const t = useTranslations('VetPanel.services');
+    const tc = useTranslations('ClientPanel.common');
+
     return (
         <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
@@ -43,12 +47,12 @@ export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCard
 
             <div className="grid grid-cols-2 gap-2 mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-700">Duración</span>
-                    <span className="font-medium">{service.duration} min</span>
+                    <span className="text-xs text-gray-700">{t('durationLabel')}</span>
+                    <span className="font-medium text-black">{service.duration} min</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs text-gray-700">Insumos</span>
-                    <span className="font-medium">{service.supplies?.length || 0}</span>
+                    <span className="text-xs text-gray-700">{t('suppliesLabel')}</span>
+                    <span className="font-medium text-black">{service.supplies?.length || 0}</span>
                 </div>
                 <div className="flex flex-col col-span-2 mt-2 pt-2 border-t border-gray-200 items-center">
                     <span
@@ -57,7 +61,7 @@ export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCard
                             : "bg-red-100 text-red-800"
                             }`}
                     >
-                        {service.isActive ? "Activo" : "Inactivo"}
+                        {service.isActive ? t('status.active') : t('status.inactive')}
                     </span>
                 </div>
             </div>
@@ -65,18 +69,18 @@ export const ServiceMobileCard = ({ service, onToggleStatus }: ServiceMobileCard
             <div className="flex justify-end gap-3 mt-4 pt-3 border-t border-gray-100">
                 <Link
                     href={`/veterinario/servicios/editar/${service._id}`}
-                    className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
+                    className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none font-bold"
                 >
-                    Editar
+                    {tc('edit')}
                 </Link>
                 <button
                     onClick={() => onToggleStatus(service._id)}
-                    className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded focus:outline-none ${service.isActive
+                    className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded focus:outline-none font-bold ${service.isActive
                         ? "text-red-700 bg-red-100 hover:bg-red-200"
                         : "text-green-700 bg-green-100 hover:bg-green-200"
                         }`}
                 >
-                    {service.isActive ? "Desactivar" : "Activar"}
+                    {service.isActive ? t('actions.deactivate') : t('actions.activate')}
                 </button>
             </div>
         </div>

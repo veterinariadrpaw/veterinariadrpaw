@@ -3,6 +3,7 @@
 import React from "react";
 import { CalendarEventItem } from "@/hooks/useCalendarEvents";
 import { Edit, Trash2, Calendar as CalendarIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface CalendarEventListProps {
     events: CalendarEventItem[];
@@ -11,10 +12,13 @@ interface CalendarEventListProps {
 }
 
 export const CalendarEventList = ({ events, onEdit, onDelete }: CalendarEventListProps) => {
+    const t = useTranslations('AdminDashboard.calendar');
+    const tc = useTranslations('ClientPanel.common');
+
     if (events.length === 0) {
         return (
             <div className="text-center p-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-                <p className="text-gray-500">No hay eventos registrados en el calendario.</p>
+                <p className="text-gray-500 font-bold">{t('noEvents')}</p>
             </div>
         );
     }
@@ -24,25 +28,25 @@ export const CalendarEventList = ({ events, onEdit, onDelete }: CalendarEventLis
             <table className="min-w-full bg-white border border-gray-200">
                 <thead>
                     <tr className="bg-gray-50 text-left">
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Título</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Fecha</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700">Descripción</th>
-                        <th className="py-3 px-4 border-b font-semibold text-gray-700 text-right">Acciones</th>
+                        <th className="py-3 px-4 border-b font-bold text-gray-700">{t('table.title')}</th>
+                        <th className="py-3 px-4 border-b font-bold text-gray-700">{t('table.date')}</th>
+                        <th className="py-3 px-4 border-b font-bold text-gray-700">{t('table.description')}</th>
+                        <th className="py-3 px-4 border-b font-bold text-gray-700 text-right">{tc('acciones')}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {events.map((event) => (
                         <tr key={event._id} className="hover:bg-gray-50 transition-colors">
-                            <td className="py-3 px-4 border-b text-gray-800 font-medium">
+                            <td className="py-3 px-4 border-b text-gray-800 font-bold">
                                 <div className="flex items-center gap-2">
                                     <CalendarIcon size={16} className="text-teal-600" />
                                     {event.title}
                                 </div>
                             </td>
-                            <td className="py-3 px-4 border-b text-gray-700 font-mono text-sm">
+                            <td className="py-3 px-4 border-b text-gray-700 font-bold font-mono text-sm">
                                 {event.date}
                             </td>
-                            <td className="py-3 px-4 border-b text-gray-600 text-sm max-w-xs truncate">
+                            <td className="py-3 px-4 border-b text-gray-700 font-bold text-sm max-w-xs truncate">
                                 {event.description}
                             </td>
                             <td className="py-3 px-4 border-b text-right">
@@ -50,18 +54,18 @@ export const CalendarEventList = ({ events, onEdit, onDelete }: CalendarEventLis
                                     <button
                                         onClick={() => onEdit(event)}
                                         className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
-                                        title="Editar"
+                                        title={tc('editar')}
                                     >
                                         <Edit size={18} />
                                     </button>
                                     <button
                                         onClick={() => {
-                                            if (confirm("¿Estás seguro de eliminar este evento?")) {
+                                            if (confirm(t('confirmDelete'))) {
                                                 onDelete(event._id);
                                             }
                                         }}
                                         className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors"
-                                        title="Eliminar"
+                                        title={tc('eliminar')}
                                     >
                                         <Trash2 size={18} />
                                     </button>

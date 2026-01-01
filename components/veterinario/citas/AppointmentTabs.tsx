@@ -1,5 +1,6 @@
 import { AppointmentStatus } from "./types";
 import { filterByStatus } from "./utils";
+import { useTranslations } from "next-intl";
 
 interface AppointmentTabsProps {
     activeTab: AppointmentStatus;
@@ -12,6 +13,8 @@ export default function AppointmentTabs({
     appointments,
     onTabChange,
 }: AppointmentTabsProps) {
+    const t = useTranslations('VetPanel.appointments.tabs');
+
     const getCount = (status: string) => {
         return filterByStatus(appointments, status).length;
     };
@@ -32,12 +35,12 @@ export default function AppointmentTabs({
                     >
                         {/* Texto largo (tablet/desktop) */}
                         <span className="hidden sm:inline">
-                            Pendientes ({getCount("pendiente")})
+                            {t('pending')} ({getCount("pendiente")})
                         </span>
 
                         {/* Texto corto (mobile) */}
                         <span className="sm:hidden">
-                            P ({getCount("pendiente")})
+                            {t('shortPending')} ({getCount("pendiente")})
                         </span>
                     </button>
 
@@ -51,10 +54,10 @@ export default function AppointmentTabs({
                             }`}
                     >
                         <span className="hidden sm:inline">
-                            Aceptadas ({getCount("aceptada")})
+                            {t('accepted')} ({getCount("aceptada")})
                         </span>
                         <span className="sm:hidden">
-                            A ({getCount("aceptada")})
+                            {t('shortAccepted')} ({getCount("aceptada")})
                         </span>
                     </button>
 
@@ -68,10 +71,10 @@ export default function AppointmentTabs({
                             }`}
                     >
                         <span className="hidden sm:inline">
-                            Canceladas ({getCount("cancelada")})
+                            {t('cancelled')} ({getCount("cancelada")})
                         </span>
                         <span className="sm:hidden">
-                            C ({getCount("cancelada")})
+                            {t('shortCancelled')} ({getCount("cancelada")})
                         </span>
                     </button>
 

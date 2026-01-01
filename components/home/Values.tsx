@@ -1,19 +1,24 @@
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
 export default function Values() {
+    const t = useTranslations('Values');
+
     const values = [
         {
-            title: "Compasión",
-            description: "Tratamos a cada mascota como si fuera nuestra propia familia, con gentileza y empatía.",
-            image: "/compacion.jpg",
+            title: t('compassionTitle'),
+            description: t('compassionText'),
+            image: "/compacion.webp",
         },
         {
-            title: "Excelencia",
-            description: "Nos mantenemos a la vanguardia de la medicina veterinaria para ofrecer los mejores tratamientos.",
-            image: "/Excelencia.jpg",
+            title: t('excellenceTitle'),
+            description: t('excellenceText'),
+            image: "/Excelencia.webp",
         },
         {
-            title: "Integridad",
-            description: "Creemos en la transparencia y la honestidad en cada diagnóstico y recomendación.",
-            image: "/integridad.jpg",
+            title: t('integrityTitle'),
+            description: t('integrityText'),
+            image: "/integridad.webp",
         },
     ];
 
@@ -21,22 +26,25 @@ export default function Values() {
         <div className="bg-gradient-to-br from-gray-50 via-white to-teal-50 py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
-                    <h2 className="text-base text-teal-600 font-semibold tracking-wide uppercase">Nuestros Valores</h2>
+                    <h2 className="text-base text-teal-600 font-semibold tracking-wide uppercase">{t('sectionTitle')}</h2>
                     <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                        Lo que nos define
+                        {t('subtitle')}
                     </p>
                 </div>
                 <div className="mt-20">
-                    <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                         {values.map((value) => (
                             <div
                                 key={value.title}
-                                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-80"
                             >
                                 {/* Background Image with Overlay */}
-                                <div
-                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                                    style={{ backgroundImage: `url(${value.image})` }}
+                                <Image
+                                    src={value.image}
+                                    alt={value.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 33vw"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
 
                                 {/* Gradient Overlay */}

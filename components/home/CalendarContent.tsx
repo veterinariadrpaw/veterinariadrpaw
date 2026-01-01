@@ -3,7 +3,9 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import esLocale from "@fullcalendar/core/locales/es";
 import { useState, useEffect } from "react";
+import { useLocale } from 'next-intl';
 
 interface CalendarEvent {
     _id: string;
@@ -16,6 +18,7 @@ interface CalendarEvent {
 export default function CalendarContent() {
     const [events, setEvents] = useState<CalendarEvent[]>([]);
     const [loading, setLoading] = useState(true);
+    const locale = useLocale();
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -74,6 +77,7 @@ export default function CalendarContent() {
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
+                locale={locale === 'es' ? esLocale : 'en'}
                 headerToolbar={{
                     left: "prev,next today",
                     center: "title",

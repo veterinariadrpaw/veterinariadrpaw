@@ -5,6 +5,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { LiabilityMobileCard } from './LiabilityMobileCard';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { useTranslations } from 'next-intl';
 
 interface Liability {
     _id: string;
@@ -26,6 +27,9 @@ interface LiabilityListProps {
 }
 
 export const LiabilityList = ({ liabilities, onDelete }: LiabilityListProps) => {
+    const t = useTranslations('AdminDashboard.liabilities');
+    const tc = useTranslations('ClientPanel.common');
+
     const {
         paginatedItems: paginatedLiabilities,
         currentPage,
@@ -36,8 +40,8 @@ export const LiabilityList = ({ liabilities, onDelete }: LiabilityListProps) => 
 
     if (liabilities.length === 0) {
         return (
-            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow">
-                No hay pasivos registrados.
+            <div className="p-6 text-center text-gray-700 bg-white rounded-lg shadow font-bold">
+                {t('noLiabilities')}
             </div>
         );
     }
@@ -60,69 +64,69 @@ export const LiabilityList = ({ liabilities, onDelete }: LiabilityListProps) => 
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Tipo</TableHead>
-                            <TableHead>Descripción</TableHead>
-                            <TableHead>Monto Original</TableHead>
-                            <TableHead>Interés %</TableHead>
-                            <TableHead>Plazo</TableHead>
-                            <TableHead>Monto Pendiente</TableHead>
-                            <TableHead>Pago Mensual</TableHead>
-                            <TableHead>Estado</TableHead>
-                            <TableHead className="text-right">Acciones</TableHead>
+                            <TableHead className="font-bold">{t('table.type')}</TableHead>
+                            <TableHead className="font-bold">{t('table.description')}</TableHead>
+                            <TableHead className="font-bold">{t('table.amount')}</TableHead>
+                            <TableHead className="font-bold">{t('table.interest')}</TableHead>
+                            <TableHead className="font-bold">{t('table.term')}</TableHead>
+                            <TableHead className="font-bold">{t('table.pendingAmount')}</TableHead>
+                            <TableHead className="font-bold">{t('table.monthlyPayment')}</TableHead>
+                            <TableHead className="font-bold">{t('table.status')}</TableHead>
+                            <TableHead className="text-right font-bold">{tc('acciones')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {paginatedLiabilities.map((liability) => (
                             <TableRow key={liability._id} className="hover:bg-gray-50">
                                 <TableCell>
-                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${liability.type === 'PRESTAMO'
+                                    <span className={`px-2 inline-flex text-xs leading-5 font-bold rounded-full ${liability.type === 'PRESTAMO'
                                         ? 'bg-purple-100 text-purple-800'
                                         : 'bg-blue-100 text-blue-800'
                                         }`}>
-                                        {liability.type}
+                                        {t(`types.${liability.type === 'PRESTAMO' ? 'loan' : 'obligation'}`)}
                                     </span>
                                 </TableCell>
                                 <TableCell>
-                                    <div className="text-sm font-medium text-gray-900">{liability.description}</div>
-                                    <div className="text-xs text-gray-700">
-                                        Inicio: {new Date(liability.startDate).toLocaleDateString()}
+                                    <div className="text-sm font-bold text-gray-900">{liability.description}</div>
+                                    <div className="text-xs text-gray-700 font-bold">
+                                        {t('table.startDate', { date: new Date(liability.startDate).toLocaleDateString() })}
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-700">
+                                <TableCell className="text-sm text-gray-700 font-bold">
                                     ${liability.amount.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-700">
+                                <TableCell className="text-sm text-gray-700 font-bold">
                                     {liability.interestRate}%
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-700">
-                                    {liability.termMonths} {liability.termMonths === 1 ? 'mes' : 'meses'}
+                                <TableCell className="text-sm text-gray-700 font-bold">
+                                    {liability.termMonths} {t('months', { count: liability.termMonths })}
                                 </TableCell>
                                 <TableCell className="text-sm font-bold text-red-600">
                                     ${liability.pendingAmount.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-900">
+                                <TableCell className="text-sm text-gray-900 font-bold">
                                     ${liability.monthlyPayment.toLocaleString()}
                                 </TableCell>
                                 <TableCell>
-                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${liability.status === 'ACTIVO'
+                                    <span className={`px-2 inline-flex text-xs leading-5 font-bold rounded-full ${liability.status === 'ACTIVO'
                                         ? 'bg-yellow-100 text-yellow-800'
                                         : 'bg-green-100 text-green-800'
                                         }`}>
-                                        {liability.status}
+                                        {t(`status.${liability.status === 'ACTIVO' ? 'active' : 'paid'}`)}
                                     </span>
                                 </TableCell>
-                                <TableCell className="text-right text-sm font-medium">
+                                <TableCell className="text-right text-sm font-bold">
                                     <Link
                                         href={`/administrador/pasivos/${liability._id}`}
                                         className="text-indigo-600 hover:text-indigo-900 mr-4"
                                     >
-                                        Editar
+                                        {tc('editar')}
                                     </Link>
                                     <button
                                         onClick={() => onDelete(liability._id)}
                                         className="text-red-600 hover:text-red-900"
                                     >
-                                        Eliminar
+                                        {tc('eliminar')}
                                     </button>
                                 </TableCell>
                             </TableRow>
